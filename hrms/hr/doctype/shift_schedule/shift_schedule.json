@@ -1,13 +1,12 @@
 {
  "actions": [],
- "autoname": "HR-SHS-.YY.-.MM.-.#####",
+ "autoname": "HR-SHS-.YY.-.#####",
  "creation": "2024-11-11 16:56:33.536882",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "schedule_settings_section",
   "shift_type",
-  "shift_location",
   "column_break_iprq",
   "frequency",
   "repeat_on_days"
@@ -44,12 +43,6 @@
    "label": "Shift Type",
    "options": "Shift Type",
    "reqd": 1
-  },
-  {
-   "fieldname": "shift_location",
-   "fieldtype": "Link",
-   "label": "Shift Location",
-   "options": "Shift Location"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -59,7 +52,7 @@
    "link_fieldname": "shift_schedule"
   }
  ],
- "modified": "2024-11-11 17:35:01.901740",
+ "modified": "2024-11-12 13:19:06.513072",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Schedule",

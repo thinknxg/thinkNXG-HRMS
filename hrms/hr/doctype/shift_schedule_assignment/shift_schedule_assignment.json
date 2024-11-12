@@ -12,6 +12,7 @@
   "company",
   "schedule_settings_section",
   "shift_schedule",
+  "shift_location",
   "shift_status",
   "column_break_iprq",
   "enabled",
@@ -82,7 +83,7 @@
    "default": "Active",
    "fieldname": "shift_status",
    "fieldtype": "Select",
-   "label": "Status",
+   "label": "Shift Status",
    "options": "Active\nInactive"
   },
   {
@@ -91,6 +92,12 @@
    "label": "Shift Schedule",
    "options": "Shift Schedule",
    "reqd": 1
+  },
+  {
+   "fieldname": "shift_location",
+   "fieldtype": "Link",
+   "label": "Shift Location",
+   "options": "Shift Location"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -100,7 +107,7 @@
    "link_fieldname": "schedule"
   }
  ],
- "modified": "2024-11-11 17:51:41.384618",
+ "modified": "2024-11-12 13:30:22.868915",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Schedule Assignment",
