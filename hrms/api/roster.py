@@ -6,6 +6,7 @@ from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employe
 
 from hrms.hr.doctype.shift_assignment.shift_assignment import ShiftAssignment
 from hrms.hr.doctype.shift_assignment_tool.shift_assignment_tool import create_shift_assignment
+from hrms.hr.doctype.shift_schedule.shift_schedule import get_shift_schedule
 
 
 @frappe.whitelist()
@@ -37,7 +38,7 @@ def get_events(
 
 
 @frappe.whitelist()
-def create_shift_assignment_schedule(
+def create_shift_schedule_assignment(
 	employee: str,
 	company: str,
 	shift_type: str,
@@ -47,33 +48,36 @@ def create_shift_assignment_schedule(
 	repeat_on_days: list[str],
 	frequency: str,
 ) -> None:
-	schedule = frappe.get_doc(
+	shift_schedule = get_shift_schedule(shift_type, frequency, repeat_on_days)
+	shift_schedule_assignment = frappe.get_doc(
 		{
-			"doctype": "Shift Assignment Schedule",
-			"frequency": frequency,
-			"repeat_on_days": [{"day": day} for day in repeat_on_days],
-			"enabled": 0 if end_date else 1,
+			"doctype": "Shift Schedule Assignment",
+			"shift_schedule": shift_schedule,
 			"employee": employee,
 			"company": company,
-			"shift_type": shift_type,
 			"shift_status": status,
+			"enabled": 0 if end_date else 1,
 		}
 	).insert()
 
 	if not end_date or date_diff(end_date, start_date) <= 90:
-		return schedule.create_shifts(start_date, end_date)
+		return shift_schedule_assignment.create_shifts(start_date, end_date)
 
-	frappe.enqueue(schedule.create_shifts, timeout=4500, start_date=start_date, end_date=end_date)
+	frappe.enqueue(
+		shift_schedule_assignment.create_shifts, timeout=4500, start_date=start_date, end_date=end_date
+	)
 
 
 @frappe.whitelist()
-def delete_shift_assignment_schedule(schedule: str) -> None:
-	for shift_assignment in frappe.get_all("Shift Assignment", {"schedule": schedule}, pluck="name"):
+def delete_shift_schedule_assignment(schedule_assignment: str) -> None:
+	for shift_assignment in frappe.get_all(
+		"Shift Assignment", {"schedule": schedule_assignment}, pluck="name"
+	):
 		doc = frappe.get_doc("Shift Assignment", shift_assignment)
 		if doc.docstatus == 1:
 			doc.cancel()
 		frappe.delete_doc("Shift Assignment", shift_assignment)
-	frappe.delete_doc("Shift Assignment Schedule", schedule)
+	frappe.delete_doc("Shift Assignment Schedule", schedule_assignment)
 
 
 @frappe.whitelist()

@@ -477,7 +477,7 @@ const deleteCurrentShift = createResource({
 });
 
 const createShiftAssignmentSchedule = createResource({
-	url: "hrms.api.roster.create_shift_assignment_schedule",
+	url: "hrms.api.roster.create_shift_schedule_assignment",
 	makeParams() {
 		return {
 			employee: (form.employee as { value: string }).value,
@@ -502,9 +502,9 @@ const createShiftAssignmentSchedule = createResource({
 });
 
 const deleteShiftAssignmentSchedule = createResource({
-	url: "hrms.api.roster.delete_shift_assignment_schedule",
+	url: "hrms.api.roster.delete_shift_schedule_assignment",
 	makeParams() {
-		return { schedule: form.schedule };
+		return { shift_schedule_assignment: form.schedule };
 	},
 	onSuccess: () => {
 		raiseToast("success", "Shift Assignment Schedule deleted successfully!");
