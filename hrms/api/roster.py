@@ -38,6 +38,16 @@ def get_events(
 
 
 @frappe.whitelist()
+def get_schedule_from_assignment(shift_schedule_assignment: str):
+	shift_schedule = frappe.db.get_value(
+		"Shift Schedule Assignment", shift_schedule_assignment, "shift_schedule"
+	)
+	frequency = frappe.db.get_value("Shift Schedule", shift_schedule, "frequency")
+	repeat_on_days = frappe.get_all("Assignment Rule Day", filters={"parent": shift_schedule}, pluck="day")
+	return {"frequency": frequency, "repeat_on_days": repeat_on_days}
+
+
+@frappe.whitelist()
 def create_shift_schedule_assignment(
 	employee: str,
 	company: str,
@@ -69,15 +79,15 @@ def create_shift_schedule_assignment(
 
 
 @frappe.whitelist()
-def delete_shift_schedule_assignment(schedule_assignment: str) -> None:
+def delete_shift_schedule_assignment(shift_schedule_assignment: str) -> None:
 	for shift_assignment in frappe.get_all(
-		"Shift Assignment", {"schedule": schedule_assignment}, pluck="name"
+		"Shift Assignment", {"shift_schedule_assignment": shift_schedule_assignment}, pluck="name"
 	):
 		doc = frappe.get_doc("Shift Assignment", shift_assignment)
 		if doc.docstatus == 1:
 			doc.cancel()
 		frappe.delete_doc("Shift Assignment", shift_assignment)
-	frappe.delete_doc("Shift Assignment Schedule", schedule_assignment)
+	frappe.delete_doc("Shift Schedule Assignment", shift_schedule_assignment)
 
 
 @frappe.whitelist()
@@ -230,6 +240,7 @@ def get_shifts(
 			ShiftAssignment.start_date,
 			ShiftAssignment.end_date,
 			ShiftAssignment.status,
+			ShiftAssignment.shift_schedule_assignment,
 			ShiftType.start_time,
 			ShiftType.end_time,
 			ShiftType.color,
