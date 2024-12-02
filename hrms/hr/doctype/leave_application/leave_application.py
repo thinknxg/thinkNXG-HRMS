@@ -798,7 +798,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 	def validate_for_self_approval(self):
 		self_leave_approval_allowed = frappe.db.get_single_value("HR Settings", "allow_self_leave_approval")
 		if (not self_leave_approval_allowed) and (self.employee == get_current_employee_info()["name"]):
-			frappe.throw(_("Self approval for leaves is not allowed"))
+			frappe.throw(_("Self approval for leaves is not allowed"), frappe.ValidationError)
 
 
 def get_allocation_expiry_for_cf_leaves(

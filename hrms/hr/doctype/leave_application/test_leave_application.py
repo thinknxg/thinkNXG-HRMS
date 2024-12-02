@@ -967,6 +967,47 @@ class TestLeaveApplication(FrappeTestCase):
 		employee.leave_approver = ""
 		employee.save()
 
+	def test_self_leave_approval_allowed(self):
+		print("test self approval started")
+		leave_approver = "test_leave_approver@example.com"
+		employee = get_employee()
+		make_employee(leave_approver, "_Test Company")
+		employee.leave_approver = leave_approver
+		employee.user_id = "test_employee@example.com"
+		employee.save()
+
+		make_allocation_record(employee.name)
+		application = self.get_application(_test_records[0])
+		application.status = "Approved"
+
+		frappe.set_user("test_employee@example.com")
+		frappe.db.set_single_value("HR Settings", "allow_self_leave_approval", 1)
+		application.submit()
+
+		self.assertEqual(1, application.docstatus)
+
+	def test_self_leave_approval_not_allowed(self):
+		print("test self deniel started")
+		leave_approver = "test_leave_approver@example.com"
+		employee = get_employee()
+		make_employee(leave_approver, "_Test Company")
+		employee.leave_approver = leave_approver
+		employee.user_id = "test_employee@example.com"
+		employee.save()
+
+		make_allocation_record(employee.name)
+		application = self.get_application(_test_records[0])
+		application.status = "Approved"
+
+		frappe.set_user("test_employee@example.com")
+		frappe.db.set_single_value("HR Settings", "allow_self_leave_approval", 0)
+		self.assertRaises(frappe.ValidationError, application.submit())
+
+		frappe.set_user(leave_approver)
+		application.submit()
+
+		self.assertEqual(1, application.docstatus)
+
 	@set_holiday_list("Salary Slip Test Holiday List", "_Test Company")
 	def test_get_leave_details_for_dashboard(self):
 		employee = get_employee()
