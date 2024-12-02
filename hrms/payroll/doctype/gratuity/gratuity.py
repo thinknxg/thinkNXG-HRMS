@@ -241,7 +241,6 @@ class Gratuity(AccountsController):
 						* total_component_amount
 						* slab.fraction_of_applicable_earnings
 					)
-					years_left -= slab.to_year - slab.from_year
 					slab_found = True
 
 				elif self._is_experience_within_slab(slab, experience):
@@ -249,6 +248,7 @@ class Gratuity(AccountsController):
 						years_left * total_component_amount * slab.fraction_of_applicable_earnings
 					)
 					slab_found = True
+				years_left -= slab.to_year - slab.from_year
 
 		if not slab_found:
 			frappe.throw(
@@ -308,7 +308,7 @@ class Gratuity(AccountsController):
 		)
 
 	def _is_experience_within_slab(self, slab: dict, experience: float) -> bool:
-		return bool(slab.from_year <= experience and (experience < slab.to_year or slab.to_year == 0))
+		return bool(slab.from_year <= experience and (experience <= slab.to_year or slab.to_year == 0))
 
 	def _is_experience_beyond_slab(self, slab: dict, experience: float) -> bool:
 		return bool(slab.from_year < experience and (slab.to_year < experience and slab.to_year != 0))
