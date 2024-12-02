@@ -968,7 +968,6 @@ class TestLeaveApplication(FrappeTestCase):
 		employee.save()
 
 	def test_self_leave_approval_allowed(self):
-		print("test self approval started")
 		leave_approver = "test_leave_approver@example.com"
 		employee = get_employee()
 		make_employee(leave_approver, "_Test Company")
@@ -987,7 +986,6 @@ class TestLeaveApplication(FrappeTestCase):
 		self.assertEqual(1, application.docstatus)
 
 	def test_self_leave_approval_not_allowed(self):
-		print("test self deniel started")
 		leave_approver = "test_leave_approver@example.com"
 		employee = get_employee()
 		make_employee(leave_approver, "_Test Company")
