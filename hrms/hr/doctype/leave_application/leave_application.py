@@ -23,6 +23,7 @@ from erpnext.buying.doctype.supplier_scorecard.supplier_scorecard import dateran
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 
 import hrms
+from hrms.api import get_current_employee_info
 from hrms.hr.doctype.leave_block_list.leave_block_list import get_applicable_block_dates
 from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import create_leave_ledger_entry
 from hrms.hr.utils import (
@@ -102,6 +103,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 
 		self.validate_back_dated_application()
 		self.update_attendance()
+		self.validate_for_self_approval()
 
 		# notify leave applier about approval
 		if frappe.db.get_single_value("HR Settings", "send_leave_notification"):
@@ -792,6 +794,11 @@ class LeaveApplication(Document, PWANotificationsMixin):
 			if leaves:
 				args.update(dict(from_date=start_date, to_date=self.to_date, leaves=leaves * -1))
 				create_leave_ledger_entry(self, args, submit)
+
+	def validate_for_self_approval(self):
+		self_leave_approval_allowed = frappe.db.get_single_value("HR Settings", "allow_self_leave_approval")
+		if (not self_leave_approval_allowed) and (self.employee == get_current_employee_info()["name"]):
+			frappe.throw(_("Self approval for leaves is not allowed"))
 
 
 def get_allocation_expiry_for_cf_leaves(

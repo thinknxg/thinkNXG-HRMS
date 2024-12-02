@@ -114,6 +114,7 @@ frappe.ui.form.on("Leave Application", {
 		if (frm.doc.docstatus === 0) {
 			frm.trigger("make_dashboard");
 		}
+		frm.trigger("prevent_self_leave_approval");
 	},
 
 	async set_employee(frm) {
@@ -255,7 +256,36 @@ frappe.ui.form.on("Leave Application", {
 			});
 		}
 	},
+
+	leave_approver: function (frm) {
+		frm.trigger("prevent_self_leave_approval");
+	},
+	prevent_self_leave_approval: async function (frm) {
+		let is_invalid_leave_approver = invalid_leave_approver(
+			frm.doc.employee,
+			await hrms.get_current_employee(),
+			await self_approval_not_allowed(),
+		);
+
+		if (frm.doc.docstatus === 0 && is_invalid_leave_approver && !frm.is_dirty()) {
+			frm.page.clear_primary_action();
+			$(".form-message").prop("hidden", true);
+		}
+	},
 });
+
+function invalid_leave_approver(leave_applicant, current_employee, self_approval_not_allowed) {
+	const invalid_leave_approver =
+		self_approval_not_allowed && leave_applicant == current_employee ? 1 : 0;
+	return invalid_leave_approver;
+}
+
+async function self_approval_not_allowed() {
+	allow_self_leave_approval = cint(
+		await frappe.db.get_single_value("HR Settings", "allow_self_leave_approval"),
+	);
+	return !allow_self_leave_approval;
+}
 
 frappe.tour["Leave Application"] = [
 	{
