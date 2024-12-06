@@ -136,6 +136,7 @@ frappe.ui.form.on("Leave Application", {
 		if (frm.doc.leave_approver) {
 			frm.set_value("leave_approver_name", frappe.user.full_name(frm.doc.leave_approver));
 		}
+		frm.trigger("prevent_self_leave_approval");
 	},
 
 	leave_type: function (frm) {
@@ -257,9 +258,6 @@ frappe.ui.form.on("Leave Application", {
 		}
 	},
 
-	leave_approver: function (frm) {
-		frm.trigger("prevent_self_leave_approval");
-	},
 	prevent_self_leave_approval: async function (frm) {
 		let is_invalid_leave_approver = invalid_leave_approver(
 			frm.doc.employee,
@@ -267,7 +265,12 @@ frappe.ui.form.on("Leave Application", {
 			await self_approval_not_allowed(),
 		);
 
-		if (frm.doc.docstatus === 0 && is_invalid_leave_approver && !frm.is_dirty()) {
+		if (
+			frm.doc.docstatus === 0 &&
+			is_invalid_leave_approver &&
+			!frm.is_dirty() &&
+			!frappe.model.has_workflow(frm.doctype)
+		) {
 			frm.page.clear_primary_action();
 			$(".form-message").prop("hidden", true);
 		}

@@ -5,6 +5,7 @@ import datetime
 
 import frappe
 from frappe import _
+from frappe.model.workflow import get_workflow_name
 from frappe.query_builder.functions import Max, Min, Sum
 from frappe.utils import (
 	add_days,
@@ -797,7 +798,10 @@ class LeaveApplication(Document, PWANotificationsMixin):
 
 	def validate_for_self_approval(self):
 		self_leave_approval_allowed = frappe.db.get_single_value("HR Settings", "allow_self_leave_approval")
-		if (not self_leave_approval_allowed) and (self.employee == get_current_employee_info()["name"]):
+		if (not self_leave_approval_allowed) and (
+			self.employee == get_current_employee_info()["name"]
+			and not get_workflow_name("Leave Application")
+		):
 			frappe.throw(_("Self approval for leaves is not allowed"), frappe.ValidationError)
 
 
