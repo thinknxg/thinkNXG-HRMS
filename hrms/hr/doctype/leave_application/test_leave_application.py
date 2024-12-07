@@ -985,17 +985,15 @@ class TestLeaveApplication(FrappeTestCase):
 
 		make_allocation_record(employee.name)
 		application = frappe.get_doc(
-			dict(
-				doctype="Leave Application",
-				employee=employee.name,
-				leave_type="_Test Leave Type",
-				from_date="2014-06-01",
-				to_date="2014-06-02",
-				posting_date="2014-05-30",
-				description="_Test Reason",
-				company="_Test Company",
-				leave_approver=leave_approver,
-			)
+			doctype="Leave Application",
+			employee=employee.name,
+			leave_type="_Test Leave Type",
+			from_date="2014-06-01",
+			to_date="2014-06-02",
+			posting_date="2014-05-30",
+			description="_Test Reason",
+			company="_Test Company",
+			leave_approver=leave_approver,
 		)
 		application.insert()
 		application.status = "Approved"
@@ -1025,17 +1023,15 @@ class TestLeaveApplication(FrappeTestCase):
 
 		make_allocation_record(employee.name)
 		application = application = frappe.get_doc(
-			dict(
-				doctype="Leave Application",
-				employee=employee.name,
-				leave_type="_Test Leave Type",
-				from_date="2014-06-03",
-				to_date="2014-06-04",
-				posting_date="2014-05-30",
-				description="_Test Reason",
-				company="_Test Company",
-				leave_approver=leave_approver,
-			)
+			doctype="Leave Application",
+			employee=employee.name,
+			leave_type="_Test Leave Type",
+			from_date="2014-06-03",
+			to_date="2014-06-04",
+			posting_date="2014-05-30",
+			description="_Test Reason",
+			company="_Test Company",
+			leave_approver=leave_approver,
 		)
 		application.insert()
 		application.status = "Approved"
