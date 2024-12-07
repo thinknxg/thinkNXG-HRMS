@@ -1,19 +1,19 @@
-app_name = "hrms"
-app_title = "Frappe HR"
-app_publisher = "Frappe Technologies Pvt. Ltd."
+app_name = "thinknxg hrms"
+app_title = "thinknxg HR"
+app_publisher = "thinknxg Technologies Pvt. Ltd."
 app_description = "Modern HR and Payroll Software"
-app_email = "contact@frappe.io"
+app_email = "sales@kreatao.com"
 app_license = "GNU General Public License (v3)"
 required_apps = ["frappe/erpnext"]
-source_link = "http://github.com/frappe/hrms"
-app_logo_url = "/assets/hrms/images/frappe-hr-logo.svg"
+source_link = "https://github.com/thinknxg/thinknxg-hrms.git"
+app_logo_url = "/assets/hrms/images/thinknxg-hr-logo.svg"
 app_home = "/app/hr"
 
 add_to_apps_screen = [
 	{
-		"name": "hrms",
-		"logo": "/assets/hrms/images/frappe-hr-logo.svg",
-		"title": "Frappe HR",
+		"name": "thinknxg-hrms",
+		"logo": "/assets/hrms/images/thinknxg-hr-logo.svg",
+		"title": "thinknxg HR",
 		"route": "/app/hr",
 		"has_permission": "hrms.hr.utils.check_app_permission",
 	}
