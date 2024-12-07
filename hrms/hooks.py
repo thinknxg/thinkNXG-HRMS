@@ -1,4 +1,4 @@
-app_name = "thinknxg hrms"
+app_name = "hrms"
 app_title = "thinknxg HR"
 app_publisher = "thinknxg Technologies Pvt. Ltd."
 app_description = "Modern HR and Payroll Software"
