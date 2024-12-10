@@ -21,4 +21,4 @@ def execute():
 		).insert()
 
 		for d in frappe.get_all("Shift Assignment", filters={"schedule": doc.name}, pluck="name"):
-			frappe.db.set_value("Shift Assingment", d, schedule_assignment)
+			frappe.db.set_value("Shift Assignment", d, "shift_schedule_assignment", schedule_assignment.name)
