@@ -9,7 +9,8 @@
   "shift_type",
   "column_break_iprq",
   "frequency",
-  "repeat_on_days"
+  "repeat_on_days",
+  "amended_from"
  ],
  "fields": [
   {
@@ -43,16 +44,27 @@
    "label": "Shift Type",
    "options": "Shift Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Shift Schedule",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [
   {
    "link_doctype": "Shift Schedule Assignment",
    "link_fieldname": "shift_schedule"
   }
  ],
- "modified": "2024-11-12 13:19:06.513072",
+ "modified": "2024-12-10 14:58:33.904850",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Schedule",

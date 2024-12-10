@@ -104,10 +104,10 @@
  "links": [
   {
    "link_doctype": "Shift Assignment",
-   "link_fieldname": "schedule"
+   "link_fieldname": "shift_schedule_assignment"
   }
  ],
- "modified": "2024-11-12 13:30:22.868915",
+ "modified": "2024-12-10 15:44:00.063685",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Schedule Assignment",
