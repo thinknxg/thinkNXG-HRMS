@@ -11,11 +11,12 @@ class FullandFinalStatement(Document):
 	def on_change(self):
 		for payable in self.payables:
 			if payable.component == "Gratuity":
-				frappe.db.set_value(
-					"Gratuity",
-					payable.reference_document,
-					{"status": self.status, "paid_amount": payable.amount},
-				)
+				gratuity = frappe.get_doc("Gratuity", payable.reference_document)
+				if self.status == "Paid":
+					amount = payable.amount if self.docstatus == 1 else 0
+					gratuity.db_set("paid_amount", amount)
+				if self.docstatus == 2:
+					gratuity.set_status(update=True, cancel=True)
 
 	def before_insert(self):
 		self.get_outstanding_statements()

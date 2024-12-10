@@ -34,7 +34,7 @@ class Gratuity(AccountsController):
 
 		return self._gratuity_settings
 
-	def set_status(self, update=False):
+	def set_status(self, update=False, cancel=False):
 		status = {"0": "Draft", "1": "Submitted", "2": "Cancelled"}[cstr(self.docstatus or 0)]
 
 		if self.docstatus == 1:
@@ -44,16 +44,23 @@ class Gratuity(AccountsController):
 			else:
 				status = "Unpaid"
 
-		if update:
-			self.db_set("status", status)
+		if update and self.status != status:
+			if self.status != status:
+				self.db_set("status", status)
 		else:
 			self.status = status
+
+		if cancel and self.docstatus != 2:
+			self.db_set("docstatus", 2)
 
 	def on_submit(self):
 		if self.pay_via_salary_slip:
 			self.create_additional_salary()
 		else:
 			self.create_gl_entries()
+
+	def on_change(self):
+		self.set_status(update=True)
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = ["GL Entry"]
