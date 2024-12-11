@@ -236,7 +236,7 @@ import { Avatar, Autocomplete, createResource } from "frappe-ui";
 import { Dayjs } from "dayjs";
 
 import { dayjs, raiseToast } from "../utils";
-import { EmployeeFilters } from "../views/MonthView.vue";
+import { EmployeeFilters, ShiftFilters } from "../views/MonthView.vue";
 import ShiftAssignmentDialog from "./ShiftAssignmentDialog.vue";
 
 interface Holiday {
@@ -291,7 +291,7 @@ const props = defineProps<{
 		[K in "name" | "employee_name" | "designation" | "image"]: string;
 	}[];
 	employeeFilters: { [K in keyof EmployeeFilters]?: string };
-	shiftTypeFilter: string;
+	shiftFilters: { [K in keyof ShiftFilters]?: string };
 }>();
 
 const loading = ref(true);
@@ -321,7 +321,7 @@ const employeeSearchOptions = computed(() => {
 });
 
 watch(
-	() => [props.firstOfMonth, props.employeeFilters, props.shiftTypeFilter],
+	() => [props.firstOfMonth, props.employeeFilters, props.shiftFilters],
 	() => {
 		loading.value = true;
 		events.fetch();
@@ -354,7 +354,7 @@ const events = createResource({
 			month_start: props.firstOfMonth.format("YYYY-MM-DD"),
 			month_end: props.firstOfMonth.endOf("month").format("YYYY-MM-DD"),
 			employee_filters: props.employeeFilters,
-			shift_filters: props.shiftTypeFilter ? { shift_type: props.shiftTypeFilter } : {},
+			shift_filters: props.shiftFilters,
 		};
 	},
 	onSuccess() {
