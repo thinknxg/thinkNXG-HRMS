@@ -4,6 +4,8 @@ from hrms.hr.doctype.shift_schedule.shift_schedule import get_shift_schedule
 
 
 def execute():
+	frappe.reload_doc("HR", "doctype", "Shift Assignment")
+
 	for doc in frappe.get_all("Shift Assignment Schedule", pluck="name"):
 		doc = frappe.get_doc("Shift Assignment Schedule", doc)
 		repeat_on_days = [d.day for d in doc.repeat_on_days]
