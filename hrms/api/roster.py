@@ -256,6 +256,7 @@ def get_shifts(
 			ShiftAssignment.name,
 			ShiftAssignment.employee,
 			ShiftAssignment.shift_type,
+			ShiftAssignment.shift_location,
 			ShiftAssignment.start_date,
 			ShiftAssignment.end_date,
 			ShiftAssignment.status,
