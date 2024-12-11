@@ -11,6 +11,7 @@
   "company",
   "shift_assignment_details_section",
   "shift_type",
+  "shift_location",
   "status",
   "column_break_ybmd",
   "start_date",
@@ -187,12 +188,18 @@
    "fieldname": "select_rows_section",
    "fieldtype": "Section Break",
    "label": "Select Employees"
+  },
+  {
+   "fieldname": "shift_location",
+   "fieldtype": "Link",
+   "label": "Shift Location",
+   "options": "Shift Location"
   }
  ],
  "hide_toolbar": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-03-27 17:54:33.829320",
+ "modified": "2024-12-11 12:05:02.751441",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Assignment Tool",

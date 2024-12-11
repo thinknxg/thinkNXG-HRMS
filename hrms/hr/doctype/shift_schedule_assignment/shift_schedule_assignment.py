@@ -54,7 +54,14 @@ class ShiftScheduleAssignment(Document):
 
 	def create_individual_assignment(self, shift_type, start_date, end_date):
 		create_shift_assignment(
-			self.employee, self.company, shift_type, start_date, end_date, self.shift_status, self.name
+			self.employee,
+			self.company,
+			shift_type,
+			start_date,
+			end_date,
+			self.shift_status,
+			self.shift_location,
+			self.name,
 		)
 		self.create_shifts_after = end_date
 		self.save()

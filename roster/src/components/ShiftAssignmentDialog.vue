@@ -16,10 +16,11 @@
 					v-model="form.employee_name"
 					:disabled="true"
 				/>
-				<DatePicker
-					label="Start Date"
-					v-model="form.start_date"
-					:disabled="!!props.shiftAssignmentName"
+				<FormControl
+					type="text"
+					label="Department"
+					v-model="form.department"
+					:disabled="true"
 				/>
 				<FormControl
 					type="autocomplete"
@@ -28,18 +29,24 @@
 					:disabled="!!props.shiftAssignmentName"
 					:options="shiftTypes.data"
 				/>
+				<DatePicker
+					label="Start Date"
+					v-model="form.start_date"
+					:disabled="!!props.shiftAssignmentName"
+				/>
+				<FormControl
+					type="autocomplete"
+					label="Shift Location"
+					v-model="form.shift_location"
+					:disabled="!!props.shiftAssignmentName"
+					:options="shiftLocations.data"
+				/>
 				<DatePicker label="End Date" v-model="form.end_date" />
 				<FormControl
 					type="select"
 					:options="['Active', 'Inactive']"
 					label="Status"
 					v-model="form.status"
-				/>
-				<FormControl
-					type="text"
-					label="Department"
-					v-model="form.department"
-					:disabled="true"
 				/>
 			</div>
 
@@ -144,9 +151,13 @@ import { dayjs, raiseToast } from "../utils";
 type Status = "Active" | "Inactive";
 
 type Form = {
-	[K in "company" | "employee_name" | "department" | "employee" | "shift_type"]:
-		| string
-		| { value: string; label?: string };
+	[K in
+		| "company"
+		| "employee_name"
+		| "department"
+		| "employee"
+		| "shift_type"
+		| "shift_location"]: string | { value: string; label?: string };
 } & {
 	start_date: string;
 	end_date: string;
@@ -179,11 +190,12 @@ const formObject: Form = {
 	employee: "",
 	company: "",
 	employee_name: "",
-	start_date: "",
+	department: "",
 	shift_type: "",
+	start_date: "",
+	shift_location: "",
 	end_date: "",
 	status: "Active",
-	department: "",
 	shift_schedule_assignment: "",
 };
 
@@ -417,6 +429,13 @@ const shiftTypes = createListResource({
 	transform: (data: { name: string }[]) => data.map((shiftType) => shiftType.name),
 });
 
+const shiftLocations = createListResource({
+	doctype: "Shift Location",
+	fields: ["name"],
+	auto: true,
+	transform: (data: { name: string }[]) => data.map((shiftLocation) => shiftLocation.name),
+});
+
 const shiftAssignments = createListResource({
 	doctype: "Shift Assignment",
 	insert: {
@@ -445,6 +464,7 @@ const insertShift = createResource({
 		return {
 			employee: (form.employee as { value: string }).value,
 			shift_type: (form.shift_type as { value: string }).value,
+			shift_location: (form.shift_location as { value: string }).value,
 			company: form.company,
 			status: form.status,
 			start_date: form.start_date,
@@ -487,6 +507,7 @@ const createShiftAssignmentSchedule = createResource({
 			status: form.status,
 			start_date: form.start_date,
 			end_date: form.end_date,
+			shift_location: (form.shift_location as { value: string }).value,
 			repeat_on_days: Object.keys(repeatOnDays).filter(
 				(day) => repeatOnDays[day as keyof typeof repeatOnDays],
 			),

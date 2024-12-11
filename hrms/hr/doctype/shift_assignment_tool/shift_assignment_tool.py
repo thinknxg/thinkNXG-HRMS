@@ -159,7 +159,13 @@ class ShiftAssignmentTool(Document):
 			try:
 				frappe.db.savepoint(savepoint)
 				assignment = create_shift_assignment(
-					d, self.company, self.shift_type, self.start_date, self.end_date, self.status
+					d,
+					self.company,
+					self.shift_type,
+					self.start_date,
+					self.end_date,
+					self.status,
+					self.shift_location,
 				)
 			except Exception:
 				frappe.db.rollback(save_point=savepoint)
@@ -243,6 +249,7 @@ def create_shift_assignment(
 	start_date: str,
 	end_date: str,
 	status: str,
+	shift_location: str | None = None,
 	shift_schedule_assignment: str | None = None,
 ) -> str:
 	assignment = frappe.new_doc("Shift Assignment")
@@ -252,6 +259,7 @@ def create_shift_assignment(
 	assignment.start_date = start_date
 	assignment.end_date = end_date
 	assignment.status = status
+	assignment.shift_location = shift_location
 	assignment.shift_schedule_assignment = shift_schedule_assignment
 	assignment.save()
 	assignment.submit()

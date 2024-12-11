@@ -57,6 +57,7 @@ def create_shift_schedule_assignment(
 	end_date: str | None,
 	repeat_on_days: list[str],
 	frequency: str,
+	shift_location: str | None = None,
 ) -> None:
 	shift_schedule = get_shift_schedule(shift_type, frequency, repeat_on_days)
 	shift_schedule_assignment = frappe.get_doc(
@@ -66,6 +67,7 @@ def create_shift_schedule_assignment(
 			"employee": employee,
 			"company": company,
 			"shift_status": status,
+			"shift_location": shift_location,
 			"enabled": 0 if end_date else 1,
 		}
 	).insert()
@@ -107,7 +109,13 @@ def swap_shift(
 	src_shift_doc = frappe.get_doc("Shift Assignment", src_shift)
 	break_shift(src_shift_doc, src_date)
 	insert_shift(
-		tgt_employee, tgt_company, src_shift_doc.shift_type, tgt_date, tgt_date, src_shift_doc.status
+		tgt_employee,
+		tgt_company,
+		src_shift_doc.shift_type,
+		tgt_date,
+		tgt_date,
+		src_shift_doc.status,
+		src_shift_doc.shift_location,
 	)
 
 	if tgt_shift:
@@ -118,6 +126,7 @@ def swap_shift(
 			src_date,
 			src_date,
 			tgt_shift_doc.status,
+			tgt_shift_doc.shift_location,
 		)
 
 
@@ -136,6 +145,7 @@ def break_shift(assignment: str | ShiftAssignment, date: str) -> None:
 	shift_type = assignment.shift_type
 	status = assignment.status
 	end_date = assignment.end_date
+	shift_location = assignment.shift_location
 
 	if date_diff(date, assignment.start_date) == 0:
 		assignment.cancel()
@@ -145,12 +155,20 @@ def break_shift(assignment: str | ShiftAssignment, date: str) -> None:
 		assignment.save()
 
 	if not end_date or date_diff(end_date, date) > 0:
-		create_shift_assignment(employee, company, shift_type, add_days(date, 1), end_date, status)
+		create_shift_assignment(
+			employee, company, shift_type, add_days(date, 1), end_date, status, shift_location
+		)
 
 
 @frappe.whitelist()
 def insert_shift(
-	employee: str, company: str, shift_type: str, start_date: str, end_date: str | None, status: str
+	employee: str,
+	company: str,
+	shift_type: str,
+	start_date: str,
+	end_date: str | None,
+	status: str,
+	shift_location: str | None = None,
 ) -> None:
 	filters = {
 		"doctype": "Shift Assignment",
@@ -158,6 +176,7 @@ def insert_shift(
 		"company": company,
 		"shift_type": shift_type,
 		"status": status,
+		"shift_location": shift_location,
 	}
 	prev_shift = frappe.db.exists(dict({"end_date": add_days(start_date, -1)}, **filters))
 	next_shift = (
@@ -175,7 +194,7 @@ def insert_shift(
 		frappe.db.set_value("Shift Assignment", next_shift, "start_date", start_date)
 
 	else:
-		create_shift_assignment(employee, company, shift_type, start_date, end_date, status)
+		create_shift_assignment(employee, company, shift_type, start_date, end_date, status, shift_location)
 
 
 def get_holidays(month_start: str, month_end: str, employee_filters: dict[str, str]) -> dict[str, list[dict]]:
