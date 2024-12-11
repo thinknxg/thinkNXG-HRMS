@@ -6,13 +6,18 @@ from frappe.model.document import Document
 
 
 class ShiftSchedule(Document):
-	def validate(self):
-		repeat_on_days = []
+	def before_validate(self):
+		to_be_deleted = []
+		seen_days = set()
+
 		for d in self.repeat_on_days:
-			if d.day in repeat_on_days:
-				frappe.db.delete("Assignment Rule Day", d.name)
+			if d.day in seen_days:
+				to_be_deleted.append(d)
 			else:
-				repeat_on_days.append(d.day)
+				seen_days.add(d.day)
+
+		for d in to_be_deleted:
+			self.remove(d)
 
 
 def get_shift_schedule(shift_type: str, frequency: str, repeat_on_days: list[str]) -> str:
