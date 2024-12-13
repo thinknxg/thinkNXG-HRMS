@@ -1,6 +1,7 @@
 {
  "actions": [],
- "autoname": "HR-SHS-.YY.-.#####",
+ "allow_rename": 1,
+ "autoname": "prompt",
  "creation": "2024-11-11 16:56:33.536882",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -64,11 +65,11 @@
    "link_fieldname": "shift_schedule"
   }
  ],
- "modified": "2024-12-10 14:58:33.904850",
+ "modified": "2024-12-13 15:09:55.957625",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Schedule",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "Set by user",
  "owner": "Administrator",
  "permissions": [
   {
@@ -106,6 +107,5 @@
  ],
  "sort_field": "creation",
  "sort_order": "DESC",
- "states": [],
- "title_field": "shift_type"
+ "states": []
 }

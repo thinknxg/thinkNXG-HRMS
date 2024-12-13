@@ -195,7 +195,7 @@
 									<div class="flex items-center space-x-1">
 										<FeatherIcon
 											name="clock"
-											class="stroke-gray-450"
+											class="stroke-gray-400"
 											style="
 												 {
 													height: 0.82rem;
@@ -213,7 +213,7 @@
 									>
 										<FeatherIcon
 											name="map-pin"
-											class="stroke-gray-450"
+											class="stroke-gray-400"
 											style="
 												 {
 													height: 0.82rem;

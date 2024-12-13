@@ -6,7 +6,7 @@ from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employe
 
 from hrms.hr.doctype.shift_assignment.shift_assignment import ShiftAssignment
 from hrms.hr.doctype.shift_assignment_tool.shift_assignment_tool import create_shift_assignment
-from hrms.hr.doctype.shift_schedule.shift_schedule import get_shift_schedule
+from hrms.hr.doctype.shift_schedule.shift_schedule import get_or_insert_shift_schedule
 
 
 @frappe.whitelist()
@@ -59,7 +59,7 @@ def create_shift_schedule_assignment(
 	frequency: str,
 	shift_location: str | None = None,
 ) -> None:
-	shift_schedule = get_shift_schedule(shift_type, frequency, repeat_on_days)
+	shift_schedule = get_or_insert_shift_schedule(shift_type, frequency, repeat_on_days)
 	shift_schedule_assignment = frappe.get_doc(
 		{
 			"doctype": "Shift Schedule Assignment",

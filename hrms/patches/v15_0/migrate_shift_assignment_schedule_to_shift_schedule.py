@@ -1,6 +1,6 @@
 import frappe
 
-from hrms.hr.doctype.shift_schedule.shift_schedule import get_shift_schedule
+from hrms.hr.doctype.shift_schedule.shift_schedule import get_or_insert_shift_schedule
 
 
 def execute():
@@ -9,7 +9,7 @@ def execute():
 	for doc in frappe.get_all("Shift Assignment Schedule", pluck="name"):
 		doc = frappe.get_doc("Shift Assignment Schedule", doc)
 		repeat_on_days = [d.day for d in doc.repeat_on_days]
-		shift_schedule_name = get_shift_schedule(doc.shift_type, doc.frequency, repeat_on_days)
+		shift_schedule_name = get_or_insert_shift_schedule(doc.shift_type, doc.frequency, repeat_on_days)
 
 		schedule_assignment = frappe.get_doc(
 			{

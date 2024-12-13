@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import random_string
 
 
 class ShiftSchedule(Document):
@@ -20,7 +21,7 @@ class ShiftSchedule(Document):
 			self.remove(d)
 
 
-def get_shift_schedule(shift_type: str, frequency: str, repeat_on_days: list[str]) -> str:
+def get_or_insert_shift_schedule(shift_type: str, frequency: str, repeat_on_days: list[str]) -> str:
 	shift_schedules = frappe.get_all(
 		"Shift Schedule",
 		pluck="name",
@@ -36,6 +37,7 @@ def get_shift_schedule(shift_type: str, frequency: str, repeat_on_days: list[str
 	doc = frappe.get_doc(
 		{
 			"doctype": "Shift Schedule",
+			"name": random_string(10),
 			"shift_type": shift_type,
 			"frequency": frequency,
 			"repeat_on_days": [{"day": day} for day in repeat_on_days],
