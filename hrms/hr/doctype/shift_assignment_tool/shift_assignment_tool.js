@@ -19,6 +19,11 @@ frappe.ui.form.on("Shift Assignment Tool", {
 		);
 		hrms.handle_realtime_bulk_action_notification(
 			frm,
+			"completed_bulk_shift_schedule_assignment",
+			"Shift Schedule Assignment",
+		);
+		hrms.handle_realtime_bulk_action_notification(
+			frm,
 			"completed_bulk_shift_request_processing",
 			"Shift Request",
 		);
