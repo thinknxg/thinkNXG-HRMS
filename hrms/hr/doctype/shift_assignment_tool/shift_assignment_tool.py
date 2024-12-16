@@ -170,16 +170,30 @@ class ShiftAssignmentTool(Document):
 		)
 
 	@frappe.whitelist()
-	def bulk_assign_shift(self, employees: list):
-		mandatory_fields = ["company", "shift_type", "start_date"]
+	def bulk_assign(self, employees: list):
+		if self.action == "Assign Shift":
+			mandatory_fields = ["shift_type"]
+			function = self._bulk_assign_shift
+			doctype = "Shift Assignments"
+
+		elif self.action == "Assign Shift Schedule":
+			mandatory_fields = ["shift_schedule"]
+			function = self._bulk_assign_shift_schedule
+			doctype = "Shift Schedule Assignments"
+
+		else:
+			frappe.throw(_("Invalid Action"))
+
+		mandatory_fields.extend(["company", "start_date"])
+
 		validate_bulk_tool_fields(self, mandatory_fields, employees, "start_date", "end_date")
 
 		if len(employees) <= 30:
-			return self._bulk_assign_shift(employees)
+			return function(employees)
 
-		frappe.enqueue(self._bulk_assign_shift, timeout=3000, employees=employees)
+		frappe.enqueue(function, timeout=3000, employees=employees)
 		frappe.msgprint(
-			_("Creation of Shift Assignments has been queued. It may take a few minutes."),
+			_("Creation of {0} has been queued. It may take a few minutes.").format(doctype),
 			alert=True,
 			indicator="blue",
 		)

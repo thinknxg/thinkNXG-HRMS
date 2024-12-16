@@ -34,7 +34,7 @@ $.extend(hrms, {
 		}
 
 		if (missing_fields.length) {
-			let message = __("Mandatory fields required for this action");
+			let message = __("Mandatory fields required for this action:");
 			message += "<br><br><ul><li>" + missing_fields.join("</li><li>") + "</ul>";
 			frappe.throw({
 				message: message,

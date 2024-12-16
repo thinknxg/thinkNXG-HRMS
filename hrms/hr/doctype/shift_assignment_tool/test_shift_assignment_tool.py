@@ -162,7 +162,7 @@ class TestShiftAssignmentTool(FrappeTestCase):
 		shift_assignment_tool = ShiftAssignmentTool(args)
 
 		employees = [self.emp1, self.emp2, self.emp3]
-		shift_assignment_tool.bulk_assign_shift(employees)
+		shift_assignment_tool.bulk_assign(employees)
 		shift_assignment_employees = frappe.get_list(
 			"Shift Assignment",
 			filters={
