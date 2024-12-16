@@ -30,9 +30,9 @@ class ShiftAssignmentTool(Document):
 		filters = [[d, "=", self.get(d)] for d in quick_filter_fields if self.get(d)]
 		filters += advanced_filters
 
-		if self.action == "Assign Shift":
-			return self.get_employees_for_assigning_shift(filters)
-		return self.get_shift_requests(filters)
+		if self.action == "Process Shift Requests":
+			return self.get_shift_requests(filters)
+		return self.get_employees_for_assigning_shift(filters)
 
 	def get_employees_for_assigning_shift(self, filters):
 		Employee = frappe.qb.DocType("Employee")
@@ -55,8 +55,17 @@ class ShiftAssignmentTool(Document):
 			query = query.where(
 				(Employee.relieving_date >= self.end_date) | (Employee.relieving_date.isnull())
 			)
-		if self.status == "Active":
+
+		self.allow_multiple_shifts = frappe.db.get_single_value(
+			"HR Settings", "allow_multiple_shift_assignments"
+		)
+		if self.action == "Assign Shift Schedule":
+			query = query.where(
+				Employee.employee.notin(SubQuery(self.get_query_for_employees_with_same_shift_schedule()))
+			)
+		elif self.status == "Active":
 			query = query.where(Employee.employee.notin(SubQuery(self.get_query_for_employees_with_shifts())))
+
 		return query.run(as_dict=True)
 
 	def get_shift_requests(self, filters):
@@ -97,16 +106,9 @@ class ShiftAssignmentTool(Document):
 
 	def get_query_for_employees_with_shifts(self):
 		ShiftAssignment = frappe.qb.DocType("Shift Assignment")
-		query = frappe.qb.from_(ShiftAssignment)
-
-		allow_multiple_shifts = frappe.db.get_single_value("HR Settings", "allow_multiple_shift_assignments")
-		# join Shift Type if multiple shifts are allowed as we need to know shift timings only in this case
-		if allow_multiple_shifts:
-			ShiftType = frappe.qb.DocType("Shift Type")
-			query = query.left_join(ShiftType).on(ShiftAssignment.shift_type == ShiftType.name)
-
 		query = (
-			query.select(ShiftAssignment.employee)
+			frappe.qb.from_(ShiftAssignment)
+			.select(ShiftAssignment.employee)
 			.distinct()
 			.where(
 				(ShiftAssignment.status == "Active")
@@ -115,25 +117,57 @@ class ShiftAssignmentTool(Document):
 				& ((ShiftAssignment.end_date >= self.start_date) | (ShiftAssignment.end_date.isnull()))
 			)
 		)
+
 		if self.end_date:
 			query = query.where(ShiftAssignment.start_date <= self.end_date)
 
-		# check for overlapping timings if multiple shifts are allowed
-		if allow_multiple_shifts:
-			shift_start, shift_end = frappe.db.get_value(
-				"Shift Type", self.shift_type, ["start_time", "end_time"]
-			)
-			# turn it into a 48 hour clock for easier conditioning while considering overnight shifts
-			if shift_end < shift_start:
-				shift_end += timedelta(hours=24)
-			end_time_case = (
-				Case()
-				.when(ShiftType.end_time < ShiftType.start_time, ShiftType.end_time + Interval(hours=24))
-				.else_(ShiftType.end_time)
-			)
-			query = query.where((end_time_case >= shift_start) & (ShiftType.start_time <= shift_end))
+		if self.allow_multiple_shifts:
+			query = self.get_query_checking_overlapping_shift_timings(query, ShiftAssignment, self.shift_type)
 
 		return query
+
+	def get_query_for_employees_with_same_shift_schedule(self):
+		days = frappe.get_all("Assignment Rule Day", {"parent": self.shift_schedule}, pluck="day")
+
+		ShiftScheduleAssignment = frappe.qb.DocType("Shift Schedule Assignment")
+		ShiftSchedule = frappe.qb.DocType("Shift Schedule")
+		Day = frappe.qb.DocType("Assignment Rule Day")
+
+		query = (
+			frappe.qb.from_(ShiftScheduleAssignment)
+			.left_join(ShiftSchedule)
+			.on(ShiftSchedule.name == ShiftScheduleAssignment.shift_schedule)
+			.left_join(Day)
+			.on(ShiftSchedule.name == Day.parent)
+			.select(ShiftScheduleAssignment.employee)
+			.distinct()
+			.where((ShiftScheduleAssignment.enabled == 1) & (Day.day.isin(days)))
+		)
+
+		if self.allow_multiple_shifts:
+			shift_type = frappe.db.get_value("Shift Schedule", self.shift_schedule, "shift_type")
+			query = self.get_query_checking_overlapping_shift_timings(query, ShiftSchedule, shift_type)
+
+		return query
+
+	def get_query_checking_overlapping_shift_timings(self, query, doctype, shift_type):
+		shift_start, shift_end = frappe.db.get_value("Shift Type", shift_type, ["start_time", "end_time"])
+		# turn it into a 48 hour clock for easier conditioning while considering overnight shifts
+		if shift_end < shift_start:
+			shift_end += timedelta(hours=24)
+
+		ShiftType = frappe.qb.DocType("Shift Type")
+		end_time_case = (
+			Case()
+			.when(ShiftType.end_time < ShiftType.start_time, ShiftType.end_time + Interval(hours=24))
+			.else_(ShiftType.end_time)
+		)
+
+		return (
+			query.left_join(ShiftType)
+			.on(doctype.shift_type == ShiftType.name)
+			.where((end_time_case >= shift_start) & (ShiftType.start_time <= shift_end))
+		)
 
 	@frappe.whitelist()
 	def bulk_assign_shift(self, employees: list):
