@@ -497,8 +497,8 @@ const handleShifts = (
 			shift_type: event.shift_type,
 			shift_location: event.shift_location,
 			status: event.status,
-			start_time: event.start_time.split(":").slice(0, 2).join(":"),
-			end_time: event.end_time.split(":").slice(0, 2).join(":"),
+			start_time: dayjs(event.start_time, "hh:mm:ss").format("HH:mm"),
+			end_time: dayjs(event.end_time, "hh:mm:ss").format("HH:mm"),
 			color: event.color.toLowerCase() as Color,
 		});
 	}
