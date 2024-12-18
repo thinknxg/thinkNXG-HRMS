@@ -171,6 +171,52 @@ class TestGratuity(FrappeTestCase):
 		)
 		self.assertEqual(gratuity.amount, 190000.0)
 
+	@set_holiday_list("Salary Slip Test Holiday List", "_Test Company")
+	def test_settle_gratuity_via_fnf_statement(self):
+		from hrms.hr.doctype.full_and_final_statement.test_full_and_final_statement import (
+			create_full_and_final_statement,
+		)
+
+		create_salary_slip(self.employee)
+		setup_gratuity_rule("Rule Under Limited Contract (UAE)")
+		set_mode_of_payment_account()
+
+		# create gratuity
+		gratuity = create_gratuity(
+			expense_account="Payment Account - _TC", mode_of_payment="Cash", employee=self.employee
+		)
+		gratuity.reload()
+
+		# create Full and Final Statement and add gratuity as Payables
+		fnf = create_full_and_final_statement(self.employee)
+		fnf.payables = []
+		fnf.receivables = []
+		fnf.append(
+			"payables",
+			{
+				"component": "Gratuity",
+				"reference_document_type": "Gratuity",
+				"reference_document": gratuity.name,
+				"amount": gratuity.amount,
+				"account": gratuity.payable_account,
+				"status": "Settled",
+			},
+		)
+		fnf.save()
+		fnf.create_journal_entry()
+
+		# mark fnf as paid and submit it
+		fnf.status = "Paid"
+		fnf.save()
+		fnf.submit()
+
+		gratuity.reload()
+		self.assertEqual(gratuity.status, "Paid")
+
+		fnf.cancel()
+		gratuity.reload()
+		self.assertEqual(gratuity.status, "Cancelled")
+
 
 def setup_gratuity_rule(name: str) -> dict:
 	from hrms.regional.united_arab_emirates.setup import setup
@@ -201,6 +247,7 @@ def create_gratuity(**args):
 		gratuity.expense_account = args.expense_account or "Payment Account - _TC"
 		gratuity.payable_account = args.payable_account or get_payable_account("_Test Company")
 		gratuity.mode_of_payment = args.mode_of_payment or "Cash"
+		gratuity.cost_center = args.cost_center or "Main - _TC"
 
 	gratuity.save()
 	gratuity.submit()
