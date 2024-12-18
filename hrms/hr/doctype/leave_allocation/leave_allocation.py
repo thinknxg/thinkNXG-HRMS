@@ -346,6 +346,11 @@ class LeaveAllocation(Document):
 				frappe.bold(new_leaves), frappe.session.user, frappe.bold(formatdate(date))
 			)
 			self.add_comment(comment_type="Info", text=text)
+			frappe.msgprint(
+				_("{0} leaves allocated successfully").format(frappe.bold(new_leaves)),
+				indicator="green",
+				alert=True,
+			)
 
 		else:
 			msg = _("Total leaves allocated cannot exceed annual allocation of {0}.").format(
