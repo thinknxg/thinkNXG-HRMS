@@ -3,23 +3,33 @@
 		<div class="flex items-center">
 			<FeatherIcon name="calendar" class="h-7 w-7 text-gray-500 mr-2.5" />
 			<span class="font-semibold text-2xl mr-1">Month View</span>
-			<Dropdown
-				:options="[
-					{
-						label: 'Shift Assignment',
-						onClick: () => {
-							showShiftAssignmentDialog = true;
+			<div class="ml-auto space-x-2">
+				<Dropdown
+					:options="VIEW_OPTIONS"
+					:button="{
+						label: 'View',
+						iconRight: 'chevron-down',
+						size: 'md',
+					}"
+				>
+				</Dropdown>
+				<Dropdown
+					:options="[
+						{
+							label: 'Shift Assignment',
+							onClick: () => {
+								showShiftAssignmentDialog = true;
+							},
 						},
-					},
-				]"
-				:button="{
-					label: 'Create',
-					variant: 'solid',
-					iconRight: 'chevron-down',
-					size: 'md',
-				}"
-				class="ml-auto"
-			/>
+					]"
+					:button="{
+						label: 'Create',
+						variant: 'solid',
+						iconRight: 'chevron-down',
+						size: 'md',
+					}"
+				/>
+			</div>
 		</div>
 		<MonthViewHeader
 			:firstOfMonth="firstOfMonth"
@@ -51,7 +61,7 @@
 import { ref, reactive } from "vue";
 import { Dropdown, FeatherIcon, createListResource } from "frappe-ui";
 
-import { dayjs, raiseToast } from "../utils";
+import { dayjs, goTo, raiseToast } from "../utils";
 import MonthViewTable from "../components/MonthViewTable.vue";
 import MonthViewHeader from "../components/MonthViewHeader.vue";
 import ShiftAssignmentDialog from "../components/ShiftAssignmentDialog.vue";
@@ -71,6 +81,17 @@ const employeeFilters = reactive<EmployeeFilters>({
 	status: "Active",
 });
 const shiftFilters = reactive<ShiftFilters>({});
+
+const VIEW_OPTIONS = [
+	"Shift Type",
+	"Shift Location",
+	"Shift Assignment",
+	"Shift Schedule",
+	"Shift Schedule Assignment",
+].map((label) => ({
+	label,
+	onClick: () => goTo(`/app/${label.toLowerCase().split(" ").join("-")}`),
+}));
 
 const addToMonth = (change: number) => {
 	firstOfMonth.value = firstOfMonth.value.add(change, "M");

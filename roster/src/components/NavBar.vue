@@ -36,17 +36,13 @@
 
 <script setup lang="ts">
 import { FeatherIcon, Dropdown, Avatar, createResource } from "frappe-ui";
-import router from "../router";
 
-import User from "../views/Home.vue";
+import { User } from "../views/Home.vue";
+import { goTo, raiseToast } from "../utils";
 
 const props = defineProps<{
 	user: User;
 }>();
-
-const goTo = (path: string) => {
-	window.location.href = path;
-};
 
 // RESOURCES
 
