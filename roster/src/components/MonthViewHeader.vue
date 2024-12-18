@@ -8,36 +8,23 @@
 		<Button icon="chevron-right" variant="ghost" @click="emit('addToMonth', 1)" />
 
 		<!-- Filters -->
-		<div class="ml-auto px-2 overflow-x-clip">
-			<div
-				class="ml-auto space-x-2 flex transition-all"
-				:class="showFilters ? 'w-full' : 'w-0 overflow-hidden'"
-			>
-				<div v-for="[key, value] of Object.entries(filters)" :key="key" class="w-40">
-					<FormControl
-						type="autocomplete"
-						:placeholder="toTitleCase(key)"
-						:options="value.options"
-						v-model="value.model"
-						:disabled="!value.options.length"
-					/>
-				</div>
-				<Button
-					icon="x"
-					@click="Object.values(filters).forEach((d) => (d.model = null))"
+		<div class="ml-auto space-x-2 flex">
+			<div v-for="[key, value] of Object.entries(filters)" :key="key" class="w-40">
+				<FormControl
+					type="autocomplete"
+					:placeholder="toTitleCase(key)"
+					:options="value.options"
+					v-model="value.model"
+					:disabled="!value.options.length"
 				/>
 			</div>
+			<Button icon="x" @click="Object.values(filters).forEach((d) => (d.model = null))" />
 		</div>
-		<Button
-			:icon="showFilters ? 'chevrons-right' : 'chevrons-left'"
-			variant="ghost"
-			@click="showFilters = !showFilters"
-		/>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue";
+import { reactive, watch } from "vue";
 import { FormControl, createResource, createListResource } from "frappe-ui";
 import { Dayjs } from "dayjs";
 
@@ -59,8 +46,6 @@ const emit = defineEmits<{
 	(e: "addToMonth", change: number): void;
 	(e: "updateFilters", newFilters: { [K in FilterField]: string }): void;
 }>();
-
-const showFilters = ref(true);
 
 const filters: {
 	[K in FilterField]: {

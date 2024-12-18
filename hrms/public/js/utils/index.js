@@ -248,7 +248,7 @@ $.extend(hrms, {
 
 		list_view.page.add_inner_button(
 			__("Roster"),
-			function () {
+			() => {
 				window.location.href = "/hr/roster";
 			},
 			__("Shift Tools"),

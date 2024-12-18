@@ -1,5 +1,5 @@
 <template>
-	<div v-if="user.data" class="bg-gray-50 min-h-screen">
+	<div v-if="user.data" class="min-h-screen">
 		<NavBar :user="user.data" />
 		<MonthView />
 		<Toasts />

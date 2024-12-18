@@ -1,7 +1,7 @@
 <template>
-	<div class="px-12 py-6 space-y-6">
+	<div class="px-12 py-6 space-y-8">
 		<div class="flex items-center">
-			<FeatherIcon name="calendar" class="h-7 w-7 text-gray-500 mr-3" />
+			<FeatherIcon name="calendar" class="h-7 w-7 text-gray-500 mr-2.5" />
 			<span class="font-semibold text-2xl mr-1">Month View</span>
 			<Dropdown
 				:options="[
@@ -21,22 +21,20 @@
 				class="ml-auto"
 			/>
 		</div>
-		<div class="bg-white rounded-lg border p-4">
-			<MonthViewHeader
-				:firstOfMonth="firstOfMonth"
-				@updateFilters="updateFilters"
-				@addToMonth="addToMonth"
-			/>
-			<MonthViewTable
-				v-if="isCompanySelected"
-				ref="monthViewTable"
-				:firstOfMonth="firstOfMonth"
-				:employees="employees.data || []"
-				:employeeFilters="employeeFilters"
-				:shiftFilters="shiftFilters"
-			/>
-			<div v-else class="my-40 text-center">Please select a company.</div>
-		</div>
+		<MonthViewHeader
+			:firstOfMonth="firstOfMonth"
+			@updateFilters="updateFilters"
+			@addToMonth="addToMonth"
+		/>
+		<MonthViewTable
+			v-if="isCompanySelected"
+			ref="monthViewTable"
+			:firstOfMonth="firstOfMonth"
+			:employees="employees.data || []"
+			:employeeFilters="employeeFilters"
+			:shiftFilters="shiftFilters"
+		/>
+		<div v-else class="py-40 text-center">Please select a company.</div>
 	</div>
 	<ShiftAssignmentDialog
 		v-model="showShiftAssignmentDialog"
