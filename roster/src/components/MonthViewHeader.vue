@@ -1,11 +1,13 @@
 <template>
-	<div class="flex mb-4">
+	<div class="flex items-center">
 		<!-- Month Change -->
-		<Button icon="chevron-left" variant="ghost" @click="emit('addToMonth', -1)" />
-		<span class="px-1 w-24 text-center my-auto font-medium">
-			{{ props.firstOfMonth.format("MMM") }} {{ firstOfMonth.format("YYYY") }}
-		</span>
-		<Button icon="chevron-right" variant="ghost" @click="emit('addToMonth', 1)" />
+		<div class="flex items-center bg-gray-50 rounded-md space-x-0.5">
+			<Button icon="chevron-left" variant="ghost" @click="emit('addToMonth', -1)" />
+			<span class="w-32 text-center font-medium text-base">
+				{{ props.firstOfMonth.format("MMMM") }}, {{ firstOfMonth.format("YYYY") }}
+			</span>
+			<Button icon="chevron-right" variant="ghost" @click="emit('addToMonth', 1)" />
+		</div>
 
 		<!-- Filters -->
 		<div class="ml-auto space-x-2 flex">
