@@ -73,13 +73,26 @@ frappe.ui.form.on("Leave Allocation", {
 							fieldname: "new_leaves",
 							fieldtype: "Float",
 						},
+						{
+							label: "From Date",
+							fieldname: "from_date",
+							fieldtype: "Date",
+							default: frappe.datetime.get_today(),
+						},
+						{
+							label: "To Date",
+							fieldname: "to_date",
+							fieldtype: "Date",
+							read_only: 1,
+							default: frm.doc.to_date,
+						},
 					],
 					primary_action_label: "Allocate",
-					primary_action({ new_leaves }) {
+					primary_action({ new_leaves, from_date }) {
 						frappe.call({
 							method: "allocate_leaves_manually",
 							doc: frm.doc,
-							args: { new_leaves },
+							args: { new_leaves, from_date },
 							callback: function () {
 								frm.reload_doc();
 							},
