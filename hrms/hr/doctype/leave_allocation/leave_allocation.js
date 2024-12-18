@@ -72,6 +72,7 @@ frappe.ui.form.on("Leave Allocation", {
 							label: "New Leaves to be Allocated",
 							fieldname: "new_leaves",
 							fieldtype: "Float",
+							reqd: 1,
 						},
 						{
 							label: "From Date",
@@ -93,14 +94,21 @@ frappe.ui.form.on("Leave Allocation", {
 							method: "allocate_leaves_manually",
 							doc: frm.doc,
 							args: { new_leaves, from_date },
-							callback: function () {
-								frm.reload_doc();
+							callback: function (r) {
+								if (!r.exc) {
+									dialog.hide();
+									frm.reload_doc();
+								}
 							},
 						});
-						dialog.hide();
 					},
 				});
 				dialog.fields_dict.new_leaves.set_value(monthly_earned_leave);
+				dialog.fields_dict.from_date.datepicker?.update({
+					minDate: frappe.datetime.str_to_obj(frm.doc.from_date),
+					maxDate: frappe.datetime.str_to_obj(frm.doc.to_date),
+				});
+
 				dialog.show();
 			},
 			__("Actions"),

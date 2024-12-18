@@ -315,6 +315,14 @@ class LeaveAllocation(Document):
 
 	@frappe.whitelist()
 	def allocate_leaves_manually(self, new_leaves, from_date=None):
+		if from_date and not (getdate(self.from_date) <= getdate(from_date) <= getdate(self.to_date)):
+			frappe.throw(
+				_("Cannot allocate leaves outside the allocation period {0} - {1}").format(
+					frappe.bold(formatdate(self.from_date)), frappe.bold(formatdate(self.to_date))
+				),
+				title=_("Invalid Dates"),
+			)
+
 		new_allocation = flt(self.total_leaves_allocated) + flt(new_leaves)
 		new_allocation_without_cf = flt(
 			flt(self.get_existing_leave_count()) + flt(new_leaves),
