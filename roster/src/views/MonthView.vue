@@ -4,7 +4,7 @@
 			<FeatherIcon name="calendar" class="h-7 w-7 text-gray-500 mr-2.5" />
 			<span class="font-semibold text-2xl text-gray-500 mr-2">Roster:</span>
 			<span class="font-semibold text-2xl">Month View</span>
-			<div class="ml-auto space-x-2">
+			<div class="ml-auto space-x-2.5">
 				<Dropdown
 					:options="VIEW_OPTIONS"
 					:button="{

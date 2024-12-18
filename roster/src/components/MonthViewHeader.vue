@@ -10,7 +10,7 @@
 		</div>
 
 		<!-- Filters -->
-		<div class="ml-auto space-x-2 flex">
+		<div class="ml-auto space-x-2.5 flex">
 			<div v-for="[key, value] of Object.entries(filters)" :key="key" class="w-40">
 				<FormControl
 					type="autocomplete"
