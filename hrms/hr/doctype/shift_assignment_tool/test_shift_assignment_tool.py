@@ -2,11 +2,7 @@
 # See license.txt
 
 import frappe
-<<<<<<< HEAD
-from frappe.tests.utils import FrappeTestCase
-=======
 from frappe.tests import IntegrationTestCase, change_settings
->>>>>>> 8664900e (test(Shift Assignment Tool): fix tests)
 from frappe.utils import add_days, getdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
@@ -18,7 +14,7 @@ from hrms.hr.doctype.shift_type.test_shift_type import make_shift_assignment, se
 from hrms.tests.test_utils import create_company
 
 
-class TestShiftAssignmentTool(FrappeTestCase):
+class TestShiftAssignmentTool(IntegrationTestCase):
 	def setUp(self):
 		create_company()
 		create_company("_Test Company2")

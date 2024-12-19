@@ -138,11 +138,7 @@
  ],
  "is_submittable": 1,
  "links": [],
-<<<<<<< HEAD
- "modified": "2024-07-04 14:30:40.840689",
-=======
  "modified": "2024-11-13 12:59:50.928962",
->>>>>>> 3d7af36b (refactor: creation of Shift Schedule Assignment)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Assignment",

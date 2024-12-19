@@ -231,11 +231,7 @@
    "type": "Link"
   }
  ],
-<<<<<<< HEAD
- "modified": "2024-08-07 14:42:16.893494",
-=======
  "modified": "2024-12-10 17:51:08.275060",
->>>>>>> 81bb3ba3 (chore: remove redundant Shift Assignment Schedule doctype)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift & Attendance",
