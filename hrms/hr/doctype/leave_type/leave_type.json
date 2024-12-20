@@ -235,15 +235,7 @@
  "icon": "fa fa-flag",
  "idx": 1,
  "links": [],
-<<<<<<< HEAD
-<<<<<<< HEAD
- "modified": "2023-10-23 15:34:04.281308",
-=======
- "modified": "2024-12-18 19:45:53.190981",
->>>>>>> e5e17139 (fix(Leave Type): Change label - Applicable After (Working Days) to Allow Leave Application After (Working Days))
-=======
  "modified": "2024-12-18 19:51:44.162375",
->>>>>>> 11572906 (fix: Change label - Maximum Leave Allocation Allowed to Maximum Leave Allocation Allowed per Leave Period)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Type",
