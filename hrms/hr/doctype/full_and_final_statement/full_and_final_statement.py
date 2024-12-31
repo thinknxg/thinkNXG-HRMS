@@ -8,17 +8,6 @@ from frappe.utils import flt, get_link_to_form, today
 
 
 class FullandFinalStatement(Document):
-	def on_change(self):
-		for payable in self.payables:
-			if payable.component == "Gratuity":
-				if frappe.db.exists("Gratuity", payable.reference_document):
-					gratuity = frappe.get_doc("Gratuity", payable.reference_document)
-					if self.status == "Paid":
-						amount = payable.amount if self.docstatus == 1 else 0
-						gratuity.db_set("paid_amount", amount)
-					if self.docstatus == 2:
-						gratuity.set_status(cancel=True)
-
 	def before_insert(self):
 		self.get_outstanding_statements()
 
@@ -35,6 +24,7 @@ class FullandFinalStatement(Document):
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = ("GL Entry",)
+		self.set_gratuity_status()
 
 	def validate_relieving_date(self):
 		if not self.relieving_date:
@@ -259,6 +249,18 @@ class FullandFinalStatement(Document):
 		)
 		return jv
 
+	def set_gratuity_status(self):
+		for payable in self.payables:
+			if payable.component != "Gratuity":
+				continue
+			gratuity = frappe.get_doc("Gratuity", payable.reference_document)
+			amount = payable.amount if self.docstatus == 1 and self.status == "Paid" else 0
+			gratuity.db_set("paid_amount", amount)
+			if self.docstatus == 2:
+				gratuity.cancel()
+			else:
+				gratuity.set_status(update=True)
+
 
 @frappe.whitelist()
 def get_account_and_amount(ref_doctype, ref_document):
@@ -321,3 +323,4 @@ def update_full_and_final_statement_status(doc, method=None):
 			fnf = frappe.get_doc("Full and Final Statement", entry.reference_name)
 			fnf.db_set("status", status)
 			fnf.notify_update()
+			fnf.set_gratuity_status()
