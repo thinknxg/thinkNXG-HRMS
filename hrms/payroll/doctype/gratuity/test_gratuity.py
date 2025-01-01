@@ -10,6 +10,9 @@ from erpnext.setup.doctype.holiday_list.test_holiday_list import set_holiday_lis
 
 from hrms.hr.doctype.attendance.attendance import mark_attendance
 from hrms.hr.doctype.expense_claim.test_expense_claim import get_payable_account
+from hrms.hr.doctype.full_and_final_statement.full_and_final_statement import (
+	update_full_and_final_statement_status,
+)
 from hrms.payroll.doctype.gratuity.gratuity import get_last_salary_slip
 from hrms.payroll.doctype.salary_slip.test_salary_slip import (
 	make_deduction_salary_component,
@@ -202,20 +205,19 @@ class TestGratuity(FrappeTestCase):
 				"status": "Settled",
 			},
 		)
-		fnf.save()
 		fnf.create_journal_entry()
-
-		# mark fnf as paid and submit it
 		fnf.status = "Paid"
 		fnf.save()
 		fnf.submit()
 
+		fnf.set_gratuity_status()
+
 		gratuity.reload()
-		self.assertEqual(gratuity.status, "Paid")
+		self.assertEqual(gratuity.status, fnf.status)
 
 		fnf.cancel()
 		gratuity.reload()
-		self.assertEqual(gratuity.status, "Cancelled")
+		self.assertEqual(gratuity.status, "Unpaid")
 
 
 def setup_gratuity_rule(name: str) -> dict:

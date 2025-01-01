@@ -15,7 +15,7 @@ class Gratuity(AccountsController):
 		data = self.calculate_work_experience_and_amount()
 		self.current_work_experience = data["current_work_experience"]
 		self.amount = data["amount"]
-		self.set_status(update=True)
+		self.set_status()
 
 	@property
 	def gratuity_settings(self):
@@ -46,6 +46,8 @@ class Gratuity(AccountsController):
 
 		if update and self.status != status:
 			self.db_set("status", status)
+		else:
+			self.status = status
 
 	def on_submit(self):
 		if self.pay_via_salary_slip:

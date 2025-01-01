@@ -256,10 +256,7 @@ class FullandFinalStatement(Document):
 			gratuity = frappe.get_doc("Gratuity", payable.reference_document)
 			amount = payable.amount if self.docstatus == 1 and self.status == "Paid" else 0
 			gratuity.db_set("paid_amount", amount)
-			if self.docstatus == 2:
-				gratuity.cancel()
-			else:
-				gratuity.set_status(update=True)
+			gratuity.set_status(update=True)
 
 
 @frappe.whitelist()
