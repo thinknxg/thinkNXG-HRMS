@@ -2,13 +2,8 @@
 # See license.txt
 
 import frappe
-<<<<<<< HEAD
-from frappe.tests.utils import FrappeTestCase
-from frappe.utils import get_first_day, get_year_start, getdate
-=======
-from frappe.tests import IntegrationTestCase
+from frappe.tests import FrappeTestCase
 from frappe.utils import getdate
->>>>>>> 689e9d83 (test(refactor): use consistent dates in all salary withholding tests)
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
