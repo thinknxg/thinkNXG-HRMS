@@ -5,6 +5,7 @@ import calendar
 import random
 
 import frappe
+from frappe.core.doctype.user_permission.test_user_permission import create_user
 from frappe.model.document import Document
 from frappe.tests.utils import FrappeTestCase, change_settings
 from frappe.utils import (
@@ -2168,6 +2169,8 @@ def make_leave_application(
 	half_day_date=None,
 	submit=True,
 ):
+	create_user("test@example.com")
+
 	leave_application = frappe.get_doc(
 		dict(
 			doctype="Leave Application",

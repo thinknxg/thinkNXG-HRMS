@@ -48,6 +48,7 @@ class TestLeaveLedger(FrappeTestCase):
 		# create leave type
 		self.earned_leave = "Test Earned Leave"
 		self.casual_leave = "_Test Leave Type"
+		create_leave_type(leave_type=self.casual_leave)
 
 		self.create_earned_leave_allocation()
 		self.create_casual_leave_allocation()
