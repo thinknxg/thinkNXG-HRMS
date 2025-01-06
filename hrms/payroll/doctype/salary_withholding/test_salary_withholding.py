@@ -2,7 +2,7 @@
 # See license.txt
 
 import frappe
-from frappe.tests import FrappeTestCase
+from frappe.tests.utils import FrappeTestCase
 from frappe.utils import getdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
