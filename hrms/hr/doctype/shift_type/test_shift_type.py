@@ -612,6 +612,24 @@ class TestShiftType(FrappeTestCase):
 		self.assertEqual(log_in.skip_auto_attendance, 1)
 		self.assertEqual(log_out.skip_auto_attendance, 1)
 
+	def test_mark_aattendance_for_default_shift_when_shift_assignment_is_not_overlapping(self):
+		shift_1 = setup_shift_type(shift_type="Deafult Shift", start_time="08:00:00", end_time="12:00:00")
+		shift_2 = setup_shift_type(shift_type="Not Default Shift", start_time="10:00:00", end_time="18:00:00")
+		employee = make_employee(
+			"test_employee_attendance@example.com", company="_Test Company", default_shift=shift_1.name
+		)
+		shift_assigned_date = add_days(getdate(), +1)
+		make_shift_assignment(shift_2.name, employee, shift_assigned_date)
+		shift_1.process_auto_attendance()
+		self.assertEqual(
+			frappe.db.get_value(
+				"Attendance",
+				{"employee": employee, "attendance_date": add_days(getdate(), -1), "shift": shift_1.name},
+				"status",
+			),
+			"Absent",
+		)
+
 
 def setup_shift_type(**args):
 	args = frappe._dict(args)
@@ -671,3 +689,8 @@ def make_shift_assignment(
 		shift_assignment.submit()
 
 	return shift_assignment
+
+
+def clear_exsiting_shift_assignments(employee):
+	for shift in frappe.get_all("Shift Assignment", filters={"employee": employee}):
+		frappe.delete_doc("Shift Assignment", shift.name)
