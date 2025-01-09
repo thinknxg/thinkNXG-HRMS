@@ -35,6 +35,10 @@ frappe.ui.form.on("Full and Final Statement", {
 					filters["is_group"] = 0;
 				}
 
+				if (frappe.model.is_submittable(fnf_doc.reference_document_type)) {
+					filters["docstatus"] = ["!=", 2];
+				}
+
 				if (frappe.meta.has_field(fnf_doc.reference_document_type, "company")) {
 					filters["company"] = frm.doc.company;
 				}
