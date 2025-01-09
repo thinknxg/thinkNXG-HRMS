@@ -242,6 +242,7 @@ class ShiftType(Document):
 		assigned_employees = frappe.get_all("Shift Assignment", filters=filters, pluck="employee")
 
 		if consider_default_shift:
+			filters["start_date"] = ("=", from_date)
 			default_shift_employees = self.get_employees_with_default_shift(filters)
 			assigned_employees = set(assigned_employees + default_shift_employees)
 
@@ -254,31 +255,21 @@ class ShiftType(Document):
 		default_shift_employees = frappe.get_all(
 			"Employee", filters={"default_shift": self.name, "status": "Active"}, pluck="name"
 		)
+
 		if not default_shift_employees:
 			return []
-		# exclude employees from default shift list if any other valid shift assignment exists such that
-		# the shift start and end dates overlap with absent dates
-		absent_employees = {}
-		for employee in default_shift_employees:
-			if absent_dates := self.get_dates_for_attendance(employee):
-				absent_employees[employee] = absent_dates
-		if not absent_employees:
-			return []
 
-		filters["employee"] = ("in", absent_employees.keys())
+		# exclude employees from default shift list if any other valid shift assignment exists
 		del filters["shift_type"]
-		active_shift_assignments = frappe.get_all(
-			"Shift Assignment", filters=filters, fields=["employee", "start_date", "end_date"]
-		)
-		for shift in active_shift_assignments:
-			if self.is_overlap_between_dates(shift, absent_employees.get(shift.employee)):
-				default_shift_employees.remove(shift.employee)
-		return default_shift_employees
+		filters["employee"] = ("in", default_shift_employees)
 
-	def is_overlap_between_dates(self, shift, absent_dates):
-		return max(shift.start_date, absent_dates[0]) < (
-			min(shift.end_date, absent_dates[-1]) if shift.end_date else absent_dates[-1]
+		active_shift_assignments = frappe.get_all(
+			"Shift Assignment",
+			filters=filters,
+			pluck="employee",
 		)
+
+		return list(set(default_shift_employees) - set(active_shift_assignments))
 
 	def get_holiday_list(self, employee: str) -> str:
 		holiday_list_name = self.holiday_list or get_holiday_list_for_employee(employee, False)
