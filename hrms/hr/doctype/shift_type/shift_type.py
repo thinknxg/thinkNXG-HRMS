@@ -254,23 +254,24 @@ class ShiftType(Document):
 		default_shift_employees = frappe.get_all(
 			"Employee", filters={"default_shift": self.name, "status": "Active"}, pluck="name"
 		)
-
 		if not default_shift_employees:
 			return []
-
 		# exclude employees from default shift list if any other valid shift assignment exists such that
 		# the shift start and end dates overlap with absent dates
 		absent_employees = {}
 		for employee in default_shift_employees:
 			if absent_dates := self.get_dates_for_attendance(employee):
 				absent_employees[employee] = absent_dates
-		del filters["shift_type"]
+		if not absent_employees:
+			return []
+
 		filters["employee"] = ("in", absent_employees.keys())
+		del filters["shift_type"]
 		active_shift_assignments = frappe.get_all(
 			"Shift Assignment", filters=filters, fields=["employee", "start_date", "end_date"]
 		)
 		for shift in active_shift_assignments:
-			if self.is_overlap_between_dates(shift, absent_employees[shift.employee]):
+			if self.is_overlap_between_dates(shift, absent_employees.get(shift.employee)):
 				default_shift_employees.remove(shift.employee)
 		return default_shift_employees
 
