@@ -24,7 +24,6 @@ class FullandFinalStatement(Document):
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = ("GL Entry",)
-		self.set_gratuity_status()
 
 	def validate_relieving_date(self):
 		if not self.relieving_date:
