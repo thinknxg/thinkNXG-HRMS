@@ -242,8 +242,7 @@ class ShiftType(Document):
 		assigned_employees = frappe.get_all("Shift Assignment", filters=filters, pluck="employee")
 
 		if consider_default_shift:
-			filters["start_date"] = ("=", from_date)
-			default_shift_employees = self.get_employees_with_default_shift(filters)
+			default_shift_employees = self.get_employees_with_default_shift(filters, from_date)
 			assigned_employees = set(assigned_employees + default_shift_employees)
 
 		# exclude inactive employees
@@ -251,7 +250,8 @@ class ShiftType(Document):
 
 		return list(set(assigned_employees) - set(inactive_employees))
 
-	def get_employees_with_default_shift(self, filters: dict) -> list:
+	def get_employees_with_default_shift(self, filters: dict, from_date) -> list:
+		filters["start_date"] = ("<=", from_date)
 		default_shift_employees = frappe.get_all(
 			"Employee", filters={"default_shift": self.name, "status": "Active"}, pluck="name"
 		)
@@ -260,6 +260,7 @@ class ShiftType(Document):
 			return []
 
 		# exclude employees from default shift list if any other valid shift assignment exists
+		# that starts before the attendance processing date
 		del filters["shift_type"]
 		filters["employee"] = ("in", default_shift_employees)
 
