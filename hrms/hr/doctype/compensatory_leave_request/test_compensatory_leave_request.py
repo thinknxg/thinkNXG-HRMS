@@ -3,11 +3,7 @@
 
 import frappe
 from frappe.tests.utils import FrappeTestCase
-<<<<<<< HEAD
-from frappe.utils import add_days, add_months, today
-=======
 from frappe.utils import add_days, add_months, getdate, today
->>>>>>> f20c15bb (test(Comp Leave): correct allocation update in case of multiple allocations in leave periods)
 
 from hrms.hr.doctype.attendance_request.test_attendance_request import get_employee
 from hrms.hr.doctype.leave_allocation.test_leave_allocation import create_leave_allocation
@@ -16,10 +12,6 @@ from hrms.hr.doctype.leave_period.test_leave_period import create_leave_period
 from hrms.tests.test_utils import add_date_to_holiday_list
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f20c15bb (test(Comp Leave): correct allocation update in case of multiple allocations in leave periods)
 class TestCompensatoryLeaveRequest(FrappeTestCase):
 	def setUp(self):
 		frappe.db.delete("Compensatory Leave Request")
