@@ -89,11 +89,13 @@ class ExpenseClaim(AccountsController, PWANotificationsMixin):
 			self.status = status
 
 	def validate_company_and_department(self):
-		if self.department and self.company != frappe.db.get_value("Department", self.department, "company"):
-			frappe.throw(
-				_("Department {0} does not belong to company: {1}").format(self.department, self.company),
-				exc=MismatchError,
-			)
+		if self.department:
+			company = frappe.db.get_value("Department", self.department, "company")
+			if company and self.company != company:
+				frappe.throw(
+					_("Department {0} does not belong to company: {1}").format(self.department, self.company),
+					exc=MismatchError,
+				)
 
 	def on_update(self):
 		share_doc_with_approver(self, self.expense_approver)
