@@ -259,3 +259,91 @@ class TestLeaveEncashment(FrappeTestCase):
 		frappe.db.delete("Additional Salary", {"ref_docname": leave_encashment.name})
 		leave_encashment.cancel()
 		self.assertFalse(frappe.db.exists("Leave Ledger Entry", {"transaction_name": leave_encashment.name}))
+
+	@set_holiday_list("_Test Leave Encashment", "_Test Company")
+	def test_creation_of_leave_ledger_entry_after_leave_period_expiry(self):
+		frappe.db.delete("Leave Period", {"name": self.leave_period.name})
+		# create new leave period that has end date of yesterday
+		start_date = add_days(getdate(), -30)
+		end_date = add_days(getdate(), -1)
+		self.leave_period = create_leave_period(start_date, end_date, "_Test Company")
+
+		# case 1: leave type carry forwards
+		frappe.db.set_value(
+			"Leave Type",
+			self.leave_type,
+			{
+				"is_carry_forward": 1,
+			},
+		)
+
+		leave_policy = frappe.get_value("Leave Policy", {"title": "Test Leave Policy"}, "name")
+		data = {
+			"assignment_based_on": "Leave Period",
+			"leave_policy": leave_policy,
+			"leave_period": self.leave_period.name,
+		}
+		employee = make_employee("test_employee2_encashment@example.com", company="_Test Company")
+		create_assignment_for_multiple_employees([employee], frappe._dict(data))
+
+		make_salary_structure(
+			"Salary Structure for Encashment",
+			"Monthly",
+			employee,
+			other_details={"leave_encashment_amount_per_day": 50},
+		)
+
+		leave_encashment = frappe.get_doc(
+			{
+				"doctype": "Leave Encashment",
+				"employee": employee,
+				"leave_type": self.leave_type,
+				"leave_period": self.leave_period.name,
+				"encashment_date": self.leave_period.to_date,
+				"currency": "INR",
+			}
+		).insert()
+		leave_encashment.submit()
+		# check if single leave ledger entry is created of negative value
+		self.assertEqual(frappe.get_value("Leave Type", self.leave_type, "is_carry_forward"), 1)
+		leave_ledger_entry = frappe.get_all(
+			"Leave Ledger Entry", fields="*", filters={"transaction_name": leave_encashment.name}
+		)
+		self.assertEqual(len(leave_ledger_entry), 1)
+		self.assertEqual(leave_ledger_entry[0].leaves, leave_encashment.encashment_days * -1)
+
+		# case 2: leave type does not carry forward
+		# cancel previous encashment
+		frappe.db.delete("Additional Salary", {"ref_docname": leave_encashment.name})
+		leave_encashment.cancel()
+		# set leave type to not carry forward
+		frappe.db.set_value(
+			"Leave Type",
+			self.leave_type,
+			{
+				"is_carry_forward": 0,
+			},
+		)
+		# create leave encashment
+		new_leave_encashment = frappe.get_doc(
+			{
+				"doctype": "Leave Encashment",
+				"employee": employee,
+				"leave_type": self.leave_type,
+				"leave_period": self.leave_period.name,
+				"encashment_date": self.leave_period.to_date,
+				"currency": "INR",
+			}
+		).insert()
+		new_leave_encashment.submit()
+		# check if two leave ledger entries are created
+		self.assertEqual(frappe.get_value("Leave Type", self.leave_type, "is_carry_forward"), 0)
+		leave_ledger_entry = frappe.get_all(
+			"Leave Ledger Entry",
+			fields="*",
+			filters={"transaction_name": new_leave_encashment.name},
+			order_by="leaves",
+		)
+		self.assertEqual(len(leave_ledger_entry), 2)
+		self.assertEqual(leave_ledger_entry[0].leaves, new_leave_encashment.encashment_days * -1)
+		self.assertEqual(leave_ledger_entry[1].leaves, new_leave_encashment.encashment_days * 1)
