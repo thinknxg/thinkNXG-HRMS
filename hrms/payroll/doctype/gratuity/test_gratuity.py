@@ -205,17 +205,13 @@ class TestGratuity(FrappeTestCase):
 				"status": "Settled",
 			},
 		)
-		fnf.create_journal_entry()
-		fnf.status = "Paid"
-		fnf.save()
 		fnf.submit()
-
-		fnf.set_gratuity_status()
-
+		jv = fnf.create_journal_entry()
+		jv.submit()
 		gratuity.reload()
-		self.assertEqual(gratuity.status, fnf.status)
+		self.assertEqual(gratuity.status, "Paid")
 
-		fnf.cancel()
+		jv.cancel()
 		gratuity.reload()
 		self.assertEqual(gratuity.status, "Unpaid")
 
