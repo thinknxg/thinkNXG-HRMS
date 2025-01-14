@@ -44,7 +44,7 @@ class Gratuity(AccountsController):
 			else:
 				status = "Unpaid"
 
-		if update:
+		if update and self.status != status:
 			self.db_set("status", status)
 		else:
 			self.status = status
