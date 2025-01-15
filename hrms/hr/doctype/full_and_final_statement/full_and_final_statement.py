@@ -6,6 +6,8 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt, get_link_to_form, today
 
+from hrms.hr.doctype.full_and_final_statement.full_and_final_statement_loan_utils import process_loan_accrual
+
 
 class FullandFinalStatement(Document):
 	def before_insert(self):
@@ -21,6 +23,9 @@ class FullandFinalStatement(Document):
 		self.validate_settlement("payables")
 		self.validate_settlement("receivables")
 		self.validate_assets()
+
+	def on_submit(self):
+		process_loan_accrual(self)
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = ("GL Entry",)
