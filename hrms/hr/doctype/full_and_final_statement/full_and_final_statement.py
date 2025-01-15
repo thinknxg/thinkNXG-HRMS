@@ -31,7 +31,7 @@ class FullandFinalStatement(Document):
 		process_loan_accrual(self)
 
 	def on_cancel(self):
-		self.ignore_linked_doctypes = "GL Entry"
+		self.ignore_linked_doctypes = ("GL Entry",)
 		cancel_loan_repayment(self)
 
 	def validate_relieving_date(self):
