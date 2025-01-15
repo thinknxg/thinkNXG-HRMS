@@ -30,8 +30,6 @@ def process_loan_accrual(doc: "FullandFinalStatement"):
 
 		loan_receivables.append(receivable.reference_document)
 
-	loan_receivables = list(set(loan_receivables))
-
 	for loan in loan_receivables:
 		loan_doc = frappe.get_doc("Loan", loan)
 		loan_repayment_schedule = frappe.get_doc("Loan Repayment Schedule", {"loan": loan, "docstatus": 1})
@@ -76,3 +74,29 @@ def process_loan_accrual(doc: "FullandFinalStatement"):
 
 			repayment_entry.save()
 			repayment_entry.submit()
+
+
+@if_lending_app_installed
+def cancel_loan_repayment(doc: "FullandFinalStatement"):
+	loan_receivables = []
+	for receivable in doc.receivables:
+		if receivable.component != "Loan":
+			continue
+
+		loan_receivables.append(receivable.reference_document)
+
+	# loan_receivables = list(set(loan_receivables))
+	for loan in loan_receivables:
+		posting_date = frappe.utils.getdate(doc.transaction_date)
+		loan_repayment = frappe.get_doc(
+			"Loan Repayment", {"against_loan": loan, "docstatus": 1, "posting_date": posting_date}
+		)
+
+		if loan_repayment:
+			loan_repayment.cancel()
+
+		loan_interest_accruals = frappe.get_all(
+			"Loan Interest Accrual", filters={"loan": loan, "docstatus": 1, "posting_date": posting_date}
+		)
+		for accrual in loan_interest_accruals:
+			frappe.get_doc("Loan Interest Accrual", accrual.name).cancel()
