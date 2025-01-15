@@ -85,7 +85,6 @@ def cancel_loan_repayment(doc: "FullandFinalStatement"):
 
 		loan_receivables.append(receivable.reference_document)
 
-	# loan_receivables = list(set(loan_receivables))
 	for loan in loan_receivables:
 		posting_date = frappe.utils.getdate(doc.transaction_date)
 		loan_repayment = frappe.get_doc(
