@@ -195,11 +195,7 @@
  "idx": 1,
  "index_web_pages_for_search": 1,
  "links": [],
-<<<<<<< HEAD
- "modified": "2023-09-14 17:03:48.838409",
-=======
  "modified": "2025-01-16 13:06:05.312255",
->>>>>>> 09eed053 (fix: fetch designation in job applicant from job opening)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Job Applicant",
