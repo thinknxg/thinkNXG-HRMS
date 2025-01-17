@@ -205,15 +205,7 @@ class LeaveEncashment(Document):
 
 		to_date = leave_allocation.get("to_date")
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 		can_expire = not frappe.db.get_value("Leave Type", self.leave_type, "is_carry_forward")
-=======
-		can_expire = not frappe.db.get_value("Leave Type",self.leave_type,"is_carry_forward")
->>>>>>> acd618f8 (fix: create single leave ledger entry for encashment if leave is carry forward type.)
-=======
-		can_expire = not frappe.db.get_value("Leave Type", self.leave_type, "is_carry_forward")
->>>>>>> de06a25a (chore: fixed linter issue)
 		if to_date < getdate() and can_expire:
 			args = frappe._dict(
 				leaves=self.encashment_days, from_date=to_date, to_date=to_date, is_carry_forward=0
