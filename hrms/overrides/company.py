@@ -150,3 +150,61 @@ def get_company_data_to_be_ignored():
 			"Job Offer Term Template",
 		]
 	return []
+
+
+def unset_company_field(doc, method=None):
+	unset_company_field_for_single_doctype(doc)
+	unset_company_field_for_non_single_doctype(doc)
+
+
+def unset_company_field_for_single_doctype(doc):
+	for doctype in get_single_doctypes_with_company_field():
+		fields = frappe.get_meta(doctype).fields
+		if any(field.fieldname == "company" for field in fields):
+			frappe.db.sql(
+				"""
+                UPDATE `tabSingles`
+                SET value = ''
+                WHERE doctype = %s AND field = 'company' AND value = %s
+                """,
+				(doctype, doc.name),
+			)
+
+
+def unset_company_field_for_non_single_doctype(doc):
+	for doctype in get_company_data_to_be_ignored():
+		company_field = frappe.get_all(
+			"DocField",
+			filters={"parent": doctype, "fieldtype": "Link", "options": "Company"},
+			fields=["fieldname"],
+		)
+		if company_field:
+			frappe.db.sql(
+				f"""
+                UPDATE `tab{doctype}`
+                SET company = ''
+                WHERE company = %s
+                """,
+				(doc.name,),
+			)
+
+
+def get_single_doctypes_with_company_field():
+	DocType = frappe.qb.DocType("DocType")
+	DocField = frappe.qb.DocType("DocField")
+
+	return (
+		frappe.qb.from_(DocField)
+		.select(DocField.parent)
+		.where(
+			(DocField.fieldtype == "Link")
+			& (DocField.options == "Company")
+			& (
+				DocField.parent.isin(
+					frappe.qb.from_(DocType)
+					.select(DocType.name)
+					.where((DocType.issingle == 1) & (DocType.module.isin(["HR", "Payroll"])))
+				)
+			)
+		)
+	).run(pluck="name")
