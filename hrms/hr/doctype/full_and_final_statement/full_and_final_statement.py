@@ -259,7 +259,7 @@ class FullandFinalStatement(Document):
 
 
 @frappe.whitelist()
-def get_account_and_amount(ref_doctype, ref_document):
+def get_account_and_amount(ref_doctype, ref_document, company):
 	if not ref_doctype or not ref_document:
 		return None
 
@@ -308,6 +308,11 @@ def get_account_and_amount(ref_doctype, ref_document):
 		payment_account = details.advance_account
 		amount = details.paid_amount - (details.claimed_amount + details.return_amount)
 		return [payment_account, amount]
+
+	if ref_doctype == "Leave Encashment":
+		amount = frappe.db.get_value("Leave Encashment", ref_document, "encashment_amount")
+		payable_account = frappe.get_cached_value("Company", company, "default_payroll_payable_account")
+		return [payable_account, amount]
 
 
 def update_full_and_final_statement_status(doc, method=None):
