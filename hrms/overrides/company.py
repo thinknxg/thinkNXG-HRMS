@@ -134,24 +134,6 @@ def validate_default_accounts(doc, method=None):
 			)
 
 
-def get_company_data_to_be_ignored():
-	if "erpnext" in frappe.get_installed_apps():
-		return [
-			"Salary Component Account",
-			"Salary Structure",
-			"Salary Structure Assignment",
-			"Payroll Period",
-			"Income Tax Slab",
-			"Leave Policy",
-			"Leave Period",
-			"Leave Policy Assignment",
-			"Employee Onboarding Template",
-			"Employee Separation Template",
-			"Job Offer Term Template",
-		]
-	return []
-
-
 def unset_company_field(doc, method=None):
 	unset_company_field_for_single_doctype(doc)
 	unset_company_field_for_non_single_doctype(doc)
@@ -172,7 +154,8 @@ def unset_company_field_for_single_doctype(doc):
 
 
 def unset_company_field_for_non_single_doctype(doc):
-	for doctype in get_company_data_to_be_ignored():
+	company_data_to_be_ignored = frappe.get_hooks("company_data_to_be_ignored") or []
+	for doctype in company_data_to_be_ignored:
 		company_field = frappe.get_all(
 			"DocField",
 			filters={"parent": doctype, "fieldtype": "Link", "options": "Company"},
