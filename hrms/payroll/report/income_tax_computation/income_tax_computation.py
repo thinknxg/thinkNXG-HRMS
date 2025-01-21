@@ -388,7 +388,7 @@ class IncomeTaxComputationReport:
 			)
 		)
 
-		for emp, emp_details in self.employees.items():
+		for emp_details in self.employees.values():
 			income_tax_slab = emp_details.get("income_tax_slab")
 			standard_exemption = standard_exemptions_per_slab.get(income_tax_slab, 0)
 			emp_details["standard_tax_exemption"] = standard_exemption
