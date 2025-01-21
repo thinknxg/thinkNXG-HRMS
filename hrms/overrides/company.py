@@ -134,60 +134,20 @@ def validate_default_accounts(doc, method=None):
 			)
 
 
-def unset_company_field(doc, method=None):
-	unset_company_field_for_single_doctype(doc)
-	unset_company_field_for_non_single_doctype(doc)
-
-
-def unset_company_field_for_single_doctype(doc):
-	for doctype in get_single_doctypes_with_company_field():
-		fields = frappe.get_meta(doctype).fields
-		if any(field.fieldname == "company" for field in fields):
-			frappe.db.sql(
-				"""
-                UPDATE `tabSingles`
-                SET value = ''
-                WHERE doctype = %s AND field = 'company' AND value = %s
-                """,
-				(doctype, doc.name),
-			)
-
-
-def unset_company_field_for_non_single_doctype(doc):
+def clear_company_field_in_linked_docs(doc, method=None):
 	company_data_to_be_ignored = frappe.get_hooks("company_data_to_be_ignored") or []
 	for doctype in company_data_to_be_ignored:
-		company_field = frappe.get_all(
+		# get field in the doctype linked to Company
+		company_field = frappe.db.get_value(
 			"DocField",
-			filters={"parent": doctype, "fieldtype": "Link", "options": "Company"},
-			fields=["fieldname"],
+			{"parent": doctype, "fieldtype": "Link", "options": "Company"},
+			"fieldname",
 		)
+
 		if company_field:
-			frappe.db.sql(
-				f"""
-                UPDATE `tab{doctype}`
-                SET company = ''
-                WHERE company = %s
-                """,
-				(doc.name,),
-			)
-
-
-def get_single_doctypes_with_company_field():
-	DocType = frappe.qb.DocType("DocType")
-	DocField = frappe.qb.DocType("DocField")
-
-	return (
-		frappe.qb.from_(DocField)
-		.select(DocField.parent)
-		.where(
-			(DocField.fieldtype == "Link")
-			& (DocField.options == "Company")
-			& (
-				DocField.parent.isin(
-					frappe.qb.from_(DocType)
-					.select(DocType.name)
-					.where((DocType.issingle == 1) & (DocType.module.isin(["HR", "Payroll"])))
-				)
-			)
-		)
-	).run(pluck="name")
+			doctype_table = frappe.qb.DocType(doctype)
+			(
+				frappe.qb.update(doctype_table)
+				.set(doctype_table[company_field], "")
+				.where(doctype_table[company_field] == doc.name)
+			).run()
