@@ -233,7 +233,7 @@ class ShiftType(Document):
 			)
 		).run(pluck=True)
 
-	def get_assigned_employees(self, from_date=None, consider_default_shift=False) -> list[str]:
+	def get_assigned_employees(self, from_date: datetime.date, consider_default_shift=False) -> list[str]:
 		"""Get all such employees who either have this shift assigned that hasn't ended or have this shift as default shift.
 		This may fetch some redundant employees who have another shift assigned that may have started or ended before or after the
 		attendance processing date. But this is done to avoid missing any employee who may have this shift as active shift."""
