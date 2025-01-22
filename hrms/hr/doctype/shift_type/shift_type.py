@@ -239,7 +239,7 @@ class ShiftType(Document):
 		attendance processing date. But this is done to avoid missing any employee who may have this shift as active shift."""
 		filters = {"shift_type": self.name, "docstatus": "1", "status": "Active"}
 		if from_date:
-			or_filters = [["end_date", ">=", from_date], ["end_date", "in", ("", None)]]
+			or_filters = [["end_date", ">=", from_date], ["end_date", "is", "not set"]]
 
 		assigned_employees = frappe.get_all(
 			"Shift Assignment", filters=filters, or_filters=or_filters, pluck="employee"

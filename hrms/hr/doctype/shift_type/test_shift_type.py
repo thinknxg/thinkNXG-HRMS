@@ -347,28 +347,83 @@ class TestShiftType(FrappeTestCase):
 			shift_type="Test Absent with no Attendance",
 			start_time="15:00:00",
 			end_time="23:30:00",
-			process_attendance_after=add_days(today, -6),
+			process_attendance_after=add_days(today, -8),
 			allow_check_out_after_shift_end_time=120,
 			last_sync_of_checkin=f"{today} 15:00:00",
 		)
 		# single day assignment
-		date1 = add_days(today, -5)
+		date1 = add_days(today, -7)
 		make_shift_assignment(shift_type.name, employee, date1, date1)
 
-		# assignment without end date
-		date2 = add_days(today, -4)
+		# assignment after a gap
+		date2 = add_days(today, -5)
 		make_shift_assignment(shift_type.name, employee, date2, date2)
+
+		# assignment without end date
+		date3 = add_days(today, -3)
+		make_shift_assignment(shift_type.name, employee, date3)
 
 		shift_type.process_auto_attendance()
 		absent_records = frappe.get_all(
 			"Attendance",
-			{
+			fields=["name", "employee", "attendance_date", "status", "shift"],
+			filters={
 				"attendance_date": ["between", [date1, today]],
 				"employee": employee,
 				"status": "Absent",
 			},
 		)
-		self.assertEqual(len(absent_records), 2)
+
+		self.assertEqual(len(absent_records), 5)
+		# absent for first assignment
+		self.assertEqual(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": date1, "shift": shift_type.name, "employee": employee},
+				"status",
+			),
+			"Absent",
+		)
+		# no attendance for day after first assignment
+		self.assertIsNone(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": add_days(date1, 1), "shift": shift_type.name, "employee": employee},
+			)
+		)
+		# absent for second assignment
+		self.assertEqual(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": date2, "shift": shift_type.name, "employee": employee},
+				"status",
+			),
+			"Absent",
+		)
+		# no attendance for day after second assignment
+		self.assertIsNone(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": add_days(date2, 1), "shift": shift_type.name, "employee": employee},
+			)
+		)
+		# absent for third assignment
+		self.assertEqual(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": date3, "shift": shift_type.name, "employee": employee},
+				"status",
+			),
+			"Absent",
+		)
+		self.assertEqual(
+			frappe.db.get_value(
+				"Attendance",
+				{"attendance_date": add_days(date3, 1), "shift": shift_type.name, "employee": employee},
+				"status",
+			),
+			"Absent",
+		)
 
 	def test_do_not_mark_absent_before_shift_actual_end_time(self):
 		from hrms.hr.doctype.employee_checkin.test_employee_checkin import make_checkin
