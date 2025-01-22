@@ -235,7 +235,7 @@ class ShiftType(Document):
 
 	def get_assigned_employees(self, from_date=None, consider_default_shift=False) -> list[str]:
 		"""Get all such employees who either have this shift assigned that hasn't ended or have this shift as default shift.
-		This may fetch some unnecessary employees who have another shift assigned that may have started or ended befor or after the
+		This may fetch some redundant employees who have another shift assigned that may have started or ended before or after the
 		attendance processing date. But this is done to avoid missing any employee who may have this shift as active shift."""
 		filters = {"shift_type": self.name, "docstatus": "1", "status": "Active"}
 		if from_date:
