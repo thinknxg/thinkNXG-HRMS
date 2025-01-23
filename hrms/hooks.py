@@ -168,7 +168,7 @@ doc_events = {
 			"hrms.overrides.company.make_company_fixtures",
 			"hrms.overrides.company.set_default_hr_accounts",
 		],
-		"on_trash": "hrms.overrides.company.clear_company_field_in_linked_docs",
+		"on_trash": "hrms.overrides.company.handle_linked_docs",
 	},
 	"Holiday List": {
 		"on_update": "hrms.utils.holiday_list.invalidate_cache",

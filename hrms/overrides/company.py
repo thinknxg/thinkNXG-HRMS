@@ -134,20 +134,53 @@ def validate_default_accounts(doc, method=None):
 			)
 
 
-def clear_company_field_in_linked_docs(doc, method=None):
+def handle_linked_docs(doc, method=None):
+	delete_docs_with_company_field(doc)
+	clear_company_field_for_single_doctypes(doc)
+
+
+def delete_docs_with_company_field(doc, method=None):
+	"""
+	Deletes records from linked doctypes where the 'company' field matches the company's name
+	"""
 	company_data_to_be_ignored = frappe.get_hooks("company_data_to_be_ignored") or []
 	for doctype in company_data_to_be_ignored:
-		# get field in the doctype linked to Company
-		company_field = frappe.db.get_value(
-			"DocField",
-			{"parent": doctype, "fieldtype": "Link", "options": "Company"},
-			"fieldname",
-		)
+		records_to_delete = frappe.get_all(doctype, filters={"company": doc.name}, pluck="name")
+		if records_to_delete:
+			frappe.db.delete(doctype, {"name": ["in", records_to_delete]})
 
-		if company_field:
-			doctype_table = frappe.qb.DocType(doctype)
-			(
-				frappe.qb.update(doctype_table)
-				.set(doctype_table[company_field], "")
-				.where(doctype_table[company_field] == doc.name)
-			).run()
+
+def clear_company_field_for_single_doctypes(doc):
+	"""
+	Clears the 'company' value in Single doctypes where applicable
+	"""
+	single_docs = get_single_doctypes_with_company_field()
+	singles = frappe.qb.DocType("Singles")
+	(
+		frappe.qb.update(singles)
+		.set(singles.value, "")
+		.where(singles.doctype.isin(single_docs))
+		.where(singles.field == "company")
+		.where(singles.value == doc.name)
+	).run()
+
+
+def get_single_doctypes_with_company_field():
+	DocType = frappe.qb.DocType("DocType")
+	DocField = frappe.qb.DocType("DocField")
+
+	return (
+		frappe.qb.from_(DocField)
+		.select(DocField.parent)
+		.where(
+			(DocField.fieldtype == "Link")
+			& (DocField.options == "Company")
+			& (
+				DocField.parent.isin(
+					frappe.qb.from_(DocType)
+					.select(DocType.name)
+					.where((DocType.issingle == 1) & (DocType.module.isin(["HR", "Payroll"])))
+				)
+			)
+		)
+	).run(pluck=True)
