@@ -48,6 +48,7 @@ def execute(filters=None):
 			"start_date": ss.start_date,
 			"end_date": ss.end_date,
 			"leave_without_pay": ss.leave_without_pay,
+			"absent_days": ss.absent_days,
 			"payment_days": ss.payment_days,
 			"currency": currency or company_currency,
 			"total_loan_repayment": ss.total_loan_repayment,
@@ -172,6 +173,12 @@ def get_columns(earning_types, ded_types):
 		{
 			"label": _("Leave Without Pay"),
 			"fieldname": "leave_without_pay",
+			"fieldtype": "Float",
+			"width": 50,
+		},
+		{
+			"label": _("Absent Days"),
+			"fieldname": "absent_days",
 			"fieldtype": "Float",
 			"width": 50,
 		},
