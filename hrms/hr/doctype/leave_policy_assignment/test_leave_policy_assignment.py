@@ -2,8 +2,13 @@
 # See license.txt
 
 import frappe
+<<<<<<< HEAD
 from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_months, get_first_day, get_year_ending, getdate
+=======
+from frappe.tests import IntegrationTestCase
+from frappe.utils import add_days, add_months, get_first_day, get_year_ending, get_year_start, getdate
+>>>>>>> bff9ed21 (fix: allocate earned leaves pro-rata if policy assignment is submitted after the effective period)
 
 from hrms.hr.doctype.leave_application.test_leave_application import get_employee, get_leave_period
 from hrms.hr.doctype.leave_period.test_leave_period import create_leave_period
@@ -32,6 +37,9 @@ class TestLeavePolicyAssignment(FrappeTestCase):
 		employee = get_employee()
 		self.original_doj = employee.date_of_joining
 		self.employee = employee
+
+	def tearDown(self):
+		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
 
 	def test_grant_leaves(self):
 		leave_period = get_leave_period()
@@ -208,5 +216,29 @@ class TestLeavePolicyAssignment(FrappeTestCase):
 
 		self.assertGreater(new_leaves_allocated, 0)
 
-	def tearDown(self):
-		frappe.db.set_value("Employee", self.employee.name, "date_of_joining", self.original_doj)
+	def test_earned_leave_allocation_if_leave_policy_assignment_submitted_after_period(self):
+		year_start_date = get_year_start(getdate())
+		year_end_date = get_year_ending(getdate())
+		leave_period = create_leave_period(year_start_date, year_end_date)
+
+		# assignment 10 days after the leave period
+		frappe.flags.current_date = add_days(year_end_date, 10)
+		leave_type = create_leave_type(
+			leave_type_name="_Test Earned Leave", is_earned_leave=True, allocate_on_day="Last Day"
+		)
+		annual_earned_leaves = 10
+		leave_policy = create_leave_policy(leave_type=leave_type, annual_allocation=annual_earned_leaves)
+		leave_policy.submit()
+
+		data = {
+			"assignment_based_on": "Leave Period",
+			"leave_policy": leave_policy.name,
+			"leave_period": leave_period.name,
+		}
+		assignment = create_assignment(self.employee.name, frappe._dict(data))
+		assignment.submit()
+
+		earned_leave_allocation = frappe.get_value(
+			"Leave Allocation", {"leave_policy_assignment": assignment.name}, "new_leaves_allocated"
+		)
+		self.assertEqual(earned_leave_allocation, annual_earned_leaves)
