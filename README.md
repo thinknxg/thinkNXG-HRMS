@@ -1,31 +1,16 @@
 <div align="center">
-	<a href="https://frappehr.com">
-		<img src="https://raw.githubusercontent.com/frappe/hrms/develop/hrms/public/images/frappe-hr-logo.png" height="128" alt="Frappe HR Logo">
-	</a>
-	<h2>Frappe HR</h2>
-	<p align="center">
-		<p>Open Source, modern, and easy-to-use HR and Payroll Software for all organizations</p>
-	</p>
+    <a href="https://thinknxg">
+        <img src="https://thinknxg.com/wp-content/uploads/2023/12/favicon.svg1-01.png" height="128">
+    </a>
+    <h2>thinkNXG HR</h2>
+    <p align="center">
+        <p>hrms made simple</p>
+    </p>
 
-[![CI](https://github.com/frappe/hrms/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/frappe/hrms/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/frappe/hrms/branch/develop/graph/badge.svg?token=0TwvyUg3I5)](https://codecov.io/gh/frappe/hrms)
-
-[https://frappehr.com](https://frappehr.com)
-
-<div align="center" style="max-height: 40px;">
-	<a href="https://frappecloud.com/hrms/signup">
-		<img src=".github/try-on-f-cloud-button.svg" height="40">
-	</a>
-</div>
 
 </div>
 
-## Introduction
-
-Frappe HR has everything you need to drive excellence within the company. It's a complete HRMS solution with over 13 different modules right from Employee Management, Onboarding, Leaves, to Payroll, Taxation, and more!
-
-![HRMS](hrms.png)
-
+thinkNXG HR has everything you need to drive excellence within the company. It's a complete HRMS solution with over 13 different modules right from Employee Management, Onboarding, Leaves, to Payroll, Taxation, and more!
 ## Key Features
 
 - Employee Management
@@ -42,36 +27,13 @@ Frappe HR has everything you need to drive excellence within the company. It's a
 - Compensation
 - Analytics
 
-## Installation
-
-### Manual Installation
-
-1. [Install bench](https://github.com/frappe/bench).
-2. [Install ERPNext](https://github.com/frappe/erpnext#installation).
-3. Once ERPNext is installed, add the hrms app to your bench by running
-
-	```sh
-	$ bench get-app hrms
-	```
-4. After that, you can install the hrms app on the required site by running
-	```sh
-	$ bench --site sitename install-app hrms
-	```
-
-
-## Learning and Community
-
-1. [Documentation](https://docs.frappe.io/hr) - Extensive documentation for Frappe HR.
-2. [User Forum](https://discuss.erpnext.com/) - Engage with the community of ERPNext users and service providers.
-3. [Telegram Group](https://t.me/frappehr) - Get instant help from the community of users.
-
-## Contribute
-
-1. [Issue Guidelines](https://github.com/frappe/erpnext/wiki/Issue-Guidelines) - [Create an issue](https://github.com/frappe/hrms/issues/new)
-1. [Contribution Guidelines](https://github.com/frappe/erpnext/wiki/Contribution-Guidelines)
+thinkNXG ERP is built on the [thinkNXG Framework]a full-stack web app framework built with Python & JavaScript.
 
 ## License
 
-GNU GPL V3. (See [license.txt](license.txt) for more information).
+GNU/General Public License (see [license.txt](license.txt))
 
-The HR code is licensed as GNU General Public License (v3) and the copyright is owned by Frappe Technologies Pvt Ltd (Frappe) and Contributors.
+The thinkNXG ERP code is licensed as GNU General Public License (v3) and the Documentation is licensed as Creative Commons (CC-BY-SA-3.0) and the copyright is owned by thinkCADD Technology Corporation (thinkCADD) and Contributors.
+
+By contributing to thinkNXG ERP, you agree that your contributions will be licensed under its GNU General Public License (v3).
+
