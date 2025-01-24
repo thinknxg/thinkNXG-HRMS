@@ -242,3 +242,32 @@ class TestLeavePolicyAssignment(FrappeTestCase):
 			"Leave Allocation", {"leave_policy_assignment": assignment.name}, "new_leaves_allocated"
 		)
 		self.assertEqual(earned_leave_allocation, annual_earned_leaves)
+
+	def test_earned_leave_allocation_for_leave_period_spanning_two_years(self):
+		first_year_start_date = get_year_start(getdate())
+		second_year_end_date = get_year_ending(add_months(first_year_start_date, 12))
+		leave_period = create_leave_period(first_year_start_date, second_year_end_date)
+
+		# assignment during mid second year
+		frappe.flags.current_date = add_months(second_year_end_date, -6)
+		leave_type = create_leave_type(
+			leave_type_name="_Test Earned Leave", is_earned_leave=True, allocate_on_day="Last Day"
+		)
+		annual_earned_leaves = 24
+		leave_policy = create_leave_policy(leave_type=leave_type, annual_allocation=annual_earned_leaves)
+		leave_policy.submit()
+
+		data = {
+			"assignment_based_on": "Leave Period",
+			"leave_policy": leave_policy.name,
+			"leave_period": leave_period.name,
+		}
+		assignment = create_assignment(self.employee.name, frappe._dict(data))
+		assignment.submit()
+
+		earned_leave_allocation = frappe.get_value(
+			"Leave Allocation", {"leave_policy_assignment": assignment.name}, "new_leaves_allocated"
+		)
+		# months passed (18) are calculated correctly but total allocation of 36 exceeds 24 hence 24
+		# this upper cap is intentional, without that 36 leaves would be allocated correctly
+		self.assertEqual(earned_leave_allocation, 24)
