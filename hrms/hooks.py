@@ -4,7 +4,7 @@ app_publisher = "thinkNXG Technologies Pvt. Ltd."
 app_description = "Modern HR and Payroll Software"
 app_email = "contact@frappe.io"
 app_license = "GNU General Public License (v3)"
-required_apps = ["frappe/thinkNXG ERP"]
+required_apps = ["thinknxg/thinkNXG ERP"]
 source_link = "https://github.com/thinknxg/thinknxg-hrms.git"
 
 add_to_apps_screen = [
