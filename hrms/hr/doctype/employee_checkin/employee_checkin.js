@@ -29,14 +29,21 @@ frappe.ui.form.on("Employee Checkin", {
 				freeze: true,
 				freeze_message: __("Fetching Shift"),
 				callback: function () {
-					frm.dirty();
-					frm.save();
-					frappe.show_alert({
-						message: __("Shift has been successfully updated to {0}.", [
-							frm.doc.shift,
-						]),
-						indicator: "green",
-					});
+					if (frm.doc.shift) {
+						frappe.show_alert({
+							message: __("Shift has been successfully updated to {0}.", [
+								frm.doc.shift,
+							]),
+							indicator: "green",
+						});
+						frm.dirty();
+						frm.save();
+					} else {
+						frappe.show_alert({
+							message: __("No valid shift found for log time"),
+							indicator: "orange",
+						});
+					}
 				},
 			});
 		});
