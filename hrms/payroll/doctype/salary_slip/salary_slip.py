@@ -932,10 +932,14 @@ class SalarySlip(TransactionBase):
 
 		if hasattr(self, "total_structured_tax_amount") and hasattr(self, "current_structured_tax_amount"):
 			self.future_income_tax_deductions = (
-				self.total_structured_tax_amount - self.income_tax_deducted_till_date
+				self.total_structured_tax_amount
+				+ self.get("full_tax_on_additional_earnings", 0)
+				- self.income_tax_deducted_till_date
 			)
 
-			self.current_month_income_tax = self.current_structured_tax_amount
+			self.current_month_income_tax = self.current_structured_tax_amount + self.get(
+				"full_tax_on_additional_earnings", 0
+			)
 
 			# non included current_month_income_tax separately as its already considered
 			# while calculating income_tax_deducted_till_date
