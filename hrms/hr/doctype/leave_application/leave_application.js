@@ -285,22 +285,22 @@ frappe.ui.form.on("Leave Application", {
 		frm.disable_save();
 		$(".form-message").prop("hidden", true);
 		frm.add_custom_button(
-			"Approve",
+			__("Approve"),
 			() => {
 				frm.set_value("status", "Approved");
 				frm.save("Submit");
 			},
-			"Actions",
+			__("Actions"),
 		);
 		frm.add_custom_button(
-			"Reject",
+			__("Reject"),
 			() => {
 				frm.set_value("status", "Rejected");
 				frm.save("Submit");
 			},
-			"Actions",
+			__("Actions"),
 		);
-		frm.page.set_inner_btn_group_as_primary("Actions");
+		frm.page.set_inner_btn_group_as_primary(__("Actions"));
 	},
 });
 
