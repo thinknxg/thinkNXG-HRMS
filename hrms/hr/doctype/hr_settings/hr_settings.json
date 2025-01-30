@@ -26,7 +26,7 @@
   "leave_status_notification_template",
   "leave_approver_mandatory_in_leave_application",
   "restrict_backdated_leave_application",
-  "allow_self_leave_approval",
+  "prevent_self_leave_approval",
   "role_allowed_to_create_backdated_leave_application",
   "column_break_29",
   "expense_approver_mandatory_in_expense_claim",
@@ -333,16 +333,16 @@
   },
   {
    "default": "1",
-   "fieldname": "allow_self_leave_approval",
+   "fieldname": "prevent_self_leave_approval",
    "fieldtype": "Check",
-   "label": "Enable Self-Approval For Leaves"
+   "label": "Prevent self approval for leaves even if user has permissions"
   }
  ],
  "icon": "fa fa-cog",
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-12-02 13:25:31.843494",
+ "modified": "2024-12-11 12:34:33.019189",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",

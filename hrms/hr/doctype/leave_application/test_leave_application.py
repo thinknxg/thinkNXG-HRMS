@@ -968,7 +968,7 @@ class TestLeaveApplication(FrappeTestCase):
 		employee.save()
 
 	def test_self_leave_approval_allowed(self):
-		frappe.db.set_single_value("HR Settings", "allow_self_leave_approval", 1)
+		frappe.db.set_single_value("HR Settings", "prevent_self_leave_approval", 0)
 
 		leave_approver = "test_leave_approver@example.com"
 		make_employee(leave_approver, "_Test Company")
@@ -1006,7 +1006,7 @@ class TestLeaveApplication(FrappeTestCase):
 		frappe.set_user("Administrator")
 
 	def test_self_leave_approval_not_allowed(self):
-		frappe.db.set_single_value("HR Settings", "allow_self_leave_approval", 0)
+		frappe.db.set_single_value("HR Settings", "prevent_self_leave_approval", 1)
 
 		leave_approver = "test_leave_approver@example.com"
 		make_employee(leave_approver, "_Test Company")

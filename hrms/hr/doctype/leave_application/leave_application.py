@@ -797,14 +797,22 @@ class LeaveApplication(Document, PWANotificationsMixin):
 				create_leave_ledger_entry(self, args, submit)
 
 	def validate_for_self_approval(self):
-		self_leave_approval_allowed = frappe.db.get_single_value("HR Settings", "allow_self_leave_approval")
-
-		if (not self_leave_approval_allowed) and (
-			self.employee == get_current_employee_info().get("name")
-			if get_current_employee_info()
-			else None and not get_workflow_name("Leave Application")
+		self_leave_approval_not_allowed = frappe.db.get_single_value(
+			"HR Settings", "prevent_self_leave_approval"
+		)
+		employee_user = frappe.db.get_value("Employee", self.employee, "user_id")
+		if (
+			self_leave_approval_not_allowed
+			and employee_user == frappe.session.user
+			and not get_workflow_name("Leave Application")
 		):
-			frappe.throw(_("Self-approval for leaves is not allowed"), frappe.ValidationError)
+			frappe.throw(_("Self-approval for leaves is not allowed"))
+
+	def onload(self):
+		self.set_onload(
+			"self_leave_approval_not_allowed",
+			frappe.db.get_single_value("HR Settings", "prevent_self_leave_approval"),
+		)
 
 
 def get_allocation_expiry_for_cf_leaves(
