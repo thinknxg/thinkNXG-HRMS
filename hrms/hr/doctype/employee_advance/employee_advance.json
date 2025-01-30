@@ -241,11 +241,7 @@
  ],
  "is_submittable": 1,
  "links": [],
-<<<<<<< HEAD
- "modified": "2024-04-12 13:53:55.442187",
-=======
  "modified": "2025-01-29 12:05:13.623633",
->>>>>>> 542cb892 (fix: update field description)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Advance",
