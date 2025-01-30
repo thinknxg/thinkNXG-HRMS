@@ -332,7 +332,7 @@
    "label": " Unlink Payment on Cancellation of Employee Advance"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "prevent_self_leave_approval",
    "fieldtype": "Check",
    "label": "Prevent self approval for leaves even if user has permissions"
@@ -342,7 +342,7 @@
  "idx": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-12-11 12:34:33.019189",
+ "modified": "2025-01-30 12:41:22.594071",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "HR Settings",
