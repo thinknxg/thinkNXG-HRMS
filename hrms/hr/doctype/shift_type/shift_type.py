@@ -29,10 +29,8 @@ class ShiftType(Document):
 	def validate(self):
 		if self.is_field_modified("start_time") and self.unlinked_checkins_exist():
 			frappe.throw(
-				title=_("Unlinked Logs Found"),
-				msg=_(
-					"Mark attendance for the exsiting check in/out logs before changing important shift settings"
-				),
+				title=_("Unmarked Check-in Logs Found"),
+				msg=_("Mark attendance for exsiting check-in/out logs before changing shift settings"),
 			)
 
 	def is_field_modified(self, fieldname):
