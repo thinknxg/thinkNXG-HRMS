@@ -688,6 +688,42 @@ class TestShiftType(FrappeTestCase):
 			"Absent",
 		)
 
+	def test_validation_for_unlinked_logs_before_changing_important_shift_configuration(self):
+		# the important shift configuration is start time, it is used to sort logs chronologically
+		shift = setup_shift_type(shift_type="Test Shift", start_time="10:00:00", end_time="18:00:00")
+		employee = make_employee(
+			"test_employee4_attendance@example.com", company="_Test Company", default_shift=shift.name
+		)
+
+		from hrms.hr.doctype.employee_checkin.test_employee_checkin import make_checkin
+
+		in_time = datetime.combine(getdate(), get_time("10:00:00"))
+		check_in = make_checkin(employee, in_time)
+		check_in.fetch_shift()
+		# Case 1: raise valdiation error if shift time is being changed and checkin logs exists
+		shift.start_time = get_time("10:15:00")
+		self.assertRaises(frappe.ValidationError, shift.save)
+
+		# don't raise validation error if something else is being changed
+		# even if checkin logs exists, it's probably fine
+		shift.reload()
+		shift.begin_check_in_before_shift_start_time = 120
+		shift.save()
+		self.assertEqual(
+			frappe.get_value("Shift Type", shift.name, "begin_check_in_before_shift_start_time"), 120
+		)
+		out_time = datetime.combine(getdate(), get_time("18:00:00"))
+		check_out = make_checkin(employee, out_time)
+		check_out.fetch_shift()
+		shift.process_auto_attendance()
+
+		# Case 2: allow shift time to change if no unlinked logs exist
+		shift.start_time = get_time("10:15:00")
+		shift.save()
+		self.assertEqual(
+			get_time(frappe.get_value("Shift Type", shift.name, "start_time")), get_time("10:15:00")
+		)
+
 
 def setup_shift_type(**args):
 	args = frappe._dict(args)

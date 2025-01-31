@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from itertools import groupby
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import cint, create_batch, get_datetime, get_time, getdate
 
@@ -25,6 +26,24 @@ EMPLOYEE_CHUNK_SIZE = 50
 
 
 class ShiftType(Document):
+	def validate(self):
+		if self.is_field_modified("start_time") and self.unlinked_checkins_exist():
+			frappe.throw(
+				title=_("Unlinked Logs Found"),
+				msg=_(
+					"Mark attendance for the exsiting check in/out logs before changing important shift settings"
+				),
+			)
+
+	def is_field_modified(self, fieldname):
+		return not self.is_new() and self.has_value_changed(fieldname)
+
+	def unlinked_checkins_exist(self):
+		return frappe.db.exists(
+			"Employee Checkin",
+			{"shift": self.name, "attendance": ["is", "not set"], "skip_auto_attendance": 0},
+		)
+
 	@frappe.whitelist()
 	def process_auto_attendance(self):
 		if (
