@@ -228,6 +228,9 @@ class Attendance(Document):
 
 @frappe.whitelist()
 def get_events(start, end, filters=None):
+	employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user})
+	if not employee:
+		return []
 	if isinstance(filters, str):
 		import json
 
@@ -236,7 +239,6 @@ def get_events(start, end, filters=None):
 		filters.append(["attendance_date", "between", [get_datetime(start).date(), get_datetime(end).date()]])
 
 	attendance_records = add_attendance(filters)
-	employee = frappe.db.get_value("Employee", {"user_id": frappe.session.user})
 	add_holidays(attendance_records, start, end, employee)
 	return attendance_records
 
