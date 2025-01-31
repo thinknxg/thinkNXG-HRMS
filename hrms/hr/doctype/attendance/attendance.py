@@ -235,9 +235,9 @@ def get_events(start, end, filters=None):
 		import json
 
 		filters = json.loads(filters)
-	if filters:
-		filters.append(["attendance_date", "between", [get_datetime(start).date(), get_datetime(end).date()]])
-
+	if not filters:
+		filters = []
+	filters.append(["attendance_date", "between", [get_datetime(start).date(), get_datetime(end).date()]])
 	attendance_records = add_attendance(filters)
 	add_holidays(attendance_records, start, end, employee)
 	return attendance_records
