@@ -90,6 +90,7 @@ class EmployeeCheckin(Document):
 				"start_date": ["<=", self.time],
 				"shift_location": ["is", "set"],
 				"docstatus": 1,
+				"status": "Active",
 			},
 			or_filters=[["end_date", ">=", self.time], ["end_date", "is", "not set"]],
 			pluck="shift_location",
