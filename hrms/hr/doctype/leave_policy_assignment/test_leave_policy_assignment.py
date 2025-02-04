@@ -2,13 +2,8 @@
 # See license.txt
 
 import frappe
-<<<<<<< HEAD
 from frappe.tests.utils import FrappeTestCase
-from frappe.utils import add_months, get_first_day, get_year_ending, getdate
-=======
-from frappe.tests import IntegrationTestCase
 from frappe.utils import add_days, add_months, get_first_day, get_year_ending, get_year_start, getdate
->>>>>>> bff9ed21 (fix: allocate earned leaves pro-rata if policy assignment is submitted after the effective period)
 
 from hrms.hr.doctype.leave_application.test_leave_application import get_employee, get_leave_period
 from hrms.hr.doctype.leave_period.test_leave_period import create_leave_period
