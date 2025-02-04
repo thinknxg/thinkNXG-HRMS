@@ -953,7 +953,6 @@ class SalarySlip(TransactionBase):
 				+ self.current_structured_taxable_earnings_before_exemption
 				+ self.future_structured_taxable_earnings_before_exemption
 				+ self.current_additional_earnings
-				+ self.other_incomes
 				+ self.unclaimed_taxable_benefits
 				+ self.non_taxable_earnings
 			)
