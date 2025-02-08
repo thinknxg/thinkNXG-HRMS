@@ -23,9 +23,10 @@
   "encashment_amount",
   "accounting_section",
   "pay_via_payment_entry",
-  "paid_amount",
-  "column_break_vdnb",
   "payable_account",
+  "column_break_vdnb",
+  "posting_date",
+  "paid_amount",
   "payroll",
   "encashment_date",
   "additional_salary",
@@ -218,11 +219,18 @@
    "label": "Status",
    "options": "Draft\nUnpaid\nPaid",
    "read_only": 1
+  },
+  {
+   "default": "Today",
+   "depends_on": "pay_via_payment_entry",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-07 13:02:41.291814",
+ "modified": "2025-02-08 23:25:03.645978",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Encashment",
