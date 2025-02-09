@@ -69,7 +69,7 @@
 				</div>
 			</template>
 
-			<Button variant="solid" class="w-full py-5 text-sm" @click.once="submitLog(nextAction.action)">
+			<Button :loading="checkingIn" variant="solid" class="w-full py-5 text-sm disabled:bg-gray-700" @click="submitLog(nextAction.action)">
 				{{ __("Confirm {0}", [nextAction.label]) }}
 			</Button>
 		</div>
@@ -93,7 +93,7 @@ const checkinTimestamp = ref(null)
 const latitude = ref(0)
 const longitude = ref(0)
 const locationStatus = ref("")
-
+const checkingIn = ref(false)
 const settings = createResource({
 	url: "hrms.api.get_hr_settings",
 	auto: true,
@@ -158,7 +158,7 @@ const handleEmployeeCheckin = () => {
 
 const submitLog = (logType) => {
 	const actionLabel = logType === "IN" ? __("Check-in") : __("Check-out")
-
+	checkingIn.value = true
 	checkins.insert.submit(
 		{
 			employee: employee.data.name,
@@ -169,6 +169,7 @@ const submitLog = (logType) => {
 		},
 		{
 			onSuccess() {
+				checkingIn.value = false
 				modalController.dismiss()
 				toast({
 					title: __("Success"),
@@ -179,6 +180,7 @@ const submitLog = (logType) => {
 				})
 			},
 			onError() {
+				checkingIn.value = false
 				toast({
 					title: __("Error"),
 					text: __("{0} failed!", [actionLabel]),
