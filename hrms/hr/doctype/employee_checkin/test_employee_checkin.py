@@ -75,7 +75,7 @@ class TestEmployeeCheckin(FrappeTestCase):
 		employee.attendance_device_id = "3344"
 		employee.save()
 
-		time_now = now_datetime().__str__()[:-7]
+		time_now = now_datetime().replace(microsecond=0)
 		employee_checkin = add_log_based_on_employee_field("3344", time_now, "mumbai_first_floor", "IN")
 		self.assertEqual(employee_checkin.employee, employee.name)
 		self.assertEqual(employee_checkin.time, time_now)

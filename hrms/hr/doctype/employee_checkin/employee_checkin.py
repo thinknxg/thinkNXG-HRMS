@@ -20,6 +20,9 @@ class CheckinRadiusExceededError(frappe.ValidationError):
 
 
 class EmployeeCheckin(Document):
+	def before_validate(self):
+		self.time = get_datetime(self.time).replace(microsecond=0)
+
 	def validate(self):
 		validate_active_employee(self.employee)
 		self.validate_duplicate_log()
