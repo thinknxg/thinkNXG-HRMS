@@ -217,7 +217,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Draft\nUnpaid\nPaid",
+   "options": "Draft\nUnpaid\nPaid\nSubmitted\nCancelled",
    "read_only": 1
   },
   {
@@ -230,7 +230,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-08 23:25:03.645978",
+ "modified": "2025-02-10 13:04:29.229330",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Encashment",
@@ -298,7 +298,24 @@
  "search_fields": "employee,employee_name",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
+ "states": [
+  {
+   "color": "Red",
+   "title": "Draft"
+  },
+  {
+   "color": "Green",
+   "title": "Paid"
+  },
+  {
+   "color": "Orange",
+   "title": "Unpaid"
+  },
+  {
+   "color": "Red",
+   "title": "Cancelled"
+  }
+ ],
  "title_field": "employee_name",
  "track_changes": 1
 }
