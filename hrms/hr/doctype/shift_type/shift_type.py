@@ -8,7 +8,7 @@ from itertools import groupby
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import cint, create_batch, get_datetime, get_time, getdate
+from frappe.utils import add_days, cint, create_batch, get_datetime, get_time, getdate, time_diff
 
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
@@ -32,6 +32,7 @@ class ShiftType(Document):
 				title=_("Unmarked Check-in Logs Found"),
 				msg=_("Mark attendance for existing check-in/out logs before changing shift settings"),
 			)
+		self.validate_circular_shift()
 
 	def is_field_modified(self, fieldname):
 		return not self.is_new() and self.has_value_changed(fieldname)
@@ -41,6 +42,31 @@ class ShiftType(Document):
 			"Employee Checkin",
 			{"shift": self.name, "attendance": ["is", "not set"], "skip_auto_attendance": 0, "offshift": 0},
 		)
+
+	def validate_circular_shift(self):
+		start = get_time(self.start_time)
+		end = get_time(self.end_time)
+		shift_start = datetime.combine(getdate(), start)
+		if start < end:
+			shift_end = datetime.combine(getdate(), end)
+		elif start > end:
+			shift_end = datetime.combine(add_days(getdate(), 1), end)
+		else:
+			frappe.throw(
+				title=_("Invalid Shift Times"),
+				msg=_("Start time and end time cannot be same."),
+			)
+		total_minutes = (
+			time_diff_in_minutes(shift_end, shift_start)
+			+ self.allow_check_out_after_shift_end_time
+			+ self.begin_check_in_before_shift_start_time
+		)
+
+		if total_minutes >= 1440:
+			frappe.throw(
+				title=_("Invalid Shift Times"),
+				msg=_("Please change shift times or buffers to avoid overlap."),
+			)
 
 	@frappe.whitelist()
 	def process_auto_attendance(self):
@@ -296,3 +322,7 @@ def process_auto_attendance_for_all_shifts():
 	for shift in shift_list:
 		doc = frappe.get_cached_doc("Shift Type", shift)
 		doc.process_auto_attendance()
+
+
+def time_diff_in_minutes(string_ed_date, string_st_date):
+	return time_diff(string_ed_date, string_st_date).total_seconds() / 60
