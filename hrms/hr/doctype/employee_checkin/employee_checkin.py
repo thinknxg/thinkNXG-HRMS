@@ -58,6 +58,10 @@ class EmployeeCheckin(Document):
 			)
 		):
 			self.shift = None
+<<<<<<< HEAD
+=======
+			self.offshift = 1
+>>>>>>> 2dac303e (refactor: changed "invalid" status to "offshift" for better readability)
 			return
 
 		if (
@@ -72,6 +76,10 @@ class EmployeeCheckin(Document):
 				)
 			)
 		if not self.attendance:
+<<<<<<< HEAD
+=======
+			self.offshift = 0
+>>>>>>> 2dac303e (refactor: changed "invalid" status to "offshift" for better readability)
 			self.shift = shift_actual_timings.shift_type.name
 			self.shift_actual_start = shift_actual_timings.actual_start
 			self.shift_actual_end = shift_actual_timings.actual_end
