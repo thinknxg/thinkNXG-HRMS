@@ -39,11 +39,7 @@ class ShiftType(Document):
 	def unlinked_checkins_exist(self):
 		return frappe.db.exists(
 			"Employee Checkin",
-<<<<<<< HEAD
-			{"shift": self.name, "attendance": ["is", "not set"], "skip_auto_attendance": 0},
-=======
 			{"shift": self.name, "attendance": ["is", "not set"], "skip_auto_attendance": 0, "offshift": 0},
->>>>>>> 2dac303e (refactor: changed "invalid" status to "offshift" for better readability)
 		)
 
 	@frappe.whitelist()
@@ -120,10 +116,7 @@ class ShiftType(Document):
 				"time": (">=", self.process_attendance_after),
 				"shift_actual_end": ("<", self.last_sync_of_checkin),
 				"shift": self.name,
-<<<<<<< HEAD
-=======
 				"offshift": 0,
->>>>>>> 2dac303e (refactor: changed "invalid" status to "offshift" for better readability)
 			},
 			order_by="employee,time",
 		)

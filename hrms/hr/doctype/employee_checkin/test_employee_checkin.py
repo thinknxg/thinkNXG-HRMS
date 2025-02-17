@@ -611,8 +611,6 @@ class TestEmployeeCheckin(FrappeTestCase):
 		log2.reload()
 		self.assertEqual(log2.shift_actual_start, datetime.combine(date, get_time("06:00:00")))
 
-<<<<<<< HEAD
-=======
 	def test_if_logs_are_marked_invalid(self):
 		# time window is 7 to 13
 		shift = setup_shift_type()
@@ -644,7 +642,6 @@ class TestEmployeeCheckin(FrappeTestCase):
 		log.fetch_shift()
 		self.assertFalse(log.offshift)
 
->>>>>>> 360685f2 (test: changed "is_invalid" to offshift in assertions)
 
 def make_n_checkins(employee, n, hours_to_reverse=1):
 	logs = [make_checkin(employee, now_datetime() - timedelta(hours=hours_to_reverse, minutes=n + 1))]

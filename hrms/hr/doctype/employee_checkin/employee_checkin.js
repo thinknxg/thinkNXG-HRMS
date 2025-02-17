@@ -3,8 +3,6 @@
 
 frappe.ui.form.on("Employee Checkin", {
 	refresh: async (frm) => {
-<<<<<<< HEAD
-=======
 		if (frm.doc.offshift) {
 			frm.dashboard.set_headline(
 				__(
@@ -12,7 +10,6 @@ frappe.ui.form.on("Employee Checkin", {
 				),
 			);
 		}
->>>>>>> 2dac303e (refactor: changed "invalid" status to "offshift" for better readability)
 		if (!frm.doc.__islocal) frm.trigger("add_fetch_shift_button");
 
 		const allow_geolocation_tracking = await frappe.db.get_single_value(
