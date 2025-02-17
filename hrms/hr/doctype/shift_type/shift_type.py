@@ -27,12 +27,64 @@ EMPLOYEE_CHUNK_SIZE = 50
 
 class ShiftType(Document):
 	def validate(self):
+		start = get_time(self.start_time)
+		end = get_time(self.end_time)
+		self.validate_same_start_and_end(start, end)
+		self.validate_circular_shift(start, end)
+		self.validate_unlinked_logs()
+
+	def validate_same_start_and_end(self, start_time: datetime.time, end_time: datetime.time):
+		if start_time == end_time:
+			frappe.throw(
+				title=_("Invalid Shift Times"),
+				msg=_("Start time and end time cannot be same."),
+			)
+
+	def validate_circular_shift(self, start_time: datetime.time, end_time: datetime.time):
+		shift_start, shift_end = self.get_shift_start_and_shift_end(start_time, end_time)
+		if self.get_total_shift_duration_in_minutes(shift_start, shift_end) >= 1440:
+			max_label = self.get_max_shift_buffer_label()
+			frappe.throw(
+				title=_("Invalid Shift Times"),
+				msg=_("Please change {0} to avoid shift time overlapping with itself").format(
+					frappe.bold(max_label)
+				),
+			)
+
+	def get_shift_start_and_shift_end(self, start_time: datetime.time, end_time: datetime.time):
+		shift_start = datetime.combine(getdate(), start_time)
+		if start_time < end_time:
+			shift_end = datetime.combine(getdate(), end_time)
+		elif start_time > end_time:
+			shift_end = datetime.combine(add_days(getdate(), 1), end_time)
+		return shift_start, shift_end
+
+	def get_total_shift_duration_in_minutes(
+		self, shift_start: datetime.time, shift_end: datetime.time
+	) -> int:
+		return (
+			(time_diff(shift_end, shift_start).total_seconds() / 60)
+			+ self.allow_check_out_after_shift_end_time
+			+ self.begin_check_in_before_shift_start_time
+		)
+
+	def get_max_shift_buffer_label(self) -> str:
+		labels = {
+			self.meta.get_label(
+				"allow_check_out_after_shift_end_time"
+			): self.allow_check_out_after_shift_end_time,
+			self.meta.get_label(
+				"begin_check_in_before_shift_start_time"
+			): self.begin_check_in_before_shift_start_time,
+		}
+		return max(labels, key=labels.get)
+
+	def validate_unlinked_logs(self):
 		if self.is_field_modified("start_time") and self.unlinked_checkins_exist():
 			frappe.throw(
 				title=_("Unmarked Check-in Logs Found"),
 				msg=_("Mark attendance for existing check-in/out logs before changing shift settings"),
 			)
-		self.validate_circular_shift()
 
 	def is_field_modified(self, fieldname):
 		return not self.is_new() and self.has_value_changed(fieldname)
@@ -42,31 +94,6 @@ class ShiftType(Document):
 			"Employee Checkin",
 			{"shift": self.name, "attendance": ["is", "not set"], "skip_auto_attendance": 0, "offshift": 0},
 		)
-
-	def validate_circular_shift(self):
-		start = get_time(self.start_time)
-		end = get_time(self.end_time)
-		shift_start = datetime.combine(getdate(), start)
-		if start < end:
-			shift_end = datetime.combine(getdate(), end)
-		elif start > end:
-			shift_end = datetime.combine(add_days(getdate(), 1), end)
-		else:
-			frappe.throw(
-				title=_("Invalid Shift Times"),
-				msg=_("Start time and end time cannot be same."),
-			)
-		total_minutes = (
-			time_diff_in_minutes(shift_end, shift_start)
-			+ self.allow_check_out_after_shift_end_time
-			+ self.begin_check_in_before_shift_start_time
-		)
-
-		if total_minutes >= 1440:
-			frappe.throw(
-				title=_("Invalid Shift Times"),
-				msg=_("Please change shift times or buffers to avoid overlap."),
-			)
 
 	@frappe.whitelist()
 	def process_auto_attendance(self):
@@ -322,7 +349,3 @@ def process_auto_attendance_for_all_shifts():
 	for shift in shift_list:
 		doc = frappe.get_cached_doc("Shift Type", shift)
 		doc.process_auto_attendance()
-
-
-def time_diff_in_minutes(string_ed_date, string_st_date):
-	return time_diff(string_ed_date, string_st_date).total_seconds() / 60
