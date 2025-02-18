@@ -389,14 +389,12 @@ class TestLeaveEncashment(IntegrationTestCase):
 		)
 
 		leave_encashment = frappe.get_doc(
-			dict(
-				doctype="Leave Encashment",
-				employee=self.employee,
-				leave_type="_Test Leave Type Encashment",
-				leave_period=self.leave_period.name,
-				encashment_date=getdate(),
-				currency="INR",
-			)
+			doctype="Leave Encashment",
+			employee=self.employee,
+			leave_type="_Test Leave Type Encashment",
+			leave_period=self.leave_period.name,
+			encashment_date=getdate(),
+			currency="INR",
 		).insert()
 		leave_encashment.submit()
 
@@ -414,16 +412,14 @@ class TestLeaveEncashment(IntegrationTestCase):
 		from hrms.overrides.employee_payment_entry import get_payment_entry_for_employee
 
 		leave_encashment = frappe.get_doc(
-			dict(
-				doctype="Leave Encashment",
-				employee=self.employee,
-				leave_type="_Test Leave Type Encashment",
-				leave_period=self.leave_period.name,
-				pay_via_payment_entry=1,
-				payable_account="_Test Payroll Payable - _TC",
-				expense_account="Administrative Expenses - _TC",
-				cost_center="Main - _TC",
-			)
+			doctype="Leave Encashment",
+			employee=self.employee,
+			leave_type="_Test Leave Type Encashment",
+			leave_period=self.leave_period.name,
+			pay_via_payment_entry=1,
+			payable_account="_Test Payroll Payable - _TC",
+			expense_account="Administrative Expenses - _TC",
+			cost_center="Main - _TC",
 		).save()
 		leave_encashment.submit()
 
