@@ -46,7 +46,7 @@ class ShiftType(Document):
 			max_label = self.get_max_shift_buffer_label()
 			frappe.throw(
 				title=_("Invalid Shift Times"),
-				msg=_("Please change {0} to avoid shift time overlapping with itself").format(
+				msg=_("Please reduce {0} to avoid shift time overlapping with itself").format(
 					frappe.bold(max_label)
 				),
 			)
