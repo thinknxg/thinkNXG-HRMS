@@ -3,6 +3,13 @@
 
 frappe.ui.form.on("Employee Checkin", {
 	refresh: async (frm) => {
+		if (frm.doc.offshift) {
+			frm.dashboard.set_headline(
+				__(
+					"This check-in is outside assigned shift hours and will not be considered for attendance. If a shift is assigned, adjust its time window and Fetch Shift again.",
+				),
+			);
+		}
 		if (!frm.doc.__islocal) frm.trigger("add_fetch_shift_button");
 
 		const allow_geolocation_tracking = await frappe.db.get_single_value(

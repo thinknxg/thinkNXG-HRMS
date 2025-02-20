@@ -614,12 +614,6 @@ def make_expense_claim_for_delivery_trip(source_name, target_doc=None):
 	return doc
 
 
-# // amke below fucntion reusable basef on wht is passed, if only unclaimed and return_amt is pased, return unclaimed - returne_amt else paid_amount - (claimed_amount + return_amount)
-# @frappe.whitelist()
-# def get_allocation_amount(paid_amount, claimed_amount, return_amount):
-# 	return paid_amount - (claimed_amount + return_amount)
-
-
 @frappe.whitelist()
 def get_allocation_amount(paid_amount=None, claimed_amount=None, return_amount=None, unclaimed_amount=None):
 	if unclaimed_amount is not None and return_amount is not None:
