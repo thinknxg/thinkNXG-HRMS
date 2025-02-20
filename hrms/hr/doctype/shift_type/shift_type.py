@@ -358,7 +358,9 @@ def update_last_sync_of_checkin():
 		last_shift_sync = frappe.db.get_value(
 			"Employee Checkin", {"shift": shift.name}, "time", order_by="time desc"
 		)
-		if get_datetime(last_shift_sync) > get_datetime(shift.last_sync_of_checkin):
+		if not shift.last_sync_of_checkin or get_datetime(last_shift_sync) > get_datetime(
+			shift.last_sync_of_checkin
+		):
 			frappe.db.set_value("Shift Type", shift.name, "last_sync_of_checkin", last_shift_sync)
 
 
