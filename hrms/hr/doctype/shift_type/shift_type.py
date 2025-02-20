@@ -51,7 +51,9 @@ class ShiftType(Document):
 				),
 			)
 
-	def get_shift_start_and_shift_end(self, start_time: datetime.time, end_time: datetime.time):
+	def get_shift_start_and_shift_end(
+		self, start_time: datetime.time, end_time: datetime.time
+	) -> tuple[datetime]:
 		shift_start = datetime.combine(getdate(), start_time)
 		if start_time < end_time:
 			shift_end = datetime.combine(getdate(), end_time)
@@ -63,7 +65,7 @@ class ShiftType(Document):
 		self, shift_start: datetime.time, shift_end: datetime.time
 	) -> int:
 		return (
-			(time_diff(shift_end, shift_start).total_seconds() / 60)
+			(round(time_diff(shift_end, shift_start).total_seconds() / 60))
 			+ self.allow_check_out_after_shift_end_time
 			+ self.begin_check_in_before_shift_start_time
 		)
