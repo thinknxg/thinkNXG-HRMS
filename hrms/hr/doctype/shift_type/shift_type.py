@@ -346,7 +346,26 @@ class ShiftType(Document):
 		return True
 
 
+def update_last_sync_of_checkin():
+	"""Called from hooks"""
+	shifts = frappe.get_all(
+		"Shift Type",
+		filters={"enable_auto_attendance": 1, "auto_update_last_sync": 1},
+		fields=["name", "last_sync_of_checkin"],
+	)
+
+	for shift in shifts:
+		last_shift_sync = frappe.db.get_value(
+			"Employee Checkin", {"shift": shift.name}, "time", order_by="time desc"
+		)
+		if not shift.last_sync_of_checkin or get_datetime(last_shift_sync) > get_datetime(
+			shift.last_sync_of_checkin
+		):
+			frappe.db.set_value("Shift Type", shift.name, "last_sync_of_checkin", last_shift_sync)
+
+
 def process_auto_attendance_for_all_shifts():
+	"""Called from hooks"""
 	shift_list = frappe.get_all("Shift Type", filters={"enable_auto_attendance": "1"}, pluck="name")
 	for shift in shift_list:
 		doc = frappe.get_cached_doc("Shift Type", shift)

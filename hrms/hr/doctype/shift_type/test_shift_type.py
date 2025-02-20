@@ -10,6 +10,7 @@ from erpnext.setup.doctype.employee.test_employee import make_employee
 from erpnext.setup.doctype.holiday_list.test_holiday_list import set_holiday_list
 
 from hrms.hr.doctype.leave_application.test_leave_application import get_first_sunday
+from hrms.hr.doctype.shift_type.shift_type import update_last_sync_of_checkin
 from hrms.payroll.doctype.salary_slip.test_salary_slip import make_holiday_list
 from hrms.tests.test_utils import add_date_to_holiday_list
 
@@ -24,6 +25,29 @@ class TestShiftType(FrappeTestCase):
 		from_date = get_year_start(getdate())
 		to_date = get_year_ending(getdate())
 		self.holiday_list = make_holiday_list(from_date=from_date, to_date=to_date)
+
+	def test_auto_update_last_sync_of_checkin(self):
+		from hrms.hr.doctype.employee_checkin.test_employee_checkin import make_checkin
+
+		shift_type = setup_shift_type()
+		shift_type.last_sync_of_checkin = None
+		shift_type.auto_update_last_sync = 1
+		shift_type.save()
+
+		employee = make_employee("test_employee_checkin@example.com", company="_Test Company")
+		date = getdate()
+		make_shift_assignment(shift_type.name, employee, date)
+
+		make_checkin(employee, datetime.combine(date, get_time("08:00:00")))
+		log_2 = make_checkin(employee, datetime.combine(date, get_time("08:45:53")))
+		update_last_sync_of_checkin()
+		shift_type.reload()
+		self.assertEqual(shift_type.last_sync_of_checkin, log_2.time)
+
+		log_3 = make_checkin(employee, datetime.combine(date, get_time("12:00:00")))
+		update_last_sync_of_checkin()
+		shift_type.reload()
+		self.assertEqual(shift_type.last_sync_of_checkin, log_3.time)
 
 	def test_mark_attendance(self):
 		from hrms.hr.doctype.employee_checkin.test_employee_checkin import make_checkin
