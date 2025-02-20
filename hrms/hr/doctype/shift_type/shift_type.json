@@ -188,11 +188,7 @@
   }
  ],
  "links": [],
-<<<<<<< HEAD
  "modified": "2024-12-18 19:03:38.278336",
-=======
- "modified": "2024-12-17 13:04:38.663410",
->>>>>>> c94d7807 (feat(Shift Type): Auto update Last Sync of Checkin)
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Shift Type",
