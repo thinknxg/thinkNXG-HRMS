@@ -109,7 +109,6 @@
    "read_only": 1
   },
   {
-   "default": "1",
    "depends_on": "eval:doc.pay_via_payment_entry==0;",
    "fieldname": "payroll",
    "fieldtype": "Section Break",
@@ -210,7 +209,7 @@
   {
    "default": "0.0",
    "depends_on": "pay_via_payment_entry",
-   "description": "Amount  paid against this encashment",
+   "description": "Amount paid against this encashment",
    "fieldname": "paid_amount",
    "fieldtype": "Currency",
    "label": "Paid Amount",
@@ -259,7 +258,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-18 12:04:03.460640",
+ "modified": "2025-02-21 13:11:01.939992",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Leave Encashment",
