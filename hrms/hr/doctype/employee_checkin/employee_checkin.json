@@ -171,11 +171,16 @@
    "fieldname": "offshift",
    "fieldtype": "Check",
    "hidden": 1,
+<<<<<<< HEAD
    "label": "Off-Shift"
+=======
+   "label": "Off-shift",
+   "read_only": 1
+>>>>>>> a5ba48d7 (fix: make offshift read only becuase users shouldn't really be changing it)
   }
  ],
  "links": [],
- "modified": "2025-02-14 18:44:30.726103",
+ "modified": "2025-03-04 14:05:00.729286",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Checkin",
