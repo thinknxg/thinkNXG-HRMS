@@ -74,6 +74,7 @@
    "in_list_view": 1,
    "label": "Time",
    "permlevel": 1,
+   "read_only_depends_on": "eval:doc.attendance;",
    "reqd": 1
   },
   {
@@ -180,7 +181,7 @@
   }
  ],
  "links": [],
- "modified": "2025-03-04 14:05:00.729286",
+ "modified": "2025-03-05 15:36:10.014354",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee Checkin",
