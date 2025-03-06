@@ -172,12 +172,8 @@
    "fieldname": "offshift",
    "fieldtype": "Check",
    "hidden": 1,
-<<<<<<< HEAD
-   "label": "Off-Shift"
-=======
    "label": "Off-shift",
    "read_only": 1
->>>>>>> a5ba48d7 (fix: make offshift read only becuase users shouldn't really be changing it)
   }
  ],
  "links": [],
