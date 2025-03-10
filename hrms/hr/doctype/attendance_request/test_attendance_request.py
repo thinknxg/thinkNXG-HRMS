@@ -186,7 +186,6 @@ class TestAttendanceRequest(FrappeTestCase):
 			}
 		)
 		self.assertRaises(frappe.ValidationError, attendance_request.save)
-		attendances = frappe.get_all("Attendance", filters={"employee": self.employee.name})
 
 		# adding an extra day to the attendance request
 		attendance_request.to_date = add_days(today, 1)
