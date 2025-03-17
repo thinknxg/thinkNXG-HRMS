@@ -1698,6 +1698,7 @@ class TestSalarySlip(FrappeTestCase):
 		"""tests if opening balances in salary structure assignment are excluded from tax when assignment date is before payroll period"""
 		from hrms.payroll.doctype.salary_structure.test_salary_structure import make_salary_structure
 
+		frappe.db.delete("Income Tax Slab", {"currency": "INR"})
 		emp = make_employee(
 			"test_opening_balances@salary.com",
 			company="_Test Company",
