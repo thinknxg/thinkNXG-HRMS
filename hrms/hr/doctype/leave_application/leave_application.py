@@ -554,6 +554,7 @@ class LeaveApplication(Document, PWANotificationsMixin):
 			filters={
 				"employee": self.employee,
 				"attendance_date": ("between", [self.from_date, self.to_date]),
+				"status": ("in", ["Present", "Half Day", "Work From Home"]),
 				"docstatus": 1,
 			},
 			fields=["name", "attendance_date"],
