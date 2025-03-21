@@ -306,7 +306,7 @@ class LeaveAllocation(Document):
 			)
 			create_leave_ledger_entry(self, args, submit)
 			if submit and getdate(end_date) < getdate():
-				show_expire_leave_dialog(self.unused_leaves)
+				show_expire_leave_dialog(self.unused_leaves, self.leave_type)
 
 		args = dict(
 			leaves=self.new_leaves_allocated,
@@ -482,12 +482,12 @@ def validate_carry_forward(leave_type):
 		frappe.throw(_("Leave Type {0} cannot be carry-forwarded").format(leave_type))
 
 
-def show_expire_leave_dialog(expired_leaves):
+def show_expire_leave_dialog(expired_leaves, leave_type):
 	frappe.msgprint(
 		title=_("Leaves Expired"),
 		msg=_(
-			"{0} leaves from this allocation have expired and will be processed during the next scheduled job. It is recommended to expire them now before creating new leave policy assignments."
-		).format(frappe.bold(expired_leaves)),
+			"{0} leaves from allocation for {1} leave type have expired and will be processed during the next scheduled job. It is recommended to expire them now before creating new leave policy assignments."
+		).format(frappe.bold(expired_leaves), frappe.bold(leave_type)),
 		indicator="orange",
 		primary_action={
 			"label": _("Expire Leaves"),
