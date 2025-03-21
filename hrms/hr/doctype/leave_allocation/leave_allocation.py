@@ -11,6 +11,7 @@ from hrms.hr.doctype.leave_application.leave_application import get_approved_lea
 from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import (
 	create_leave_ledger_entry,
 	expire_allocation,
+	process_expired_allocation,
 )
 from hrms.hr.utils import create_additional_leave_ledger_entry, get_leave_period, set_employee_name
 from hrms.hr.utils import get_monthly_earned_leave as _get_monthly_earned_leave
@@ -485,8 +486,7 @@ def show_expire_leave_dialog(expired_leaves):
 	frappe.msgprint(
 		title=_("Leaves Expired"),
 		msg=_(
-			"{0} leaves from this allocation have expired and will be processed during the next scheduled job."
-			"It is recommended to expire them now before creating new leave policy assignments."
+			"{0} leaves from this allocation have expired and will be processed during the next scheduled job. It is recommended to expire them now before creating new leave policy assignments."
 		).format(frappe.bold(expired_leaves)),
 		indicator="orange",
 		primary_action={
@@ -500,8 +500,6 @@ def show_expire_leave_dialog(expired_leaves):
 @frappe.whitelist()
 def expire_carried_forward_allocation():
 	if frappe.has_permission(doctype="Leave Allocation", ptype="submit", user=frappe.session.user):
-		from hrms.hr.doctype.leave_ledger_entry.leave_ledger_entry import process_expired_allocation
-
 		process_expired_allocation()
 	else:
 		frappe.throw(_("You do not have permission to complete this action"), frappe.PermissionError)
