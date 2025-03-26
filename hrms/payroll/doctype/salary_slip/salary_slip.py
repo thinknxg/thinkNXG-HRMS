@@ -50,6 +50,7 @@ from hrms.payroll.doctype.payroll_period.payroll_period import (
 from hrms.payroll.doctype.salary_slip.salary_slip_loan_utils import (
 	cancel_loan_repayment_entry,
 	make_loan_repayment_entry,
+	process_loan_interest_accruals,
 	set_loan_repayment,
 )
 from hrms.payroll.utils import sanitize_expression
@@ -345,6 +346,8 @@ class SalarySlip(TransactionBase):
 				)
 				self.set_time_sheet()
 				self.pull_sal_struct()
+
+			process_loan_interest_accruals(self)
 
 	def set_time_sheet(self):
 		if self.salary_slip_based_on_timesheet:
@@ -1583,6 +1586,8 @@ class SalarySlip(TransactionBase):
 		return (taxable_earnings + opening_taxable_earning) - exempted_amount, exempted_amount
 
 	def get_opening_for(self, field_to_select, start_date, end_date):
+		if self._salary_structure_assignment.from_date < self.payroll_period.start_date:
+			return 0
 		return self._salary_structure_assignment.get(field_to_select) or 0
 
 	def get_salary_slip_details(
