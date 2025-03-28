@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-<<<<<<< HEAD
+
 "@akryum/tinypool@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@akryum/tinypool/-/tinypool-0.3.1.tgz#a14b3d51a400e7c0ab4c7e2b1c2e2fa0386aea87"
@@ -3022,8 +3022,7 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-=======
->>>>>>> 45c550bc (chore: update yarn.lock)
+
 base64-arraybuffer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#1c37589a7c4b0746e34bd1feb951da2df01c1bdc"
