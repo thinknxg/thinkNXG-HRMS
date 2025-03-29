@@ -4,7 +4,7 @@
     </a>
     <h2>thinkNXG HR</h2>
     <p align="center">
-        <p>hrms made simple</p>
+        <p>World's Best Lithe FLOSS HR and Payroll Software</p>
     </p>
 
 
