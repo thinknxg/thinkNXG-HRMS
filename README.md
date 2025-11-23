@@ -1,16 +1,16 @@
 <div align="center">
-	<a href="https://frappe.io/hr">
-		<img src=".github/frappe-hr-logo.png" height="80px" width="80px" alt="Frappe HR Logo">
+	<a href="https://thinknxg.com/hr">
+		<img src=".github/thinkNXG-logo.jpg" height="80px" width="80px" alt="thinkNXG HR Logo">
 	</a>
-	<h2>Frappe HR</h2>
+	<h2>thinkNXG HR</h2>
 	<p align="center">
 		<p>Open Source, modern, and easy-to-use HR and Payroll Software</p>
 	</p>
 
-[![CI](https://github.com/frappe/hrms/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/frappe/hrms/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/frappe/hrms/branch/develop/graph/badge.svg?token=0TwvyUg3I5)](https://codecov.io/gh/frappe/hrms)
+[![CI](https://github.com/thinkNXG/thinkNXG-hrms/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/thinkNXG/hrms/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/thinkNXG/thinkNXG-hrms/branch/develop/graph/badge.svg?token=0TwvyUg3I5)](https://codecov.io/gh/thinkNXG/hrms)
 
-<a href="https://trendshift.io/repositories/10972" target="_blank"><img src="https://trendshift.io/api/badge/repositories/10972" alt="frappe%2Fhrms | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/10972" target="_blank"><img src="https://trendshift.io/api/badge/repositories/10972" alt="thinkNXG%2Fhrms | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 <div align="center">
@@ -18,18 +18,18 @@
 </div>
 
 <div align="center">
-	<a href="https://frappe.io/hr">Website</a>
+	<a href="https://thinknxg.com/hr">Website</a>
 	-
-	<a href="https://docs.frappe.io/hr/introduction">Documentation</a>
+	<a href="https://docs.thinknxg.io/hr/introduction">Documentation</a>
 </div>
 
-## Frappe HR
+## thinkNXG HR
 
-Frappe HR has everything you need to drive excellence within the company. It's a complete HRMS solution with over 13 different modules right from Employee Management, Onboarding, Leaves, to Payroll, Taxation, and more!
+thinkNXG HR has everything you need to drive excellence within the company. It's a complete HRMS solution with over 13 different modules right from Employee Management, Onboarding, Leaves, to Payroll, Taxation, and more!
 
 ## Motivation
-When Frappe team started growing in terms of size, we needed an open-source HR and Payroll software. We didn't find any "true" open-source HR software out there and so decided to build one ourselves.
-Initially, it was a set of modules within ERPNext but version 14 onwards, as the modules became more mature, Frappe HR was created as a separate product.
+When thinkNXG team started growing in terms of size, we needed an open-source HR and Payroll software. We didn't find any "true" open-source HR software out there and so decided to build one ourselves.
+Initially, it was a set of modules within ERPNext but version 14 onwards, as the modules became more mature, thinkNXG HR was created as a separate product.
 
 ## Key Features
 
@@ -38,7 +38,7 @@ Initially, it was a set of modules within ERPNext but version 14 onwards, as the
 - **Expense Claims and Advances**: Manage employee advances, claim expenses, configure multi-level approval workflows, all this with seamless integration with ERPNext accounting.
 - **Performance Management**: Track goals, align goals with key result areas (KRAs), enable employees to evaluate themselves, make managing appraisal cycles easy.
 - **Payroll & Taxation**: Create salary structures, configure income tax slabs, run standard payroll, accomodate additional salaries and off cycle payments, view income breakup on salary slips and so much more.
-- **Frappe HR Mobile App**: Apply for and approve leaves on the go, check-in and check-out, access employee profile right from the mobile app.
+- **thinkNXG HR Mobile App**: Apply for and approve leaves on the go, check-in and check-out, access employee profile right from the mobile app.
 
 <details open>
 
@@ -52,23 +52,23 @@ Initially, it was a set of modules within ERPNext but version 14 onwards, as the
 
 ### Under the Hood
 
-- [**Frappe Framework**](https://github.com/frappe/frappe): A full-stack web application framework written in Python and Javascript. The framework provides a robust foundation for building web applications, including a database abstraction layer, user authentication, and a REST API.
+- [**thinkNXG Framework**](https://github.com/thinkNXG/thinkNXG-hrms): A full-stack web application framework written in Python and Javascript. The framework provides a robust foundation for building web applications, including a database abstraction layer, user authentication, and a REST API.
 
-- [**Frappe UI**](https://github.com/frappe/frappe-ui): A Vue-based UI library, to provide a modern user interface. The Frappe UI library provides a variety of components that can be used to build single-page applications on top of the Frappe Framework.
+- [**thinkNXG UI**](https://github.com/thinkNXG/thinkNXG-ui): A Vue-based UI library, to provide a modern user interface. The thinkNXG UI library provides a variety of components that can be used to build single-page applications on top of the thinkNXG Framework.
 
 ## Production Setup
 
 ### Managed Hosting
 
-You can try [Frappe Cloud](https://frappecloud.com), a simple, user-friendly and sophisticated [open-source](https://github.com/frappe/press) platform to host Frappe applications with peace of mind.
+You can try [thinkNXG Cloud](https://thinkNXGcloud.com), a simple, user-friendly and sophisticated [open-source](https://github.com/thinkNXG/press) platform to host thinkNXG applications with peace of mind.
 
-It takes care of installation, setup, upgrades, monitoring, maintenance and support of your Frappe deployments. It is a fully featured developer platform with an ability to manage and control multiple Frappe deployments.
+It takes care of installation, setup, upgrades, monitoring, maintenance and support of your thinkNXG deployments. It is a fully featured developer platform with an ability to manage and control multiple thinkNXG deployments.
 
 <div>
-	<a href="https://frappecloud.com/hrms/signup" target="_blank">
+	<a href="https://thinkNXGcloud.com/hrms/signup" target="_blank">
 		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/try-on-fc-white.png">
-			<img src="https://frappe.io/files/try-on-fc-black.png" alt="Try on Frappe Cloud" height="28" />
+			<source media="(prefers-color-scheme: dark)" srcset="https://thinkNXG.io/files/try-on-fc-white.png">
+			<img src="https://thinkNXG.io/files/try-on-fc-black.png" alt="Try on thinkNXG Cloud" height="28" />
 		</picture>
 	</a>
 </div>
@@ -78,7 +78,7 @@ It takes care of installation, setup, upgrades, monitoring, maintenance and supp
 ### Docker
 You need Docker, docker-compose and git setup on your machine. Refer [Docker documentation](https://docs.docker.com/). After that, run the following commands:
 ```
-git clone https://github.com/frappe/hrms
+git clone https://github.com/thinkNXG/thinkNXG-hrms
 cd hrms/docker
 docker-compose up
 ```
@@ -92,7 +92,7 @@ Use the following credentials to log in:
 
 ### Local
 
-1. Set up bench by following the [Installation Steps](https://frappeframework.com/docs/user/en/installation) and start the server and keep it running
+1. Set up bench by following the [Installation Steps](https://thinkNXGframework.com/docs/user/en/installation) and start the server and keep it running
 	```sh
 	$ bench start
 	```
@@ -108,17 +108,17 @@ Use the following credentials to log in:
 
 ## Learning and Community
 
-1. [Frappe School](https://frappe.school) - Learn Frappe Framework and ERPNext from the various courses by the maintainers or from the community.
-2. [Documentation](https://docs.frappe.io/hr) - Extensive documentation for Frappe HR.
-3. [User Forum](https://discuss.erpnext.com/) - Engage with the community of ERPNext users and service providers.
-4. [Telegram Group](https://t.me/frappehr) - Get instant help from the community of users.
+1. [thinkNXG School](https://thinkNXG.school) - Learn thinkNXG Framework and ERPNext from the various courses by the maintainers or from the community.
+2. [Documentation](https://docs.thinkNXG.io/hr) - Extensive documentation for thinkNXG HR.
+3. [User Forum](https://discuss.thinknxg-erp.com/) - Engage with the community of ERPNext users and service providers.
+4. [Telegram Group](https://t.me/thinkNXGhr) - Get instant help from the community of users.
 
 
 ## Contributing
 
-1. [Issue Guidelines](https://github.com/frappe/erpnext/wiki/Issue-Guidelines)
+1. [Issue Guidelines](https://github.com/thinkNXG/erpnext/wiki/Issue-Guidelines)
 1. [Report Security Vulnerabilities](https://erpnext.com/security)
-1. [Pull Request Requirements](https://github.com/frappe/erpnext/wiki/Contribution-Guidelines)
+1. [Pull Request Requirements](https://github.com/thinkNXG/erpnext/wiki/Contribution-Guidelines)
 
 
 ## Logo and Trademark Policy
@@ -128,10 +128,10 @@ Please read our [Logo and Trademark Policy](TRADEMARK_POLICY.md).
 <br />
 <br />
 <div align="center" style="padding-top: 0.75rem;">
-	<a href="https://frappe.io" target="_blank">
+	<a href="https://thinkNXG.io" target="_blank">
 		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
+			<source media="(prefers-color-scheme: dark)" srcset="https://thinkNXG.io/files/thinkNXG-white.png">
+			<img src="https://thinkNXG.io/files/thinkNXG-black.png" alt="thinkNXG Technologies" height="28"/>
 		</picture>
 	</a>
 </div>
