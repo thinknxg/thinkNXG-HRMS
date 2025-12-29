@@ -15,8 +15,7 @@
  "modified_by": "Administrator",
  "name": "Tenure",
  "owner": "Administrator",
- "parent_icon": "Frappe HR",
- "restrict_removal": 0,
+ "parent_icon": "thinknxg HR",
  "roles": [],
  "standard": 1
 }
