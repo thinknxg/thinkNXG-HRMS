@@ -7,14 +7,14 @@ app_license = "GNU General Public License (v3)"
 required_apps = ["erpnext"]
 source_link = "http://github.com/thinkNXG/thinknxg-hrms"
 app_logo_url = "/assets/hrms/images/thinkNXG-logo.jpg"
-app_home = "/app/overview"
+app_home = "/app/hr-setup"
 
 add_to_apps_screen = [
 	{
 		"name": "hrms",
 		"logo": "/assets/hrms/images/thinkNXG-logo.jpg",
 		"title": "thinkNXG HR",
-		"route": "/app/overview",
+		"route": "/app/hr-setup",
 		"has_permission": "hrms.hr.utils.check_app_permission",
 	}
 ]
