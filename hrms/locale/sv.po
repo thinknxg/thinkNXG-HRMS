@@ -10957,7 +10957,7 @@ msgid "Violet"
 msgstr "Violett"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:16
-msgid "WARNING: Loan Management module has been separated from ERPNext."
+msgid "WARNING: Loan Management module has been separated from thinkNXG ERP."
 msgstr "Varning: Lånehantering modul är separerad från System."
 
 #: hrms/hr/doctype/leave_application/leave_application.py:418

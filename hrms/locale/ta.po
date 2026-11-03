@@ -10958,8 +10958,8 @@ msgid "Violet"
 msgstr "ஊதா"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:16
-msgid "WARNING: Loan Management module has been separated from ERPNext."
-msgstr "எச்சரிக்கை: கடன் மேலாண்மை தொகுதி ERPNext-இலிருந்து பிரிக்கப்பட்டுள்ளது."
+msgid "WARNING: Loan Management module has been separated from thinkNXG ERP."
+msgstr "எச்சரிக்கை: கடன் மேலாண்மை தொகுதி thinkNXG ERP-இலிருந்து பிரிக்கப்பட்டுள்ளது."
 
 #: hrms/hr/doctype/leave_application/leave_application.py:418
 msgid "Warning: Insufficient leave balance for Leave Type {0} in this allocation."

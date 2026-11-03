@@ -10955,8 +10955,8 @@ msgid "Violet"
 msgstr "Ljubičasta"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:16
-msgid "WARNING: Loan Management module has been separated from ERPNext."
-msgstr "UPOZORENJE: Modul za upravljanje zajmovima je odvojen od ERPNext sistema."
+msgid "WARNING: Loan Management module has been separated from thinkNXG ERP."
+msgstr "UPOZORENJE: Modul za upravljanje zajmovima je odvojen od thinkNXG ERP sistema."
 
 #: hrms/hr/doctype/leave_application/leave_application.py:418
 msgid "Warning: Insufficient leave balance for Leave Type {0} in this allocation."

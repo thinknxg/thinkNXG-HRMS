@@ -17,6 +17,8 @@ import frappe
 OLD_DOCS = re.compile(r"https?://docs\.frappe\.io/hr(?:/[^\s\"'()\]<>]*)?")
 NEW_DOCS = "https://docs.thinknxg.com/thinknxghr"
 LIKE_OLD_DOCS = "%docs.frappe.io/hr%"
+OLD_LOGO = "/assets/hrms/images/frappe-hr-logo.svg"
+NEW_LOGO = "/assets/hrms/images/thinkNXG-logo.jpg"
 
 
 def execute():
@@ -33,6 +35,10 @@ def execute():
 				"Get to know thinkNXG HR",
 				update_modified=False,
 			)
+
+	# set_app_logo() stored the upstream logo path on sites installed before the rebrand
+	if frappe.db.get_single_value("Navbar Settings", "app_logo") == OLD_LOGO:
+		frappe.db.set_single_value("Navbar Settings", "app_logo", NEW_LOGO)
 
 	if frappe.db.table_exists("Desktop Icon") and frappe.db.has_column("Desktop Icon", "label"):
 		frappe.db.set_value(

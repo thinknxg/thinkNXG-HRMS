@@ -16481,8 +16481,8 @@ msgid "View Goals"
 msgstr "檢視目標"
 
 #: patches/v15_0/notify_about_loan_app_separation.py:16
-msgid "WARNING: Loan Management module has been separated from ERPNext."
-msgstr "警告：貸款管理模組已從 ERPNext 中分離。"
+msgid "WARNING: Loan Management module has been separated from thinkNXG ERP."
+msgstr "警告：貸款管理模組已從 thinkNXG ERP 中分離。"
 
 #: setup.py:390
 msgid "Walk In"

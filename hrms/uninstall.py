@@ -9,11 +9,11 @@ def before_uninstall():
 		remove_custom_fields()
 
 	except Exception as e:
-		BUG_REPORT_URL = "https://github.com/frappe/hrms/issues/new"
+		SUPPORT_URL = "https://thinknxg.com/support"
 		click.secho(
 			"Removing Customizations for thinkNXG HR failed due to an error."
 			" Please try again or"
-			f" report the issue on {BUG_REPORT_URL} if not resolved.",
+			f" contact thinkNXG Support at {SUPPORT_URL} if not resolved.",
 			fg="bright_red",
 		)
 		raise e

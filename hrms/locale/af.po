@@ -16481,8 +16481,8 @@ msgid "View Goals"
 msgstr "Bekyk doelwitte"
 
 #: patches/v15_0/notify_about_loan_app_separation.py:16
-msgid "WARNING: Loan Management module has been separated from ERPNext."
-msgstr "WAARSKUWING: Leningbestuursmodule is van ERPNext geskei."
+msgid "WARNING: Loan Management module has been separated from thinkNXG ERP."
+msgstr "WAARSKUWING: Leningbestuursmodule is van thinkNXG ERP geskei."
 
 #: setup.py:390
 msgid "Walk In"
