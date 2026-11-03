@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Community Forum
-    url: https://discuss.frappe.io/
-    about: For general QnA, discussions and community help.
+  - name: thinkNXG Support
+    url: https://thinknxg.com/support
+    about: For questions, how-tos and help from the thinkNXG team.
+  - name: thinkNXG HR Documentation
+    url: https://docs.thinknxg.com/thinknxghr
+    about: Guides for every thinkNXG HR module.

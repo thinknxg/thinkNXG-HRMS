@@ -1,17 +1,17 @@
 ---
 name: Bug Report
-description: Report a bug encountered while using Frappe HR
+description: Report a bug encountered while using thinkNXG HR
 labels: ["bug"]
 
 body:
   - type: markdown
     attributes:
       value: |
-        Welcome to Frappe HR issue tracker! Before creating an issue, please consider the following:
+        Welcome to thinkNXG HR issue tracker! Before creating an issue, please consider the following:
 
-        1. This tracker should only be used to report bugs and request features / enhancements to Frappe HR
-            - For questions and general support, checkout the [documentation](https://frappehr.com/docs) or use the [forum](https://discuss.frappe.io) to get inputs from the open source community.
-            - For documentation issues, propose edit on the [documentation site](https://frappehr.com/docs) directly.
+        1. This tracker should only be used to report bugs and request features / enhancements to thinkNXG HR
+            - For questions and general support, checkout the [documentation](https://docs.thinknxg.com/thinknxghr) or contact [thinkNXG Support](https://thinknxg.com/support).
+            - For documentation issues, report them to [thinkNXG Support](https://thinknxg.com/support).
         2. When making a bug report, make sure you provide all required information. The easier it is for
            maintainers to reproduce, the faster it'll be fixed.
         3. If you think you know what the reason for the bug is, share it with us. Maybe put in a PR 😉
@@ -29,7 +29,7 @@ body:
     id: module
     attributes:
       label: Module
-      description: Select the affected module of Frappe HR.
+      description: Select the affected module of thinkNXG HR.
       multiple: true
       options:
         - HR
@@ -42,11 +42,11 @@ body:
     id: exact-version
     attributes:
       label: Version
-      description: Share exact version number of Frappe, ERPNext and Frappe HR you are using.
+      description: Share exact version number of thinkNXG Framework, thinkNXG ERP and thinkNXG HR you are using.
       placeholder: |
-        Frappe version -
-        ERPNext version -
-        Frappe HR version -
+        thinkNXG Framework version -
+        thinkNXG ERP version -
+        thinkNXG HR version -
     validations:
       required: true
 
@@ -58,7 +58,7 @@ body:
         - docker
         - easy-install
         - manual install
-        - FrappeCloud
+        - thinkNXG Cloud
     validations:
       required: false
 
@@ -74,7 +74,7 @@ body:
     attributes:
       label: Code of Conduct
       description: |
-        By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/frappe/hrms/blob/develop/CODE_OF_CONDUCT.md)
+        By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/thinknxg/thinkNXG-HRMS/blob/version-16/CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
