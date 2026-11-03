@@ -16,6 +16,7 @@
  "name": "Tenure",
  "owner": "Administrator",
  "parent_icon": "thinknxg HR",
+ "restrict_removal": 0,
  "roles": [],
  "standard": 1
 }
