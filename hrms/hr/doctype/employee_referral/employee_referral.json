@@ -4,7 +4,7 @@
  "autoname": "format:HR-REF-{####}",
  "creation": "2021-03-23 14:54:45.047051",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-referral",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

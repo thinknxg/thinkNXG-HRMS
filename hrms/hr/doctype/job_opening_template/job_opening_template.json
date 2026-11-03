@@ -5,7 +5,7 @@
  "autoname": "field:template_title",
  "creation": "2025-12-11 18:04:50.413169",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/job-opening",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "template_title",

@@ -5,7 +5,7 @@
  "autoname": "HR-TRR-.YYYY.-.#####",
  "creation": "2016-11-04 02:13:48.407576",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/training-result",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

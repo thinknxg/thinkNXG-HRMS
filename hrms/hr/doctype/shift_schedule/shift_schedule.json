@@ -5,7 +5,7 @@
  "autoname": "prompt",
  "creation": "2024-11-11 16:56:33.536882",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/shift-schedule",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "schedule_settings_section",

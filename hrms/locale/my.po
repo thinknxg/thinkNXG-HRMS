@@ -4248,8 +4248,8 @@ msgid "Fractional Cost"
 msgstr "အပိုင်းလိုက် ကုန်ကျစရိတ်"
 
 #: frontend/src/components/BaseLayout.vue:9
-msgid "Frappe HR"
-msgstr "Frappe HR"
+msgid "thinkNXG HR"
+msgstr "thinkNXG HR"
 
 #. Label of the from_amount (Currency) field in DocType 'Taxable Salary Slab'
 #: hrms/payroll/doctype/taxable_salary_slab/taxable_salary_slab.json
@@ -4883,8 +4883,8 @@ msgid "If set, the job opening will be closed automatically after this date"
 msgstr "သတ်မှတ်ထားပါက ဤရက်စွဲ ပြီးနောက် အလုပ်လစ်လပ်ရာနေရာကို အလိုအလျောက် ပိတ်လိုက်မည်"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:17
-msgid "If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll."
-msgstr "လစာစာရွက်များတွင် ချေးငွေများကို အသုံးပြုနေပါက လစာနှင့် ချေးငွေ ပေါင်းစပ်မှုကို ဆက်လက်အသုံးပြုရန် Frappe Cloud Marketplace သို့မဟုတ် GitHub မှ {0} အက်ပ်ကို ထည့်သွင်းပါ။"
+msgid "If you are using loans in salary slips, please install the {0} app from thinkNXG Cloud Marketplace or GitHub to continue using loan integration with payroll."
+msgstr "လစာစာရွက်များတွင် ချေးငွေများကို အသုံးပြုနေပါက လစာနှင့် ချေးငွေ ပေါင်းစပ်မှုကို ဆက်လက်အသုံးပြုရန် thinkNXG Cloud Marketplace သို့မဟုတ် GitHub မှ {0} အက်ပ်ကို ထည့်သွင်းပါ။"
 
 #. Label of the upload_attendance_data (Section Break) field in DocType 'Upload
 #. Attendance'
@@ -5044,8 +5044,8 @@ msgstr "ထည့်သွင်းရန်"
 
 #: frontend/src/components/InstallPrompt.vue:5
 #: frontend/src/components/InstallPrompt.vue:28
-msgid "Install Frappe HR"
-msgstr "Frappe HR ကို ထည့်သွင်းပါ"
+msgid "Install thinkNXG HR"
+msgstr "thinkNXG HR ကို ထည့်သွင်းပါ"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:435
 msgid "Insufficient Balance"
@@ -6188,8 +6188,8 @@ msgid "Login Failed"
 msgstr "ဝင်ရောက်မှု မအောင်မြင်ပါ"
 
 #: frontend/src/views/Login.vue:8
-msgid "Login to Frappe HR"
-msgstr "Frappe HR သို့ ဝင်ရောက်ရန်"
+msgid "Login to thinkNXG HR"
+msgstr "thinkNXG HR သို့ ဝင်ရောက်ရန်"
 
 #: frontend/src/components/CheckInPanel.vue:132
 msgid "Longitude: {0}°"

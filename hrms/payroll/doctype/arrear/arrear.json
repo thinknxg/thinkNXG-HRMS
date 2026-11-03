@@ -4,7 +4,7 @@
  "autoname": "format:{Arrear}/{employee}/{#####}",
  "creation": "2025-09-15 16:08:13.216474",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/arrears",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "employee",

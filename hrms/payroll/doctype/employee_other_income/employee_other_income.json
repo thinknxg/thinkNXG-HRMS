@@ -4,7 +4,7 @@
  "autoname": "HR-INCOME-.######",
  "creation": "2020-03-18 15:04:40.767434",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-other-income",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

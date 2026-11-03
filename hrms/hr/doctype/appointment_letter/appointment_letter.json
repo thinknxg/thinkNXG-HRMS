@@ -5,7 +5,7 @@
  "creation": "2019-12-26 12:35:49.574828",
  "default_print_format": "Standard Appointment Letter",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/appointment-letter",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

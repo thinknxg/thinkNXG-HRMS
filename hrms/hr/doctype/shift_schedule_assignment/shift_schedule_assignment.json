@@ -4,7 +4,7 @@
  "autoname": "HR-SHSA-.YY.-.MM.-.#####",
  "creation": "2024-11-11 17:33:00.330488",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/shift-schedule-assignment",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "shift_details_section",

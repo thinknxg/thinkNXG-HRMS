@@ -4,7 +4,7 @@
  "autoname": "format:HR-GOAL-{YYYY}-{####}",
  "creation": "2022-08-24 16:07:57.669638",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/goal",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

@@ -4,7 +4,7 @@
  "allow_rename": 1,
  "creation": "2024-03-19 15:07:00.469939",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/shift-assignment-tool",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "action",

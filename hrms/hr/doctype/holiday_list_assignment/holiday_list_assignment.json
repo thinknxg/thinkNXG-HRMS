@@ -4,7 +4,7 @@
  "autoname": "naming_series:",
  "creation": "2025-08-28 12:59:25.390188",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/hr/leave-management/holiday-list-assignment",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "section_break_wnwa",

@@ -4,7 +4,7 @@
  "autoname": "HR-INT-FEED-.####",
  "creation": "2021-04-12 17:03:13.833285",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/interview-feedback",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

@@ -5,7 +5,7 @@
  "autoname": "field:health_insurance_name",
  "creation": "2017-03-27 14:32:51.628588",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-health-insurance",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Document",
  "editable_grid": 1,
  "engine": "InnoDB",

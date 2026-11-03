@@ -5,7 +5,7 @@
  "autoname": "field:leave_type_name",
  "creation": "2013-02-21 09:55:58",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/leave-type",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Setup",
  "engine": "InnoDB",
  "field_order": [

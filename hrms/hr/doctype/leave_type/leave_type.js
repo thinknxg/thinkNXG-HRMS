@@ -42,7 +42,7 @@ frappe.tour["Leave Type"] = [
 		description: __(
 			"Leaves you can avail against a holiday you worked on. You can claim Compensatory Off Leave using Compensatory Leave Request. Click {0} to know more",
 			[
-				`<a href='https://docs.frappe.io/hr/compensatory-leave-request' target='_blank'>${__(
+				`<a href='https://docs.thinknxg.com/thinknxghr' target='_blank'>${__(
 					"here",
 				)}</a>`,
 			],

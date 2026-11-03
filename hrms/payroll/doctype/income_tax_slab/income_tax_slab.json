@@ -4,7 +4,7 @@
  "autoname": "Prompt",
  "creation": "2020-03-17 16:50:35.564915",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/income-tax-slab",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

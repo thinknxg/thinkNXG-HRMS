@@ -2,7 +2,7 @@
  "action": "Create Entry",
  "action_label": "Create Goal",
  "creation": "2026-10-05 12:00:00.000000",
- "description": "A measurable target for an employee, tracked against a KRA. See [Goal](https://docs.frappe.io/hr/goal).",
+ "description": "A measurable target for an employee, tracked against a KRA. See [Goal](https://docs.thinknxg.com/thinknxghr).",
  "docstatus": 0,
  "doctype": "Onboarding Step",
  "idx": 0,

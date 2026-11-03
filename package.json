@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "hrms",
-  "description": "Open Source HR & Payroll System powered by the Frappe Framework",
+  "description": "Open Source HR & Payroll System powered by the thinkNXG Framework",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thinkNXG/thinkNXG-hrms.git"

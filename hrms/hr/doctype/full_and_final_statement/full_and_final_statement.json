@@ -3,7 +3,7 @@
  "autoname": "HR-FNF-.YYYY.-.#####",
  "creation": "2021-06-28 13:17:36.050459",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/full-and-final-statement",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

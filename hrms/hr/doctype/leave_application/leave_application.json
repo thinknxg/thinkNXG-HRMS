@@ -5,7 +5,7 @@
  "creation": "2013-02-20 11:18:11",
  "description": "Apply / Approve Leaves",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/leave-application",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Document",
  "engine": "InnoDB",
  "field_order": [

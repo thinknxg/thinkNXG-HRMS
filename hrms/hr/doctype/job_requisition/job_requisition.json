@@ -5,7 +5,7 @@
  "autoname": "naming_series:",
  "creation": "2022-08-29 19:00:53.358248",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/job-requisition",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

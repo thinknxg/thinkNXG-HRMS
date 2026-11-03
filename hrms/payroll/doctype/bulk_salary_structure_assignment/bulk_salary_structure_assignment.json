@@ -3,7 +3,7 @@
  "allow_copy": 1,
  "creation": "2024-01-25 12:52:26.250137",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/salary-structure-assignment-tool",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "set_assignment_details_section",

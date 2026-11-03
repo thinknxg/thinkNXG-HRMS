@@ -5,7 +5,7 @@
  "autoname": "HR-TAX-DEC-.YYYY.-.#####",
  "creation": "2018-04-13 16:53:36.175504",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-tax-exemption-declaration",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

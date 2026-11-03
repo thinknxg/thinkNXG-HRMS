@@ -5,7 +5,7 @@
  "autoname": "format:HR-PF-{YYYY}-{#####}",
  "creation": "2022-09-01 01:05:44.869523",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-performance-feedback",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

@@ -6,7 +6,7 @@
  "creation": "2013-01-29 19:25:37",
  "description": "Applicant for a Job",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/job-applicant",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Document",
  "email_append_to": 1,
  "engine": "InnoDB",

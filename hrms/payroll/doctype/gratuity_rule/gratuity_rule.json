@@ -4,7 +4,7 @@
  "autoname": "Prompt",
  "creation": "2020-08-05 19:00:36.103500",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/gratuity-rule",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

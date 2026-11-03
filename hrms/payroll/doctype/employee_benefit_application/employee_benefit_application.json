@@ -5,7 +5,7 @@
  "autoname": "HR-BEN-APP-.YY.-.MM.-.#####",
  "creation": "2018-04-13 16:31:39.190787",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-benefit-application",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

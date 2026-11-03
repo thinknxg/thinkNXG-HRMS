@@ -2,7 +2,7 @@
  "actions": [],
  "creation": "2019-05-09 15:47:39.760406",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/leave-ledger-entry",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "employee",

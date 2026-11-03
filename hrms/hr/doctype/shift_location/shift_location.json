@@ -5,7 +5,7 @@
  "autoname": "field:location_name",
  "creation": "2024-07-04 12:12:26.894513",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/shift-location",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "location_name",

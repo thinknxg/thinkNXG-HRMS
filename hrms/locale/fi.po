@@ -1,11 +1,11 @@
-# Translations template for Frappe HR.
+# Translations template for thinkNXG HR.
 # Copyright (C) 2024 Frappe Technologies Pvt. Ltd.
-# This file is distributed under the same license as the Frappe HR project.
+# This file is distributed under the same license as the thinkNXG HR project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frappe HR VERSION\n"
+"Project-Id-Version: thinkNXG HR VERSION\n"
 "Report-Msgid-Bugs-To: contact@frappe.io\n"
 "POT-Creation-Date: 2024-01-11 19:17+0553\n"
 "PO-Revision-Date: 2024-01-11 19:17+0553\n"
@@ -8582,8 +8582,8 @@ msgid "If set, the job opening will be closed automatically after this date"
 msgstr ""
 
 #: patches/v15_0/notify_about_loan_app_separation.py:17
-msgid "If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll."
-msgstr "Jos käytät lainoja palkkalaskelmissa, asenna sovellus {0} Frappe Cloud Marketplacesta tai GitHubista, jotta voit jatkaa lainojen integrointia palkkalaskentaan."
+msgid "If you are using loans in salary slips, please install the {0} app from thinkNXG Cloud Marketplace or GitHub to continue using loan integration with payroll."
+msgstr "Jos käytät lainoja palkkalaskelmissa, asenna sovellus {0} thinkNXG Cloud Marketplacesta tai GitHubista, jotta voit jatkaa lainojen integrointia palkkalaskentaan."
 
 #. Label of a Section Break field in DocType 'Upload Attendance'
 #: hr/doctype/upload_attendance/upload_attendance.json

@@ -4,7 +4,7 @@
  "autoname": "HR-LPOL-.YYYY.-.#####",
  "creation": "2018-04-13 16:06:19.507624",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/leave-policy",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

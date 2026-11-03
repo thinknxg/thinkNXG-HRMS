@@ -2,7 +2,7 @@
  "action": "Create Entry",
  "action_label": "Create Leave Type",
  "creation": "2026-10-05 12:00:00.000000",
- "description": "A kind of leave, such as casual or sick, and its rules. See [Leave Type](https://docs.frappe.io/hr/leave-type).",
+ "description": "A kind of leave, such as casual or sick, and its rules. See [Leave Type](https://docs.thinknxg.com/thinknxghr).",
  "docstatus": 0,
  "doctype": "Onboarding Step",
  "idx": 0,

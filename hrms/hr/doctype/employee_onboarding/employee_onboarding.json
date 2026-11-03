@@ -3,7 +3,7 @@
  "autoname": "HR-EMP-ONB-.YYYY.-.#####",
  "creation": "2018-05-09 04:57:20.016220",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-onboarding",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

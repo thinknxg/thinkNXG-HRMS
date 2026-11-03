@@ -4220,7 +4220,7 @@ msgid "Fractional Cost"
 msgstr "crwdns107314:0crwdne107314:0"
 
 #: frontend/src/components/BaseLayout.vue:9
-msgid "Frappe HR"
+msgid "thinkNXG HR"
 msgstr "crwdns151228:0crwdne151228:0"
 
 #. Label of the from_amount (Currency) field in DocType 'Taxable Salary Slab'
@@ -4855,7 +4855,7 @@ msgid "If set, the job opening will be closed automatically after this date"
 msgstr "crwdns141662:0crwdne141662:0"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:17
-msgid "If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll."
+msgid "If you are using loans in salary slips, please install the {0} app from thinkNXG Cloud Marketplace or GitHub to continue using loan integration with payroll."
 msgstr "crwdns107666:0{0}crwdne107666:0"
 
 #. Label of the upload_attendance_data (Section Break) field in DocType 'Upload
@@ -5016,7 +5016,7 @@ msgstr "crwdns151242:0crwdne151242:0"
 
 #: frontend/src/components/InstallPrompt.vue:5
 #: frontend/src/components/InstallPrompt.vue:28
-msgid "Install Frappe HR"
+msgid "Install thinkNXG HR"
 msgstr "crwdns151244:0crwdne151244:0"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:435
@@ -6160,7 +6160,7 @@ msgid "Login Failed"
 msgstr "crwdns151260:0crwdne151260:0"
 
 #: frontend/src/views/Login.vue:8
-msgid "Login to Frappe HR"
+msgid "Login to thinkNXG HR"
 msgstr "crwdns151262:0crwdne151262:0"
 
 #: frontend/src/components/CheckInPanel.vue:132

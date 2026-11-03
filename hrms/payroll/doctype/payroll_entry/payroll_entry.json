@@ -4,7 +4,7 @@
  "autoname": "HR-PRUN-.YYYY.-.#####",
  "creation": "2017-10-23 15:22:29.291323",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/payroll-entry",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Other",
  "engine": "InnoDB",
  "field_order": [

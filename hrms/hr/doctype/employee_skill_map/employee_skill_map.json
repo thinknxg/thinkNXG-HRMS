@@ -3,7 +3,7 @@
  "autoname": "field:employee",
  "creation": "2019-04-16 10:07:48.303426",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-skill-map",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "employee",

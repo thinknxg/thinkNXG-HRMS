@@ -5,7 +5,7 @@
  "autoname": "field:training_program",
  "creation": "2017-10-11 04:43:17.230065",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/training-program",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

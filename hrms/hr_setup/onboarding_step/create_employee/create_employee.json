@@ -2,7 +2,7 @@
  "action": "Create Entry",
  "action_label": "Add Employee",
  "creation": "2026-10-05 12:00:00.000000",
- "description": "The people you manage, with their joining date, department and reporting manager. See [Employee](https://docs.frappe.io/hr/employee).",
+ "description": "The people you manage, with their joining date, department and reporting manager. See [Employee](https://docs.thinknxg.com/thinknxghr).",
  "docstatus": 0,
  "doctype": "Onboarding Step",
  "idx": 0,

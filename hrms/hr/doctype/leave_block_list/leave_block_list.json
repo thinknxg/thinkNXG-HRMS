@@ -5,7 +5,7 @@
  "creation": "2013-02-18 17:43:12",
  "description": "Block Holidays on important days.",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/leave-block-list",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "document_type": "Setup",
  "engine": "InnoDB",
  "field_order": [

@@ -5,7 +5,7 @@
  "autoname": "HR-TAX-PRF-.YYYY.-.#####",
  "creation": "2018-04-13 17:24:11.456132",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/employee-tax-exemption-proof-submission",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

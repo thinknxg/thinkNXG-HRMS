@@ -2,7 +2,7 @@
  "action": "Create Entry",
  "action_label": "Create Training Event",
  "creation": "2026-10-05 12:00:00.000000",
- "description": "A session of a training program and the employees attending it. See [Training Event](https://docs.frappe.io/hr/training-event).",
+ "description": "A session of a training program and the employees attending it. See [Training Event](https://docs.thinknxg.com/thinknxghr).",
  "docstatus": 0,
  "doctype": "Onboarding Step",
  "idx": 0,

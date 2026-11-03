@@ -2,7 +2,7 @@
  "action": "Create Entry",
  "action_label": "Give Feedback",
  "creation": "2026-10-05 12:00:00.000000",
- "description": "A reviewer's ratings and comments on an employee for the cycle. See [Employee Performance Feedback](https://docs.frappe.io/hr/employee-performance-feedback).",
+ "description": "A reviewer's ratings and comments on an employee for the cycle. See [Employee Performance Feedback](https://docs.thinknxg.com/thinknxghr).",
  "docstatus": 0,
  "doctype": "Onboarding Step",
  "idx": 0,

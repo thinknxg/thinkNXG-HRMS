@@ -4,7 +4,7 @@
  "autoname": "naming_series:",
  "creation": "2025-04-04 11:19:14.382103",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/hr/leave-management/leave-adjustment",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "section_break_wjxt",

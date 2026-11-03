@@ -4248,8 +4248,8 @@ msgid "Fractional Cost"
 msgstr "Chi phí phân số"
 
 #: frontend/src/components/BaseLayout.vue:9
-msgid "Frappe HR"
-msgstr "Frappe HR"
+msgid "thinkNXG HR"
+msgstr "thinkNXG HR"
 
 #. Label of the from_amount (Currency) field in DocType 'Taxable Salary Slab'
 #: hrms/payroll/doctype/taxable_salary_slab/taxable_salary_slab.json
@@ -4883,8 +4883,8 @@ msgid "If set, the job opening will be closed automatically after this date"
 msgstr "Nếu đặt, vị trí tuyển dụng sẽ được đóng tự động sau ngày này"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:17
-msgid "If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll."
-msgstr "Nếu bạn đang sử dụng khoản vay trong phiếu lương, vui lòng cài đặt ứng dụng {0} từ Frappe Cloud Marketplace hoặc GitHub để tiếp tục sử dụng tích hợp khoản vay với lương."
+msgid "If you are using loans in salary slips, please install the {0} app from thinkNXG Cloud Marketplace or GitHub to continue using loan integration with payroll."
+msgstr "Nếu bạn đang sử dụng khoản vay trong phiếu lương, vui lòng cài đặt ứng dụng {0} từ thinkNXG Cloud Marketplace hoặc GitHub để tiếp tục sử dụng tích hợp khoản vay với lương."
 
 #. Label of the upload_attendance_data (Section Break) field in DocType 'Upload
 #. Attendance'
@@ -5044,8 +5044,8 @@ msgstr "Cài đặt"
 
 #: frontend/src/components/InstallPrompt.vue:5
 #: frontend/src/components/InstallPrompt.vue:28
-msgid "Install Frappe HR"
-msgstr "Cài đặt Frappe HR"
+msgid "Install thinkNXG HR"
+msgstr "Cài đặt thinkNXG HR"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:435
 msgid "Insufficient Balance"
@@ -6188,8 +6188,8 @@ msgid "Login Failed"
 msgstr "Đăng nhập thất bại"
 
 #: frontend/src/views/Login.vue:8
-msgid "Login to Frappe HR"
-msgstr "Đăng nhập vào Frappe HR"
+msgid "Login to thinkNXG HR"
+msgstr "Đăng nhập vào thinkNXG HR"
 
 #: frontend/src/components/CheckInPanel.vue:132
 msgid "Longitude: {0}°"

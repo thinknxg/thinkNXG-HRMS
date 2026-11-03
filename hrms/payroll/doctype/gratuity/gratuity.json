@@ -3,7 +3,7 @@
  "autoname": "HR-GRA-PAY-.#####",
  "creation": "2022-01-27 16:24:28.200061",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/gratuity",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

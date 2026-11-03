@@ -6,7 +6,7 @@
  "creation": "2023-03-16 13:24:03.253830",
  "default_view": "List",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/appraisal-template",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [

@@ -5,7 +5,7 @@
  "autoname": "HR-OT-SLIP-.#####",
  "creation": "2024-10-15 16:19:55.229439",
  "doctype": "DocType",
- "documentation": "https://docs.frappe.io/hr/overtime",
+ "documentation": "https://docs.thinknxg.com/thinknxghr",
  "engine": "InnoDB",
  "field_order": [
   "section_break_wdfp",

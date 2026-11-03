@@ -4248,7 +4248,7 @@ msgid "Fractional Cost"
 msgstr "Djelimični Trošak"
 
 #: frontend/src/components/BaseLayout.vue:9
-msgid "Frappe HR"
+msgid "thinkNXG HR"
 msgstr "Frape HR"
 
 #. Label of the from_amount (Currency) field in DocType 'Taxable Salary Slab'
@@ -4883,8 +4883,8 @@ msgid "If set, the job opening will be closed automatically after this date"
 msgstr "Ako je postavljeno, radno mjesto će se automatski zatvoriti nakon ovog datuma"
 
 #: hrms/patches/v15_0/notify_about_loan_app_separation.py:17
-msgid "If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll."
-msgstr "Ako koristite kredite u platnim listama, instalirajte aplikaciju {0} sa Frappe Cloud Marketplace-a ili GitHub-a da nastavite koristiti integraciju kredita s platnim spiskom."
+msgid "If you are using loans in salary slips, please install the {0} app from thinkNXG Cloud Marketplace or GitHub to continue using loan integration with payroll."
+msgstr "Ako koristite kredite u platnim listama, instalirajte aplikaciju {0} sa thinkNXG Cloud Marketplace-a ili GitHub-a da nastavite koristiti integraciju kredita s platnim spiskom."
 
 #. Label of the upload_attendance_data (Section Break) field in DocType 'Upload
 #. Attendance'
@@ -5044,8 +5044,8 @@ msgstr "Instaliraj"
 
 #: frontend/src/components/InstallPrompt.vue:5
 #: frontend/src/components/InstallPrompt.vue:28
-msgid "Install Frappe HR"
-msgstr "Instaliraj Frappe HR"
+msgid "Install thinkNXG HR"
+msgstr "Instaliraj thinkNXG HR"
 
 #: hrms/hr/doctype/leave_application/leave_application.py:435
 msgid "Insufficient Balance"
@@ -6188,8 +6188,8 @@ msgid "Login Failed"
 msgstr "Prijava nije uspjela"
 
 #: frontend/src/views/Login.vue:8
-msgid "Login to Frappe HR"
-msgstr "Prijavite se na Frappe HR"
+msgid "Login to thinkNXG HR"
+msgstr "Prijavite se na thinkNXG HR"
 
 #: frontend/src/components/CheckInPanel.vue:132
 msgid "Longitude: {0}°"
