@@ -64,7 +64,7 @@ section-order = [
 
 [project.urls]
 Homepage = "https://thinknxg.com/hr"
-Repository = "https://github.com/thinknxg/thinkNXG-HRMS.git"
+Repository = "https://github.com/thinknxg/thinkNXG-HRMS"
 Documentation = "https://docs.thinknxg.com/thinknxghr"
 "Bug Reports" = "https://github.com/thinknxg/thinkNXG-HRMS/issues"
 
