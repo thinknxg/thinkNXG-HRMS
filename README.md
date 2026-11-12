@@ -17,7 +17,7 @@
 	-
 	<a href="https://docs.thinknxg.com/thinknxghr">Documentation</a>
 	-
-	<a href="https://thinknxg.com/support">Support</a>
+	<a href="https://thinknxg.com/thinkdesk">Support</a>
 </div>
 
 ## thinkNXG HR
@@ -93,7 +93,7 @@ Use the following credentials to log in:
 
 1. [thinkNXG HR Documentation](https://docs.thinknxg.com/thinknxghr) - Guides for every thinkNXG HR module.
 2. [thinkNXG ERP Documentation](https://docs.thinknxg.com/thinknxgerp) - Accounting, expenses and other ERP topics.
-3. [thinkNXG Support](https://thinknxg.com/support) - Get help from the thinkNXG team.
+3. [thinkNXG Support](https://thinknxg.com/thinkdesk) - Get help from the thinkNXG team.
 4. [thinkNXG Insights](https://thinknxg.com/insights) - Reporting and analytics for your HR data.
 
 ## Logo and Trademark Policy

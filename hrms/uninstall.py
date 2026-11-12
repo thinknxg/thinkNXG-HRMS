@@ -9,7 +9,7 @@ def before_uninstall():
 		remove_custom_fields()
 
 	except Exception as e:
-		SUPPORT_URL = "https://thinknxg.com/support"
+		SUPPORT_URL = "https://thinknxg.com/thinkdesk"
 		click.secho(
 			"Removing Customizations for thinkNXG HR failed due to an error."
 			" Please try again or"

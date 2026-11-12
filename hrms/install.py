@@ -11,7 +11,7 @@ def after_install():
 		click.secho("Thank you for installing thinkNXG HR!", fg="green")
 
 	except Exception as e:
-		SUPPORT_URL = "https://thinknxg.com/support"
+		SUPPORT_URL = "https://thinknxg.com/thinkdesk"
 		click.secho(
 			"Installation for thinkNXG HR app failed due to an error."
 			" Please try re-installing the app or"
