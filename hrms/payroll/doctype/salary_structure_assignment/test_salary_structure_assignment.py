@@ -2,7 +2,7 @@
 # See license.txt
 
 import frappe
-from frappe.utils import get_first_day, get_last_day, nowdate
+from frappe.utils import add_months, get_first_day, get_last_day, nowdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
 
@@ -76,6 +76,47 @@ class TestSalaryStructureAssignment(HRMSTestSuite):
 
 		self.assertEqual(ssa.annual_gross_earning, 50000 * 12)
 		self.assertEqual(ssa.ctc, (50000 + 6000) * 12)
+
+	def test_regional_ctc_hook_reaches_ctc_but_not_gross(self):
+		emp = make_employee("ssa_regional_ctc@test.com", company="_Test Company")
+
+		_make_component("SSA Test Basic", "SSATB", "Earning", amount_based_on_formula=1, formula="base")
+		_make_component("SSA Test Regional Employer", "SSATRE", "Employer Contribution")
+
+		make_salary_structure(
+			"SSA Test Regional CTC Structure",
+			"Monthly",
+			employee=emp,
+			company="_Test Company",
+			base=50000,
+			earnings=[
+				{
+					"salary_component": "SSA Test Basic",
+					"abbr": "SSATB",
+					"amount_based_on_formula": 1,
+					"formula": "base",
+				}
+			],
+			deductions=[],
+		)
+		ssa = frappe.get_last_doc("Salary Structure Assignment", filters={"employee": emp})
+
+		def inject(rows_by_type, data):
+			rows_by_type["employer_contributions"].append(
+				frappe._dict(
+					salary_component="SSA Test Regional Employer",
+					abbr="SSATRE",
+					default_amount=2700,
+					statistical_component=0,
+					do_not_include_in_total=0,
+				)
+			)
+
+		ssa.apply_regional_ctc_components = inject
+		ssa.calculate_ctc_and_gross()
+
+		self.assertEqual(ssa.annual_gross_earning, 50000 * 12)
+		self.assertEqual(ssa.ctc, (50000 + 2700) * 12)
 
 	def test_ctc_reset_when_base_missing(self):
 		emp = make_employee("ssa_ctc_nobase@test.com", company="_Test Company")
@@ -452,3 +493,41 @@ class TestSalaryStructureAssignment(HRMSTestSuite):
 
 				slip = make_salary_slip(structure.name, employee=emp)
 				self.assertIn("SSA Test Cycle Days", [r.salary_component for r in slip.earnings])
+
+	def test_employee_currency_ignores_draft_and_cancelled_assignments(self):
+		from hrms.payroll.doctype.salary_structure_assignment.salary_structure_assignment import (
+			get_employee_currency,
+		)
+
+		emp = make_employee("ssa_employee_currency@test.com", company="_Test Company")
+		make_salary_structure(
+			"SSA Test Currency INR",
+			"Monthly",
+			employee=emp,
+			company="_Test Company",
+			currency="INR",
+			from_date=add_months(nowdate(), -2),
+		)
+		usd_structure = make_salary_structure(
+			"SSA Test Currency USD", "Monthly", company="_Test Company", currency="USD"
+		)
+
+		inr_assignment = frappe.get_last_doc("Salary Structure Assignment", filters={"employee": emp})
+		usd_assignment = frappe.copy_doc(inr_assignment)
+		usd_assignment.update(
+			{
+				"salary_structure": usd_structure.name,
+				"docstatus": 0,
+				"currency": "USD",
+				"income_tax_slab": None,
+				"from_date": add_months(nowdate(), -1),
+			}
+		)
+		usd_assignment.insert()
+		self.assertEqual(get_employee_currency(emp), "INR")
+
+		usd_assignment.submit()
+		self.assertEqual(get_employee_currency(emp), "USD")
+
+		usd_assignment.cancel()
+		self.assertEqual(get_employee_currency(emp), "INR")
