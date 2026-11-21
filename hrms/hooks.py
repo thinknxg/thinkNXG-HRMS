@@ -104,7 +104,7 @@ jinja = {
 after_install = "hrms.install.after_install"
 after_migrate = [
 	"hrms.setup.update_select_perm_after_install",
-	"hrms.setup.set_branch_help_link",
+	"hrms.setup.set_hr_help_links",
 ]
 
 setup_wizard_requires = "assets/hrms/js/setup_wizard.js"

@@ -28,7 +28,7 @@ def after_install():
 	create_default_role_profiles()
 	run_post_install_patches()
 	add_default_hr_permissions()
-	set_branch_help_link()
+	set_hr_help_links()
 
 	if is_new_hr_site():
 		set_hrms_as_default_app()
@@ -38,36 +38,47 @@ def before_uninstall():
 	delete_custom_fields(get_custom_fields())
 	delete_custom_fields(get_salary_slip_loan_fields())
 	frappe.db.delete("Property Setter", EMPLOYEE_DETAILS_TAB_LABEL)
-	frappe.db.delete("Property Setter", BRANCH_HELP_LINK)
+	for doctype in HR_MASTERS_WITH_HELP_LINK:
+		frappe.db.delete("Property Setter", {"doc_type": doctype, "property": "documentation"})
 	for setter in get_employee_layout_setters():
 		frappe.db.delete("Property Setter", setter)
 	delete_company_fixtures()
 
 
-BRANCH_HELP_LINK = {"doc_type": "Branch", "property": "documentation"}
 THINKNXG_HR_DOCS_URL = "https://docs.thinknxg.com/thinknxghr"
 
+# HR masters that ship with thinkNXG ERP and would otherwise open the ERP docs
+HR_MASTERS_WITH_HELP_LINK = (
+	"Branch",
+	"Department",
+	"Designation",
+	"Employee",
+	"Employee Group",
+	"Holiday List",
+)
 
-def set_branch_help_link():
-	"""Branch ships with thinkNXG ERP, but it is an HR master, so its help link opens the HR docs.
 
-	A Property Setter is used because `bench migrate` re-imports the ERP DocType and would
+def set_hr_help_links():
+	"""Point the help link of HR masters that live in thinkNXG ERP to the thinkNXG HR docs.
+
+	Property Setters are used because `bench migrate` re-imports the ERP DocTypes and would
 	otherwise reset the link to the ERP documentation.
 	"""
 	from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
-	if not frappe.db.exists("DocType", "Branch"):
-		return
+	for doctype in HR_MASTERS_WITH_HELP_LINK:
+		if not frappe.db.exists("DocType", doctype):
+			continue
 
-	make_property_setter(
-		"Branch",
-		None,
-		"documentation",
-		THINKNXG_HR_DOCS_URL,
-		"Data",
-		for_doctype=True,
-		validate_fields_for_doctype=False,
-	)
+		make_property_setter(
+			doctype,
+			None,
+			"documentation",
+			THINKNXG_HR_DOCS_URL,
+			"Data",
+			for_doctype=True,
+			validate_fields_for_doctype=False,
+		)
 
 
 EMPLOYEE_DETAILS_TAB_LABEL = {"doc_type": "Employee", "field_name": "basic_details_tab", "property": "label"}
